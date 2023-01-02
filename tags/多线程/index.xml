@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Yxx&#39;s Study Notes</title>
-    <link>https://yangqihang0117.github.io/</link>
-    <description>Recent content on Yxx&#39;s Study Notes</description>
+    <title>多线程 on Yxx&#39;s Study Notes</title>
+    <link>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+    <description>Recent content in 多线程 on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 24 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About</title>
-      <link>https://yangqihang0117.github.io/about/</link>
-      <pubDate>Wed, 21 Dec 2022 16:53:16 +0800</pubDate>
-      
-      <guid>https://yangqihang0117.github.io/about/</guid>
-      
-        <description> </description>
-      
-    </item>
-    
+    <lastBuildDate>Thu, 24 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Immutable Object(不可变对象)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-immutable-object/</link>
