@@ -6,7 +6,7 @@
     <description>Recent content on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 24 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://yangqihang0117.github.io/about/</link>
@@ -15,6 +15,17 @@
       <guid>https://yangqihang0117.github.io/about/</guid>
       
         <description> </description>
+      
+    </item>
+    
+    <item>
+      <title>Guarded Suspension(保护性暂挂)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</link>
+      <pubDate>Fri, 01 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</guid>
+      
+        <description>&lt;p&gt;  为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。&lt;/p&gt;</description>
       
     </item>
     

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="zh-cn"
+  data-theme=""
+  
+    class="html theme--light"
+  
+><head>
+  <title>
+    
+      
+        Guarded Suspension(保护性暂挂)模式 |
+      Yxx
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.104.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Yxx" />
+  <meta
+    name="description"
+    content="Stay Hungry,Stay Foolish"
+  />
+  
+  
+    
+    
+    <link
+      rel="stylesheet"
+      href="/scss/main.min.a20a0db5995200184d653560257ce6eebf4321349ddd6aab24c2be305af08f34.css"
+      integrity="sha256-ogoNtZlSABhNZTVgJXzm7r9DITSd3WqrJMK&#43;MFrwjzQ="
+      crossorigin="anonymous"
+      type="text/css"
+    />
+  
+
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.31b0a1f317f55c529a460897848c97436bb138b19c399b37de70d463a8bf6ed5.css"
+    integrity="sha256-MbCh8xf1XFKaRgiXhIyXQ2uxOLGcOZs33nDUY6i/btU="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/fontawesome.min.7d272de35b410fb165377550cdf9c4d3a80fbbcc961e111914e4d5c0eaf5729f.css"
+    integrity="sha256-fSct41tBD7FlN3VQzfnE06gPu8yWHhEZFOTVwOr1cp8="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/solid.min.55d8333481b07a08e07cf6f37319753a2b47e99f4c395394c5747b48b495aa9b.css"
+    integrity="sha256-VdgzNIGwegjgfPbzcxl1OitH6Z9MOVOUxXR7SLSVqps="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/regular.min.a7448d02590b43449364b6b5922ed9af5410abb4de4238412a830316dedb850b.css"
+    integrity="sha256-p0SNAlkLQ0STZLa1ki7Zr1QQq7TeQjhBKoMDFt7bhQs="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/brands.min.9ed75a5d670c953fe4df935937674b4646f92674367e9e66eb995bb04e821647.css"
+    integrity="sha256-ntdaXWcMlT/k35NZN2dLRkb5JnQ2fp5m65lbsE6CFkc="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.f9132794301a01ff16550ed66763482bd848f62243d278f5e550229a158bfd32.js"
+    integrity="sha256-&#43;RMnlDAaAf8WVQ7WZ2NIK9hI9iJD0nj15VAimhWL/TI="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.d6d329d93844b162e8bed1e915619625ca91687952177552b9b3e211014a2957.js"
+      integrity="sha256-1tMp2ThEsWLovtHpFWGWJcqRaHlSF3VSubPiEQFKKVc="
+      crossorigin="anonymous"
+    ></script>
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Guarded Suspension(保护性暂挂)模式"/>
+<meta name="twitter:description" content="  为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。"/>
+
+
+
+  
+  <meta property="og:title" content="Guarded Suspension(保护性暂挂)模式" />
+<meta property="og:description" content="  为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2019-11-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-01T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+
+
+
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "Guarded Suspension(保护性暂挂)模式",
+        "headline": "Guarded Suspension(保护性暂挂)模式",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-guarded-suspension\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2019",
+        "dateCreated": "2019-11-01T00:00:00.00Z",
+        "datePublished": "2019-11-01T00:00:00.00Z",
+        "dateModified": "2019-11-01T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-guarded-suspension\/",
+        "wordCount" : "3382",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "Java"
+
+    
+      
+        ,
+
+      
+      "多线程"
+
+    
+      
+        ,
+
+      
+      "多线程设计模式"
+
+    ]
+    }
+  </script>
+
+
+</head>
+<body class="body">
+    <div class="wrapper">
+      <aside
+        
+          class="wrapper__sidebar"
+        
+      ><div
+  class="sidebar
+    animated fadeInDown
+  "
+>
+  <div class="sidebar__content">
+    <div class="sidebar__introduction">
+      <img
+        class="sidebar__introduction-profileimage"
+        src="/images/logo.jpeg"
+        alt="profile picture"
+      />
+      
+        <div class="sidebar__introduction-title">
+          <a href="/">Yxx&#39;s Study Notes</a>
+        </div>
+      
+      <div class="sidebar__introduction-description">
+        <p>Stay Hungry,Stay Foolish</p>
+      </div>
+    </div>
+    <ul class="sidebar__list">
+      
+        <li class="sidebar__list-item">
+          <a
+            href="https://github.com/yangqihang0117"
+            target="_blank"
+            rel="noopener me"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+        <li class="sidebar__list-item">
+          <a
+            href="mailto:yangqihang@petalmail.com"
+            target="_blank"
+            rel="noopener me"
+            aria-label="e-mail"
+            title="e-mail"
+          >
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div><footer class="footer footer__sidebar">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script></div>
+</aside>
+      <main
+        
+          class="wrapper__main"
+        
+      >
+        <header class="header"><div
+  class="
+    animated fadeInDown
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+  </a>
+  <nav class="nav">
+    <ul class="nav__list" id="navMenu">
+      
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/series/"
+              
+              title=""
+              >Series</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/tags/"
+              
+              title=""
+              >Tags</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/archive/"
+              
+              title=""
+              >Archive</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+        
+
+      
+    </ul>
+    <ul class="nav__list nav__list--end">
+      
+      
+        <li class="nav__list-item">
+          <div class="themeswitch">
+            <a title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+</header>
+  <div
+    class="post 
+      animated fadeInDown
+    "
+  >
+    
+    <div class="post__content">
+      <h1>Guarded Suspension(保护性暂挂)模式</h1>
+      <p>  为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。</p>
+<p>  <strong>Guarded Suspension模式</strong>可以帮助我们解决上述等待问题。该模式的核心思想是：如果某个线程在执行特定的操作前需要满足一定的条件，则在该条件未满足时将该线程暂停运行(即暂挂线程，使其处于等待(<em>WAITING</em>)状态，直到该条件满足，才通知该线程继续执行)。</p>
+<h2 id="模式架构">模式架构</h2>
+<p>  <strong>Guarded Suspension模式</strong>的核心是一个<strong>受保护方法(Guarded Method)</strong>。该方法在执行其所要真正执行的操作时需要满足特定的条件(<em>Predicate</em>，保护条件)。当该条件不满足时，执行受保护方法的线程会被挂起并进入等待(<em>WAITING</em>)状态，直到该条件满足，该线程才会继续运行。此时受保护方法才会真正执行其所要执行的操作。</p>
+<ul>
+<li><strong>GuardedObject</strong>：包含受保护方法的对象，其职责如下。
+<ul>
+<li>guardedMethod：受保护方法</li>
+<li>stateChange：改变<em>GuardedObject</em>实例状态的方法。该方法负责在保护条件成立时唤醒受保护方法的执行线程。</li>
+</ul>
+</li>
+<li><strong>GuardedAction</strong>：抽象了目标动作，并关联了目标动作所需的保护条件，其职责如下。
+<ul>
+<li>call：用于表示目标动作的方法</li>
+</ul>
+</li>
+<li><strong>ConcreteGuardedAction</strong>：应用程序所实现的具体目标动作及其关联的条件。</li>
+<li><strong>Predicate</strong>：抽象了保护条件，其职责如下。
+<ul>
+<li>evaluate：用于表示保护条件的方法。</li>
+</ul>
+</li>
+<li><strong>ConcretePredicate</strong>：应用程序所实现的具体保护条件</li>
+<li><strong>Blocker</strong>：负责对执行<em>guardedMethod</em>方法的线程进行挂起和唤醒，并执行<em>ConcreteGuardedAction</em>所实现的目标动作，其主要职责如下。
+<ul>
+<li>callWithGuard：负责执行目标动作和暂挂当前线程。</li>
+<li>signalAfter：负责执行其参数指定的动作和唤醒由该方法所属<em>Blocker</em>实例所暂挂的线程中的一个线程。</li>
+<li>broadcastAfter：负责执行其参数指定的动作和由该方法所属<em>Blocker</em>实例所暂挂的所有线程。</li>
+<li>signal：负责唤醒该方法所属<em>Blocker</em>实例所暂挂的线程中的一个线程。</li>
+<li>broadcast：负责唤醒该方法所属<em>Blocker</em>实例所暂挂的所有线程。</li>
+</ul>
+</li>
+</ul>
+<h2 id="受保护方法的内部处理序列">受保护方法的内部处理序列</h2>
+<p><img src="https://p.ipic.vip/l26kmr.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：客户端代码调用受保护方法<em>guardedMethod()</em>。</li>
+<li><strong>第2步</strong>：<em>guardedMethod</em>方法创建<em>GuardedAction</em>的实例<em>guardedAction</em>。</li>
+<li><strong>第3步</strong>：<em>guardedMethod</em>方法以<em>guardedAction</em>为参数调用<em>Blocker</em>实例的<em>callWithGuard</em>方法。</li>
+<li><strong>第4、5步</strong>：<em>callWithGuard</em>方法调用<em>guardedAction</em>的<em>getGuard</em>方法获取保护条件<em>predicate</em>。</li>
+<li><strong>第6～8步</strong>：这几个步骤是一个循环。该循环会判断保护条件是否成立(第6、7步)。若保护条件成立，则推出该循环；否则，该循环会将当前线程暂挂使其处于等待(<em>WAITING</em>)状态(第8步)。在其他线程唤醒该被暂挂的线程后(即第8步的方法调用返回后)，该循环仍然继续监测保护条件，并重复上述逻辑。</li>
+<li><strong>第9、10步</strong>：<em>callWithGuard</em>方法调用<em>guardedAction</em>的<em>call</em>方法来执行目标动作，并记录<em>call</em>方法的返回值<em>actionReturnValue</em>。</li>
+<li><strong>第11步</strong>：<em>callWithGuard</em>方法将<em>actionReturnValue</em>作为其返回值返回给调用方。</li>
+<li><strong>第12步</strong>：<em>guardedMethod</em>方法返回。</li>
+</ul>
+<p>  在受保护方法的执行暂被挂载后，当保护条件成立时，其他线程需要唤醒该线程。</p>
+<h2 id="被挂载线程的唤醒序列">被挂载线程的唤醒序列</h2>
+<p><img src="https://p.ipic.vip/y8et74.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：客户端代码调用<em>stateChanged</em>方法改变<em>GuardedObject</em>实例的状态。这些状态包含了保护条件所关心的状态。</li>
+<li><strong>第2步</strong>：<em>stateChanged</em>方法创建<code>java.util.concurrent.Callable</code>的实例<em>stateOperation</em>。<em>stateOperation</em>封装了改变<em>GuardedObject</em>实例状态所需的操作。</li>
+<li><strong>第3步</strong>：<em>stateChanged</em>方法以<em>stateOperation</em>为参数，调用<em>Blocker</em>实例的<em>signalAfter</em>方法。</li>
+<li><strong>第4、5步</strong>：<em>signalAfter</em>方法调用<em>stateOperation</em>对象的<em>call</em>方法以改变<em>GuardedObject</em>实例的状态，并记录其返回值<em>shouldSignalBlocker</em>。</li>
+<li><strong>第6、7步</strong>：<em>signalAfter</em>方法在<em>shouldSignalBlocker</em>值为<code>true</code>时，调用<code>java.util.concurrent.locks.Condition</code>实例<em>signal</em>方法来唤醒被该<em>Condition</em>实例所暂挂的线程中的一个线程。</li>
+<li><strong>第8步</strong>：<em>signalAfter</em>方法返回后。此时，执行受保护方法的线程可能已经被唤醒了(取决于<em>shouldSignalBlocker</em>的值是否为<code>true</code>)。</li>
+<li><strong>第9步</strong>：<em>stateChanged</em>方法返回。</li>
+</ul>
+<h2 id="需要注意的问题">需要注意的问题</h2>
+<h3 id="对垃圾回收garbage-collection的影响">对垃圾回收(Garbage Collection)的影响</h3>
+<p>  可能增加Java虚拟机垃圾回收的负担。为了使<em>GuardedAction</em>实例的<em>call</em>方法能够访问受保护方法<em>guardedMethod</em>的参数，我们需要利用<strong>闭包(Closure)</strong>。因此，<em>GuardedAction</em>实例可能是在受保护方法中创建的。这意味着，每次调用受保护方法的时候都会有一个新的<em>GuardedAction</em>实例被创建。而这会增加<strong>Java虚拟机内存池Eden区域</strong>内存的占用，从而可能增加Java虚拟机垃圾回收的负担。如果应用所在Java虚拟机的内存池Eden区域的空间比较小，则需要特别注意创建GuardedAction实例创建可能导致的垃圾回收负担。</p>
+<h3 id="上下文切换">上下文切换</h3>
+<p>  可能增加<strong>上下文切换(Context Switch)</strong>。严格来说，这点与<strong>Guarded Suspension模式</strong>本身无关。只不过，不管如何实现<strong>Guarded Suspension模式</strong>，只要其中涉及到线程的暂挂和唤醒，就会引起上下文切换。如果频繁出现受保护方法被调用时保护条件不成立，那么受保护方法的执行线程就会频繁地被暂挂和唤醒，从而导致频繁的上下文切换。过于频繁的上下文切换会过多的消耗CPU时间，从而降低系统的处理能力。</p>
+<h3 id="内存可见性和锁泄漏lock-leak">内存可见性和锁泄漏(Lock Leak)</h3>
+<p>  保护条件中涉及的变量牵扯读线程和写线程进行共享访问。受保护方法的执行线程是读线程，他读取这些变量以判断保护条件是否成立。而写线程是受保护对象实例的<em>stateChanged</em>方法的执行线程，它会更改这些变量的值。因此，对保护条件涉及的变量访问应该使用锁进行保护，以保证对于写线程对这些变量所做的更改，读线程能够&quot;看到&quot;相应的值。</p>
+<p>  使用锁时需要注意临界区中的代码无论执行正常还是发生异常，进入临界区前获得的锁都应该被释放。否则就会出现锁泄漏现象：锁对象被某个线程获得，但永远不会被该线程释放，导致其他线程无法获得该锁。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 获取锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">lock</span><span class="o">.</span><span class="na">lockInterruptibly</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 临界区
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 在finally代码块中释放锁，保证锁会被释放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="线程被过早地唤醒">线程被过早地唤醒</h3>
+<p>  <em>Condition</em>实例的<em>await</em>方法或<em>Object</em>的<em>wait</em>方法的调用通常放在一个<code>while</code>循环中，而不是在<code>if</code>语句中的。这是因为<em>await/wait</em>使当前线程暂挂后，其他线程可以通过相应实例的<em>signal/notify</em>或<em>signalAll/notifyAll</em>方法来唤醒被暂挂的线程，但是并不能保证此时保护条件是成立的。因此，这个时候<em>callWithGuard</em>方法应该继续检测保护条件，直到保护条件成立。</p>
+<p>  导致线程被&quot;过早&quot;地唤醒的因素还有所谓的<strong>欺骗性唤醒(Spurious Wakeup)</strong>，即在没有其他任何线程调用相应实例的<em>signal/notify</em>或<em>signalAll/notifyAll</em>的情况下，<em>await/wait</em>方法就返回了。</p>
+<p>  因此，为了应对被暂挂线程可能被&quot;过早&quot;地唤醒的情形，将<em>callWithGuard</em>方法对保护条件的检测和对<em>await/wait</em>方法的调用总是放在<code>while</code>循环而非<code>if</code>语句中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">lockInterruptibly</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="o">(</span><span class="n">保护条件不成立</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">		<span class="n">condition</span><span class="o">.</span><span class="na">await</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">执行目标动作</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span><span class="k">finally</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/multi-thread-patterns-guarded-suspension/">Guarded Suspension(保护性暂挂)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-immutable-object/">Immutable Object(不可变对象)模式</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
+      
+
+      
+        <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
+
+
+      
+    </div>
+
+    
+  </div>
+
+      </main>
+    </div><footer class="footer footer__base">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script></body>
+</html>
