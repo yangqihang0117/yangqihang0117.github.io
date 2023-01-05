@@ -355,6 +355,40 @@
     >
       
       <div class="post__content">
+        <h3><a href="/archive/multi-thread-patterns-two-phase-termination/">TWO-PHASE TERMINATION(两阶段终止)模式</a></h3>
+        
+          <p>有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用<code>java.lang.Thread</code>类的<em>stop</em>方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。</p>
+        
+        </div>
+
+      
+      <div class="post__footer">
+        <em class="fas fa-calendar-day"></em>
+        <span class="post__footer-date"
+          >
+            
+              2019/11/9
+            
+
+          </span
+        >
+        
+
+        
+          <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
+
+
+        
+      </div>
+    </div>
+  
+    <div
+      class="post 
+        animated fadeInDown
+      "
+    >
+      
+      <div class="post__content">
         <h3><a href="/archive/multi-thread-patterns-guarded-suspension/">GUARDED SUSPENSION(保护性暂挂)模式</a></h3>
         
           <p>为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。</p>
@@ -367,7 +401,7 @@
         <span class="post__footer-date"
           >
             
-              2019/11/1
+              2019/11/3
             
 
           </span

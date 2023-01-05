@@ -6,11 +6,22 @@
     <description>Recent content in 多线程设计模式 on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 01 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 09 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Two-phase Termination(两阶段终止)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</link>
+      <pubDate>Sat, 09 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</guid>
+      
+        <description>&lt;p&gt;  有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用&lt;code&gt;java.lang.Thread&lt;/code&gt;类的&lt;em&gt;stop&lt;/em&gt;方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>Guarded Suspension(保护性暂挂)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</link>
-      <pubDate>Fri, 01 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 03 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</guid>
       
