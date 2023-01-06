@@ -479,7 +479,7 @@
 <li><strong>ConcreteTerminatableThread</strong>：由应用自己实现的<em>AbstractTerminatableThread</em>的实现类。该类需要具体实现<em>doRun</em>抽象方法，在其中实现线程的处理逻辑，并根据应用的实际需要<strong>覆盖(Override)</strong> 其父类的<em>doTerminate</em>与<code>doCleanup</code>方法。</li>
 </ul>
 <h2 id="准备阶段序列">准备阶段序列</h2>
-<p><img src="https://p.ipic.vip/y8et74.png" alt=""></p>
+<p><img src="https://p.ipic.vip/xso225.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用线程拥有者的<em>shutdown</em>方法。</li>
 <li><strong>第2步</strong>：<em>shutdown</em>方法调用目标线程<em>terminate</em>方法。</li>
