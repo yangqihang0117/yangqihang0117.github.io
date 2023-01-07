@@ -16,7 +16,7 @@
   </title>
 
   
-  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.104.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.109.0"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="author" content="Yxx" />
   <meta
     name="description"
@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-two-phase-termination\/",
-        "wordCount" : "2913",
+        "wordCount" : "2943",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -455,6 +455,7 @@
 </table>
 <p>  <strong>执行阶段</strong>的主要动作是检查准备阶段所设置的线程停止标识变量和信号，在此基础上决定线程停止的时机，并进行适当的&quot;清理&quot;操作。</p>
 <h2 id="模式架构">模式架构</h2>
+<p>  <strong>Two-phase Termination(两阶段终止)模式</strong>的主要参与者如下。</p>
 <ul>
 <li><strong>ThreadOwner</strong>：目标线程的拥有者。在Java语言中，并没有线程线程拥有者的概念。但是线程的背后是其要处理的任务或者其所提供的服务，因此不能不清楚某个线程具体要做什么的情况下贸然将其停止。一般地，可以将目标线程的创建者视为线程的拥有者，并假定其&quot;知道&quot;目标线程的工作内容，以及可以安全地停止目标线程。</li>
 <li><strong>Terminatable</strong>：可停止线程的抽象，其主要职责如下。
@@ -479,7 +480,7 @@
 <li><strong>ConcreteTerminatableThread</strong>：由应用自己实现的<em>AbstractTerminatableThread</em>的实现类。该类需要具体实现<em>doRun</em>抽象方法，在其中实现线程的处理逻辑，并根据应用的实际需要<strong>覆盖(Override)</strong> 其父类的<em>doTerminate</em>与<code>doCleanup</code>方法。</li>
 </ul>
 <h2 id="准备阶段序列">准备阶段序列</h2>
-<p><img src="https://p.ipic.vip/xso225.png" alt=""></p>
+<p><img src="https://p.ipic.vip/ak5xfe.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用线程拥有者的<em>shutdown</em>方法。</li>
 <li><strong>第2步</strong>：<em>shutdown</em>方法调用目标线程<em>terminate</em>方法。</li>
@@ -501,6 +502,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-promise/">Promise(承诺)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-two-phase-termination/">Two-Phase Termination(两阶段终止)模式</a></li>
   
