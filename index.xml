@@ -25,7 +25,7 @@
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</guid>
       
-        <description>&lt;p&gt;  &lt;strong&gt;Promise模式&lt;/strong&gt;是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。&lt;/p&gt;</description>
+        <description>&lt;p&gt;  Promise模式是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。&lt;/p&gt;</description>
       
     </item>
     
