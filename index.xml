@@ -8,17 +8,6 @@
     <language>zh-cn</language>
     <lastBuildDate>Sat, 30 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>About</title>
-      <link>https://yangqihang0117.github.io/about/</link>
-      <pubDate>Wed, 21 Dec 2022 16:53:16 +0800</pubDate>
-      
-      <guid>https://yangqihang0117.github.io/about/</guid>
-      
-        <description> </description>
-      
-    </item>
-    
-    <item>
       <title>Producer-Consumer(生产者/消费者)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</link>
       <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
@@ -70,6 +59,17 @@
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-immutable-object/</guid>
       
         <description>&lt;p&gt;  在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。&lt;strong&gt;Immutable Object模式&lt;/strong&gt;使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://yangqihang0117.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/about/</guid>
+      
+        <description> </description>
       
     </item>
     
