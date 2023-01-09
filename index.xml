@@ -6,7 +6,7 @@
     <description>Recent content on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 24 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://yangqihang0117.github.io/about/</link>
@@ -19,13 +19,24 @@
     </item>
     
     <item>
+      <title>Producer-Consumer(生产者/消费者)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</link>
+      <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</guid>
+      
+        <description>&lt;p&gt;  &lt;strong&gt;Producer-Consumer模式&lt;/strong&gt;可以看成设计模式的设计模式。很多的多线程设计模式都可以看作&lt;strong&gt;Producer-Consumer模式&lt;/strong&gt;的一个实例。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>Promise(承诺)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</link>
       <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</guid>
       
-        <description>&lt;p&gt;  Promise模式是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。&lt;/p&gt;</description>
+        <description>&lt;p&gt;  &lt;strong&gt;Promise模式&lt;/strong&gt;是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。&lt;/p&gt;</description>
       
     </item>
     

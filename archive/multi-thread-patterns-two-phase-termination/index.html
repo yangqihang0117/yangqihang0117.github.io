@@ -300,7 +300,13 @@
     src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
     integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
     crossorigin="anonymous"
-  ></script></div>
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></div>
 </aside>
       <main
         
@@ -495,13 +501,15 @@
 <h3 id="线程停止标识">线程停止标识</h3>
 <p>  我们通常会使用一个<code>boolean</code>变量作为线程停止的标识,而非<code>Thread.isInterrupted</code>。这是因为，调用目标线程的<em>interrupt</em>方法无法保证目标线程的<em>isInterrupted</em>方法的返回值为<code>true</code>：目标线程可能调用一些代码，它们在捕获<em>InterruptedException</em>后没有通过调用<code>Thread.currentThread().interrupt</code>保留线程的中断状态。另外，变量标识为了在保证内存可见性的同时避免使用显式锁的开销，采用<code>volatile</code>修饰。</p>
 <h3 id="生产者消费者问题中的线程停止">生产者/消费者问题中的线程停止</h3>
-<p>  在多线程编程中，很多问题和一些多线程模式都可以看作生产者/消费者问题。停止处于生产者/消费者问题中的线程，需要考虑更多的问题。例如需要注意线程停止的顺序。如果消费者线程比生产者线程先停止，则会导致生产者生产新的&quot;产出&quot;无法被处理，而如果停止生产线程，有可能使消费者线程进入空等待(如生产者、消费者采用阻塞队列中转&quot;产出&quot;)。另外，停止消费者线程前是否考虑要等待其处理完所有待处理的任务或者将这些任务做备份也是一个问题。</p>
+<p>  在多线程编程中，很多问题和一些多线程模式都可以看作生产者/消费者问题。停止处于生产者/消费者问题中的线程，需要考虑更多的问题。例如需要注意线程停止的顺序。如果消费者线程比生产者线程先停止，则会导致生产者生产新的&quot;产品&quot;无法被处理，而如果停止生产线程，有可能使消费者线程进入空等待(如生产者、消费者采用阻塞队列中转&quot;产品&quot;)。另外，停止消费者线程前是否考虑要等待其处理完所有待处理的任务或者将这些任务做备份也是一个问题。</p>
 <h3 id="隐藏而非暴露可停止线程">隐藏而非暴露可停止线程</h3>
 <p>  为了保证可停止线程不被其他代码误停止，一般我们将可停止线程隐藏在线程拥有者中，使系统中的其他代码无法直接访问该线程，只可以通过<em>shutdown</em>方法发送停止通知，而非通过该线程对象自身停止它。</p>
 
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-producer-consumer/">Producer-Consumer(生产者/消费者)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-promise/">Promise(承诺)模式</a></li>
   
@@ -555,5 +563,11 @@
     src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
     integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
     crossorigin="anonymous"
-  ></script></body>
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></body>
 </html>
