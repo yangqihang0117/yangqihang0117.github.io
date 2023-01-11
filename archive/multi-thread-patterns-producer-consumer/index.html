@@ -445,14 +445,14 @@
 </ul>
 </li>
 </ul>
-<h2 id="产品生产序列">&ldquo;产品&quot;生产序列</h2>
+<h3 id="产品生产序列">&ldquo;产品&quot;生产序列</h3>
 <p><img src="https://p.ipic.vip/yxljxi.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用<em>Producer</em>的service方法。</li>
 <li><strong>第2～4步</strong>：<em>service</em>方法生成相应的&quot;产品&rdquo;，并调用<em>Channel</em>参与者实例的<em>put</em>方法将&quot;产品&quot;存入通道。</li>
 <li><strong>第5步</strong>：<em>service</em>方法返回。</li>
 </ul>
-<h2 id="产品消费序列">&ldquo;产品&quot;消费序列</h2>
+<h3 id="产品消费序列">&ldquo;产品&quot;消费序列</h3>
 <p><img src="https://p.ipic.vip/m24f98.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：<em>Consumer</em>参与者实例的工作者线程开始运行，其<em>dispatch</em>方法被调用。<em>dispatch</em>方法会重复执行第2～4步。</li>
@@ -502,6 +502,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-active-object/">Active Object(主动对象)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-producer-consumer/">Producer-Consumer(生产者/消费者)模式</a></li>
   

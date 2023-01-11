@@ -445,14 +445,14 @@
 </ul>
 </li>
 </ul>
-<h2 id="获取异步任务处理结果过程序列">获取异步任务处理结果过程序列</h2>
+<h3 id="获取异步任务处理结果过程序列">获取异步任务处理结果过程序列</h3>
 <p><img src="https://p.ipic.vip/oqurs9.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用<em>Promisor</em>的异步方法<em>compute</em>。</li>
 <li><strong>第2、3步</strong>：<em>compute</em>方法创建<em>Promise</em>实例作为该方法的返回值并返回。</li>
 <li><strong>第4步</strong>：客户端代码调用其所得到的<em>Promise</em>对象的<em>getResult</em>方法，获取异步任务处理结果。如果此时异步任务执行尚未完成，则<em>getResult</em>方法会阻塞(即调用方代码的运行线程暂时进入阻塞状态)。</li>
 </ul>
-<h2 id="异步任务还行及处理结果设置序列">异步任务还行及处理结果设置序列</h2>
+<h3 id="异步任务执行及处理结果设置序列">异步任务执行及处理结果设置序列</h3>
 <p><img src="https://p.ipic.vip/yxljxi.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：<em>Promisor</em>的异步方法<em>compute</em>创建<em>TaskExecutor</em>实例。</li>
@@ -469,6 +469,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-active-object/">Active Object(主动对象)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-producer-consumer/">Producer-Consumer(生产者/消费者)模式</a></li>
   

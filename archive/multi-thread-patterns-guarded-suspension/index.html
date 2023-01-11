@@ -454,7 +454,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="受保护方法的内部处理序列">受保护方法的内部处理序列</h2>
+<h3 id="受保护方法的内部处理序列">受保护方法的内部处理序列</h3>
 <p><img src="https://p.ipic.vip/l26kmr.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用受保护方法<em>guardedMethod()</em>。</li>
@@ -467,7 +467,7 @@
 <li><strong>第12步</strong>：<em>guardedMethod</em>方法返回。</li>
 </ul>
 <p>  在受保护方法的执行暂被挂载后，当保护条件成立时，其他线程需要唤醒该线程。</p>
-<h2 id="被挂载线程的唤醒序列">被挂载线程的唤醒序列</h2>
+<h3 id="被挂载线程的唤醒序列">被挂载线程的唤醒序列</h3>
 <p><img src="https://p.ipic.vip/je3dgv.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用<em>stateChanged</em>方法改变<em>GuardedObject</em>实例的状态。这些状态包含了保护条件所关心的状态。</li>
@@ -512,6 +512,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-active-object/">Active Object(主动对象)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-producer-consumer/">Producer-Consumer(生产者/消费者)模式</a></li>
   

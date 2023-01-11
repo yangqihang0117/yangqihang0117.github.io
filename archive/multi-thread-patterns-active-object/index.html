@@ -10,7 +10,7 @@
   <title>
     
       
-        Two-phase Termination(两阶段终止)模式 |
+        Active Object(主动对象)模式 |
       Yxx
 
   </title>
@@ -82,7 +82,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 
-  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/" />
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/" />
 
   
   
@@ -111,18 +111,18 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Two-phase Termination(两阶段终止)模式"/>
-<meta name="twitter:description" content="  有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用java.lang.Thread类的stop方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。"/>
+<meta name="twitter:title" content="Active Object(主动对象)模式"/>
+<meta name="twitter:description" content="  Active Object模式是一种异步编程模式。它通过对方法的调用(Method Invocation)、 方法的执行(Method Execution) 进行 解耦(Decoupling) 来提高并发性。若以任务的概念来说，Active Object模式 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。"/>
 
 
 
   
-  <meta property="og:title" content="Two-phase Termination(两阶段终止)模式" />
-<meta property="og:description" content="  有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用java.lang.Thread类的stop方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。" />
+  <meta property="og:title" content="Active Object(主动对象)模式" />
+<meta property="og:description" content="  Active Object模式是一种异步编程模式。它通过对方法的调用(Method Invocation)、 方法的执行(Method Execution) 进行 解耦(Decoupling) 来提高并发性。若以任务的概念来说，Active Object模式 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/" /><meta property="article:section" content="archive" />
-<meta property="article:published_time" content="2019-11-09T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-11-09T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2019-12-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-15T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
 
 
 
@@ -137,12 +137,12 @@
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "articleSection": "archive",
-        "name": "Two-phase Termination(两阶段终止)模式",
-        "headline": "Two-phase Termination(两阶段终止)模式",
+        "name": "Active Object(主动对象)模式",
+        "headline": "Active Object(主动对象)模式",
         "alternativeHeadline": "",
         "description": "
       
-        \u003cp\u003e  有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用\u003ccode\u003ejava.lang.Thread\u003c\/code\u003e类的\u003cem\u003estop\u003c\/em\u003e方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。\u003c\/p\u003e
+        \u003cp\u003e  \u003cstrong\u003eActive Object模式\u003c\/strong\u003e是一种异步编程模式。它通过对\u003cstrong\u003e方法的调用(Method Invocation)\u003c\/strong\u003e、 \u003cstrong\u003e方法的执行(Method Execution)\u003c\/strong\u003e 进行 \u003cstrong\u003e解耦(Decoupling)\u003c\/strong\u003e 来提高并发性。若以任务的概念来说，\u003cstrong\u003eActive Object模式\u003c\/strong\u003e 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。\u003c\/p\u003e
 
 
       
@@ -153,7 +153,7 @@
         "isFamilyFriendly": "true",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-two-phase-termination\/"
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-active-object\/"
         },
         "author" : {
             "@type": "Person",
@@ -172,9 +172,9 @@
             "name": "Yxx"
         },
         "copyrightYear" : "2019",
-        "dateCreated": "2019-11-09T00:00:00.00Z",
-        "datePublished": "2019-11-09T00:00:00.00Z",
-        "dateModified": "2019-11-09T00:00:00.00Z",
+        "dateCreated": "2019-12-15T00:00:00.00Z",
+        "datePublished": "2019-12-15T00:00:00.00Z",
+        "dateModified": "2019-12-15T00:00:00.00Z",
         "publisher":{
             "@type":"Organization",
             "name": "Yxx",
@@ -191,8 +191,8 @@
       ]
 
     ,
-        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-two-phase-termination\/",
-        "wordCount" : "2943",
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-active-object\/",
+        "wordCount" : "2739",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -420,90 +420,98 @@
   >
     
     <div class="post__content">
-      <h1>Two-Phase Termination(两阶段终止)模式</h1>
-      <p>  有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用<code>java.lang.Thread</code>类的<em>stop</em>方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。</p>
-<p>  <strong>Two-phase Termination模式</strong>通过将停止线程这个动作分解为准备阶段和执行阶段这两个阶段，提供一种通用的用于优雅地停止线程的方法。</p>
-<p>  <strong>准备阶段</strong>主要动作是&quot;通知&quot;目标线程(待停止的线程)准备停止。这一步会设置一个标识变量用于指示目标线程可以准备停止了。但是，由于目标线程可能正处于阻塞阶段(等待获得锁)、等待状态(如调用<em>Object.wait</em>)或者<em>I/O</em>等待(入<em>InputStream.read</em>)等状态，即使设置了这个标识变量，目标线程也无法立即&quot;看到&quot;这个标识变量而做出相应的动作。因此，这一阶段还需要通过调用目标线程的<em>interrupt</em>方法以期望目标线程能够通过相关的异常而侦测到该方法调用，从而中断其阻塞状态、等待状态。对于能够对<em>interrupt</em>方法调用做出响应的方法，目标线程代码可以通过捕获这些方法抛出的<em>InterruptedException</em>来侦测线程停止信号。但也有一些方法(如<em>InputStream.read</em>)并不对<em>interrupt</em>方法调用做出响应，此时需要我们手动处理，如在同步的<em>Socket I/O</em>操作中通过关闭<em>Socket</em>，使处于<em>I/O</em>等待状态中的<em>Socket</em>抛出<em>SocketException</em>。</p>
-<p><strong>能够对Thread.interrupt做出响应的方法</strong></p>
+      <h1>Active Object(主动对象)模式</h1>
+      <p>  <strong>Active Object模式</strong>是一种异步编程模式。它通过对<strong>方法的调用(Method Invocation)</strong>、 <strong>方法的执行(Method Execution)</strong> 进行 <strong>解耦(Decoupling)</strong> 来提高并发性。若以任务的概念来说，<strong>Active Object模式</strong> 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。</p>
+<h2 id="模式架构">模式架构</h2>
+<p>  当<strong>Active Object模式</strong>对外暴露的异步方法被调用时，与该方法调用相关的上下文信息，包含调用的异步方法名(或其代表的操作)、客户端代码所传递的参数等，会被封装成一个对象。该对象被称为 <strong>方法请求(Method Request)</strong>。方法请求对象会被存入 <strong>Active Object模式</strong> 所维护的 <strong>缓冲区(ActivationQueue)</strong> 中，并由专门的工作者线程负责根据其包含的上下文信息执行相应的操作。也就是说，方法请求对象是由客户端线程通过调用Active Object模式对外暴露的异步方法生成的，而方法请求所代表的操作则有专门的工作者线程来执行，从而实现了调用与执行的分离，产生了并发。</p>
+<ul>
+<li><strong>Proxy</strong>：负责对外暴露异步方法接口，其主要职责如下。
+<ul>
+<li>callAsync：该方法负责创建与该方法相关的<em>MethodRequest</em>参与者实例，并将其提交给<em>Scheduler</em>参与者实例。该方法返回值是一个<em>Future</em>参与者实例，客户端代码可以通过该对象获取异步方法对应的任务的执行结果。</li>
+</ul>
+</li>
+<li><strong>MethodRequest</strong>：负责将客户端代码对<em>Proxy</em>实例的异步方法的调用封装为一个对象。该对象保留了异步方法的名称及客户端代码传递的参数等上下文信息。它使得<em>Proxy</em>的异步方法调用与执行分离称为可能。其主要职责如下。
+<ul>
+<li>call：根据其所属MethodRequest实例所包含的上下文信息调用<em>Servant</em>实例的相应方法。</li>
+</ul>
+</li>
+<li><strong>ActivationQueue</strong>：缓冲区，用于临时存储由<em>Proxy</em>的异步方法被调用时创建<em>MethodRequest</em>实例，其主要职责如下。
+<ul>
+<li>enqueue：将<em>MethodRequest</em>实例放入缓冲区。</li>
+<li>dequeue：从缓冲区中取出一个<em>MethodRequest</em>实例。</li>
+</ul>
+</li>
+<li><strong>Scheduler</strong>：负责将<em>Proxy</em>的异步方法创建的<em>MethodRequest</em>实例存入其维护的缓冲区中，根据一定的调度策略，对其维护的缓冲区中的<em>MethodRequest</em>实例进行执行。其调度策略可以根据需要来确定，如：<em>FIFO</em>、<em>LIFO</em>和根据<em>MethodRequest</em>中包含的信息所定的优先级等。其主要职责如下。
+<ul>
+<li>dispatch：反复地从缓冲区中取出<em>MethodRequest</em>实例来执行。</li>
+<li>enqueue：接受一个<em>MethodRequest</em>实例，并将其存入缓冲区。</li>
+</ul>
+</li>
+<li><strong>Servant</strong>：负责存储和获取<em>Active Object</em>异步方法的具体实现，其主要职责如下。
+<ul>
+<li>doSomething：执行<em>Proxy</em>所暴露的异步方法对应的任务。</li>
+</ul>
+</li>
+<li><strong>Future</strong>：负责存储和获取<strong>Active Object</strong>异步方法的执行结果，其主要职责如下。
+<ul>
+<li>get：获取异步方法对应任务的执行结果</li>
+<li>set：设置异步方法对应任务的执行结果</li>
+</ul>
+</li>
+</ul>
+<h3 id="方法的调用序列">方法的调用序列</h3>
+<p><img src="https://p.ipic.vip/p85rip.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：客户端调用<em>Proxy</em>的异步方法<em>callAsync</em>。</li>
+<li><strong>第2、3步</strong>：<em>callAsync</em>方法创建<em>Future</em>实例作为返回值，并将客户端代码对其的调用封装为<em>MethodRequest</em>对象。</li>
+<li><strong>第4～7步</strong>：以所创建的<em>MethodRequest</em>对象为参数调用<em>Scheduler</em>的<em>enqueue</em>方法，以将<em>MethodRequest</em>存入缓冲区。</li>
+<li><strong>第8步</strong>：<em>calAsync</em>返回其创建的<em>Future</em>实例。</li>
+</ul>
+<h3 id="方法的执行序列">方法的执行序列</h3>
+<p><img src="https://p.ipic.vip/rd2kh6.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：<em>Scheduler</em>实例采用专用的工作者线程运行<em>dispatch</em>方法。</li>
+<li><strong>第2～4步</strong>：<em>dispatch</em>方法从调用缓冲区的<em>dequeue</em>方法从中取出一个<em>MethodRequest</em>实例，然后调用<em>MethodRequest</em>对象的<em>call</em>方法。</li>
+<li><strong>第5~8步</strong>：<em>MethodRequest</em>对象的<em>call</em>方法调用与其关联的<em>Servant</em>实例的相应方法<em>Something</em>，并将<code>Servant.doSomething</code>方法的返回值设置到<em>Future</em>实例上。</li>
+<li><strong>第9步</strong>：<em>MethodRequest</em>对象的<em>call</em>方法返回。</li>
+</ul>
+<h2 id="需要注意的问题">需要注意的问题</h2>
+<h3 id="错误隔离">错误隔离</h3>
+<p>  错误隔离指一个任务的处理失败不影响其他任务的处理。每个<em>MethodRequest</em>实例可以看作一个任务，那么<em>Scheduler</em>的实现类在执行<em>MethodRequest</em>时需要注意错误隔离。选用<em>JDK</em>中的现有类(如：<em>ThreadPoolExecutor</em>)来实现<em>Scheduler</em>的一个好处就是，这些类可能已经实现了错误隔离。而如果自己编写代码实现<em>Scheduler</em>，用单个<em>Active Object</em>工作者线程注意执行所有任务，则需要特别注意线程的run方法的异常处理，确保不会因个别任务执行时遇到一些运行时异常而导致整个线程停止。</p>
+<h3 id="缓冲区监控">缓冲区监控</h3>
+<p>  如果<em>ActivationQueue</em>是有界缓冲区，则对缓冲区的当前大小进行监控无论是对于运维还是测试来说都有意义。从测试的角度来看，监控缓冲区有助于确定缓冲区容量的合理值。当然，监控缓冲区的时候，一般只需要一个大概的值，因此在监控代码中要避免不必要的锁。</p>
+<h3 id="缓冲区饱和策略">缓冲区饱和策略</h3>
+<p>  当任务提交速率大于任务执行的速率时，缓冲区可能逐渐积压到饱和。这时新提交的任务会被拒绝。无论是自己编写代码还是使用<em>JDK</em>中现有的类来实现<em>Scheduler</em>，对于缓冲区饱和时的新任务提交失败，我们需要一个处理策略用于决定此时哪个任务会成为&quot;牺牲品&quot;。若使用<em>ThreadPoolExecutor</em>来实现<em>Scheduler</em>，则有一个好处，即它已经提供了几个缓冲区饱和处理策略的实现，应用代码可以直接调用。</p>
+<p>  <code>java.util.concurrent.RejectedExecutionHandler</code>接口是<em>ThreadPoolExecutor</em>对缓冲区饱和策略的抽象，<em>JDK</em>中提供的具体实现类如下。</p>
 <table>
 <thead>
 <tr>
-<th>方法</th>
-<th>响应interrupt方法调用抛出的异常</th>
+<th>实现类</th>
+<th>所实现的处理策略</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>Object.wait()</code>、<code>Object.wait(long timeout)</code>、<code>Object.wait(long timeout,int nanos)</code></td>
-<td>InterruptedException</td>
+<td><code>ThreadPoolExecutor.AbortPolicy</code></td>
+<td>直接抛出异常</td>
 </tr>
 <tr>
-<td><code>Thread.sleep(long millis)</code>、<code>Thread.sleep(long millis,int nanos)</code></td>
-<td>InterruptedException</td>
+<td><code>ThreadPoolExecutor.DiscardPolicy</code></td>
+<td>丢弃当前被拒绝的任务(不抛出任何异常)</td>
 </tr>
 <tr>
-<td><code>Thread.join()</code>、<code>Thread.join(long millis)</code>、<code>Thread.join(long millis,int nanos)</code></td>
-<td>InterruptedException</td>
+<td><code>ThreadPoolExecutor.DiscardOldestPolicy</code></td>
+<td>将缓冲区最老的任务丢弃，然后尝试重新接纳被拒绝的任务</td>
 </tr>
 <tr>
-<td><code>java.util.concurrent.BlockingQueue.take()</code></td>
-<td>InterruptedException</td>
-</tr>
-<tr>
-<td><code>java.util.concurrent.locks.Lock.lockInterruptibly()</code></td>
-<td>InterruptedException</td>
-</tr>
-<tr>
-<td><code>java.nio.channels.InterruptibleChannel</code></td>
-<td>ClosedByInterruptException</td>
+<td><code>ThreadPoolExecutor.CallerRunsPolicy</code></td>
+<td>在任务的提交方线程中执行被拒绝的任务</td>
 </tr>
 </tbody>
 </table>
-<p>  <strong>执行阶段</strong>的主要动作是检查准备阶段所设置的线程停止标识变量和信号，在此基础上决定线程停止的时机，并进行适当的&quot;清理&quot;操作。</p>
-<h2 id="模式架构">模式架构</h2>
-<p>  <strong>Two-phase Termination(两阶段终止)模式</strong>的主要参与者如下。</p>
-<ul>
-<li><strong>ThreadOwner</strong>：目标线程的拥有者。在Java语言中，并没有线程线程拥有者的概念。但是线程的背后是其要处理的任务或者其所提供的服务，因此不能不清楚某个线程具体要做什么的情况下贸然将其停止。一般地，可以将目标线程的创建者视为线程的拥有者，并假定其&quot;知道&quot;目标线程的工作内容，以及可以安全地停止目标线程。</li>
-<li><strong>Terminatable</strong>：可停止线程的抽象，其主要职责如下。
-<ul>
-<li>terminate：通知目标线程停止</li>
-</ul>
-</li>
-<li><strong>AbstractTerminatableThread</strong>：可停止的线程，其主要职责如下。
-<ul>
-<li>terminate：设置线程停止标识，并发送停止&quot;信号&quot;给目标线程。</li>
-<li>doTerminate：留给子类实现的线程停止时所需的一系列额外操作，入目标线程代码中包含<em>Socket I/O</em>，子类可以在该方法中关闭<em>Socket</em>以快速停止线程，不会使目标线程等待<em>I/O</em>完成之后才能侦测到线程停止标识。</li>
-<li>doRun：线程处理逻辑方法，留给子类实现的线程的处理逻辑，相当于<code>Runnable.run</code>，只是该逻辑中无需关系停止线程的逻辑，因为这个逻辑已经被封装在<em>AbstractTerminatableThread</em>的<em>run</em>方法中。</li>
-<li>doCleanup：留给子类实现的线程停止后可能需要的一些清理动作。</li>
-</ul>
-</li>
-<li><strong>TerminationToken</strong>：线程停止标识。其属性如下。
-<ul>
-<li>*toShutdown：<code>boolean</code>类型，用于指示目标线程是否可以停止。</li>
-<li>reservations：可用于反应目标线程还有多少未完成的任务，已实现等待目标线程处理完其任务后再行停止。</li>
-</ul>
-</li>
-<li><strong>ConcreteTerminatableThread</strong>：由应用自己实现的<em>AbstractTerminatableThread</em>的实现类。该类需要具体实现<em>doRun</em>抽象方法，在其中实现线程的处理逻辑，并根据应用的实际需要<strong>覆盖(Override)</strong> 其父类的<em>doTerminate</em>与<code>doCleanup</code>方法。</li>
-</ul>
-<h3 id="准备阶段序列">准备阶段序列</h3>
-<p><img src="https://p.ipic.vip/ak5xfe.png" alt=""></p>
-<ul>
-<li><strong>第1步</strong>：客户端代码调用线程拥有者的<em>shutdown</em>方法。</li>
-<li><strong>第2步</strong>：<em>shutdown</em>方法调用目标线程<em>terminate</em>方法。</li>
-<li><strong>第3、4步</strong>：<em>terminate</em>方法将<em>terminationToken</em>的<em>toShutdown</em>标识设置为<code>true</code>。</li>
-<li><strong>第5步</strong>：<em>terminate</em>方法调用由<em>AbstractTerminatableThread</em>子类实现的<em>doTerminate</em>方法，使得子类可以为停止目标线程做一些其他必要的操作。</li>
-<li><strong>第6步</strong>：若<em>terminationToken</em>的<em>reservations</em>属性值为0，则表示目标线程没有未处理完毕的任务或者<em>ThreadOwner</em>在停止线程时不关心其是否有未处理完毕的任务。此时，<em>terminate</em>方法会调用目标线程的<em>interrupt</em>方法。</li>
-<li><strong>第7步</strong>：<em>terminate</em>方法调用结束。</li>
-<li><strong>第8步</strong>：<em>shutdown</em>方法调用返回，此时目标线程可能仍然在运行。</li>
-</ul>
-<p>  执行阶段由目标线程的<em>run</em>方法来检查<em>terminationToken</em>的<em>toShutdown</em>属性、<em>reservations</em>属性的值，并捕获由<em>interrupt</em>方法调用抛出的相关异常，以决定是否停止线程。在线程停止前，由<em>AbstractTerminatableThread</em>子类实现的<em>doCleanup</em>方法会被调用。</p>
-<h2 id="需要注意的问题">需要注意的问题</h2>
-<h3 id="线程停止标识">线程停止标识</h3>
-<p>  我们通常会使用一个<code>boolean</code>变量作为线程停止的标识,而非<code>Thread.isInterrupted</code>。这是因为，调用目标线程的<em>interrupt</em>方法无法保证目标线程的<em>isInterrupted</em>方法的返回值为<code>true</code>：目标线程可能调用一些代码，它们在捕获<em>InterruptedException</em>后没有通过调用<code>Thread.currentThread().interrupt</code>保留线程的中断状态。另外，变量标识为了在保证内存可见性的同时避免使用显式锁的开销，采用<code>volatile</code>修饰。</p>
-<h3 id="生产者消费者问题中的线程停止">生产者/消费者问题中的线程停止</h3>
-<p>  在多线程编程中，很多问题和一些多线程模式都可以看作生产者/消费者问题。停止处于生产者/消费者问题中的线程，需要考虑更多的问题。例如需要注意线程停止的顺序。如果消费者线程比生产者线程先停止，则会导致生产者生产新的&quot;产品&quot;无法被处理，而如果停止生产线程，有可能使消费者线程进入空等待(如生产者、消费者采用阻塞队列中转&quot;产品&quot;)。另外，停止消费者线程前是否考虑要等待其处理完所有待处理的任务或者将这些任务做备份也是一个问题。</p>
-<h3 id="隐藏而非暴露可停止线程">隐藏而非暴露可停止线程</h3>
-<p>  为了保证可停止线程不被其他代码误停止，一般我们将可停止线程隐藏在线程拥有者中，使系统中的其他代码无法直接访问该线程，只可以通过<em>shutdown</em>方法发送停止通知，而非通过该线程对象自身停止它。</p>
+<p>  对于<em>ThreadPoolExecutor</em>而言，其工作队列饱和不一定就意味着新提交的任务会被拒绝。当其最大线程池大小大于其核心线程池大小时，在工作队列饱和的情况下，新提交的任务会用所有核心线程之外的新增线程来执行，知道工作线程数量达到了最大线程数，这时新提交的线程才会被拒绝。</p>
+<h3 id="scheduler空闲工作线程清理">Scheduler空闲工作线程清理</h3>
+<p>  如果<em>Scheduler</em>采用多个工作者线程(如采用<em>ThreadPoolExecutor</em>线程池)来执行任务，则可能需要需要清理空闲的线程以节约资源。</p>
 
 
 <h3>这个系列的帖子</h3>
