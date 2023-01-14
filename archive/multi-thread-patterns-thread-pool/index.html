@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="zh-cn"
+  data-theme=""
+  
+    class="html theme--light"
+  
+><head>
+  <title>
+    
+      
+        [多线程设计模式]Thread Pool(线程池)模式 |
+      Yxx
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.109.0"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Yxx" />
+  <meta
+    name="description"
+    content="Stay Hungry,Stay Foolish"
+  />
+  
+  
+    
+    
+    <link
+      rel="stylesheet"
+      href="/scss/main.min.5794be192d21535bdd301561e043a96b6adbad2b5c08279deff459e4661c613f.css"
+      integrity="sha256-V5S&#43;GS0hU1vdMBVh4EOpa2rbrStcCCed7/RZ5GYcYT8="
+      crossorigin="anonymous"
+      type="text/css"
+    />
+  
+
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.31b0a1f317f55c529a460897848c97436bb138b19c399b37de70d463a8bf6ed5.css"
+    integrity="sha256-MbCh8xf1XFKaRgiXhIyXQ2uxOLGcOZs33nDUY6i/btU="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/fontawesome.min.7d272de35b410fb165377550cdf9c4d3a80fbbcc961e111914e4d5c0eaf5729f.css"
+    integrity="sha256-fSct41tBD7FlN3VQzfnE06gPu8yWHhEZFOTVwOr1cp8="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/solid.min.55d8333481b07a08e07cf6f37319753a2b47e99f4c395394c5747b48b495aa9b.css"
+    integrity="sha256-VdgzNIGwegjgfPbzcxl1OitH6Z9MOVOUxXR7SLSVqps="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/regular.min.a7448d02590b43449364b6b5922ed9af5410abb4de4238412a830316dedb850b.css"
+    integrity="sha256-p0SNAlkLQ0STZLa1ki7Zr1QQq7TeQjhBKoMDFt7bhQs="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/brands.min.9ed75a5d670c953fe4df935937674b4646f92674367e9e66eb995bb04e821647.css"
+    integrity="sha256-ntdaXWcMlT/k35NZN2dLRkb5JnQ2fp5m65lbsE6CFkc="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.f9132794301a01ff16550ed66763482bd848f62243d278f5e550229a158bfd32.js"
+    integrity="sha256-&#43;RMnlDAaAf8WVQ7WZ2NIK9hI9iJD0nj15VAimhWL/TI="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.d6d329d93844b162e8bed1e915619625ca91687952177552b9b3e211014a2957.js"
+      integrity="sha256-1tMp2ThEsWLovtHpFWGWJcqRaHlSF3VSubPiEQFKKVc="
+      crossorigin="anonymous"
+    ></script>
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[多线程设计模式]Thread Pool(线程池)模式"/>
+<meta name="twitter:description" content="  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(java.lang.Thread实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&hellip;"/>
+
+
+
+  
+  <meta property="og:title" content="[多线程设计模式]Thread Pool(线程池)模式" />
+<meta property="og:description" content="  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(java.lang.Thread实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2019-12-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-27T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+
+
+
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "[多线程设计模式]Thread Pool(线程池)模式",
+        "headline": "[多线程设计模式]Thread Pool(线程池)模式",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(\u003ccode\u003ejava.lang.Thread\u003c\/code\u003e实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情\u0026hellip;\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-thread-pool\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2019",
+        "dateCreated": "2019-12-27T00:00:00.00Z",
+        "datePublished": "2019-12-27T00:00:00.00Z",
+        "dateModified": "2019-12-27T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-thread-pool\/",
+        "wordCount" : "3365",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "Java"
+
+    
+      
+        ,
+
+      
+      "多线程"
+
+    
+      
+        ,
+
+      
+      "多线程设计模式"
+
+    ]
+    }
+  </script>
+
+
+</head>
+<body class="body">
+    <div class="wrapper">
+      <aside
+        
+          class="wrapper__sidebar"
+        
+      ><div
+  class="sidebar
+    animated fadeInDown
+  "
+>
+  <div class="sidebar__content">
+    <div class="sidebar__introduction">
+      <img
+        class="sidebar__introduction-profileimage"
+        src="/images/logo.jpeg"
+        alt="profile picture"
+      />
+      
+        <div class="sidebar__introduction-title">
+          <a href="/">Yxx&#39;s Study Notes</a>
+        </div>
+      
+      <div class="sidebar__introduction-description">
+        <p>Stay Hungry,Stay Foolish</p>
+      </div>
+    </div>
+    <ul class="sidebar__list">
+      
+        <li class="sidebar__list-item">
+          <a
+            href="https://github.com/yangqihang0117"
+            target="_blank"
+            rel="noopener me"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+        <li class="sidebar__list-item">
+          <a
+            href="mailto:yangqihang@petalmail.com"
+            target="_blank"
+            rel="noopener me"
+            aria-label="e-mail"
+            title="e-mail"
+          >
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div><footer class="footer footer__sidebar">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></div>
+</aside>
+      <main
+        
+          class="wrapper__main"
+        
+      >
+        <header class="header"><div
+  class="
+    animated fadeInDown
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+  </a>
+  <nav class="nav">
+    <ul class="nav__list" id="navMenu">
+      
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/series/"
+              
+              title=""
+              >Series</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/tags/"
+              
+              title=""
+              >Tags</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/archive/"
+              
+              title=""
+              >Archive</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+        
+
+      
+    </ul>
+    <ul class="nav__list nav__list--end">
+      
+      
+        <li class="nav__list-item">
+          <div class="themeswitch">
+            <a title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+</header>
+  <div
+    class="post 
+      animated fadeInDown
+    "
+  >
+    
+    <div class="post__content">
+      <h1>[多线程设计模式]Thread Pool(线程池)模式</h1>
+      <p>  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(<code>java.lang.Thread</code>实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&hellip;</p>
+<p>  比较常见的一种做法是复用一定数量的线程，由这些线程去执行不断产生的任务。绝大多数的Web服务采用的是这种方法。例如，Tomcat服务器复用一定数量的线程来处理收到的请求。</p>
+<p>  <strong>Thread Pool模式</strong>的核心思想是，使用队列对待处理的任务进行缓存，并复用一定数量的工作者线程从队列中取出任务进行执行。其本质是使用有限的线程去处理相对无限的任务。</p>
+<blockquote>
+<p>从JDK 1.5开始引入标准库的类<code>java.util.concurrent.ThreadPoolExecutor</code>就是Thread Pool模式的一个实现。</p>
+</blockquote>
+<h2 id="模式架构">模式架构</h2>
+<ul>
+<li><strong>ThreadPool</strong>：负责接收和存储任务以及工作线程的生命周期管理。其主要职责如下。
+<ul>
+<li>sumbit：用于接收一个任务，客户端代码调用该方法向线程池提交一个任务。</li>
+<li>shutdown：关闭线程池对外提供的服务。</li>
+</ul>
+</li>
+<li><strong>Promise</strong>：可用于获取相应任务执行结果的凭据对象。其主要职责如下。
+<ul>
+<li>getResult：获取相应任务的执行结果。</li>
+<li>setResult：设置相应任务的执行结果。</li>
+</ul>
+</li>
+<li><strong>WorkQueue</strong>：工作队列，用于缓存任务，其主要职责如下。
+<ul>
+<li>enqueue：将任务放入队列。</li>
+<li>dequeue：将任务从队列中取出。</li>
+</ul>
+</li>
+<li><strong>WorkerThread</strong>：负责任务执行的工作者线程，其主要职责如下。
+<ul>
+<li>run：逐一从任务队列中取出任务执行。</li>
+<li>runTask：执行指定的任务。</li>
+</ul>
+</li>
+</ul>
+<h3 id="客户端代码向线程池提交任务序列">客户端代码向线程池提交任务序列</h3>
+<p><img src="https://p.ipic.vip/s2ceuz.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：客户端代码调用ThreadPool参与者实例的submit方法提交一个任务。</li>
+<li><strong>第2～4步</strong>：创建用于获取当前任务结果的Promise参与者实例，将要执行的任务放入任务队列中。</li>
+<li><strong>第5步</strong>：返回Promise参与者实例。</li>
+</ul>
+<h3 id="线程池执行任务序列">线程池执行任务序列</h3>
+<p><img src="https://p.ipic.vip/1x8ip9.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：某个工作者线程开始执行，其run方法被Java虚拟机调用。</li>
+<li><strong>第2～4步</strong>：进入run方法中的循环，重复地从工作队列中取出一个任务执行。若队列中暂时没有任务，则当前工作者线程会被挂起，直到工作队列中有新的任务。</li>
+<li><strong>第5、6步</strong>：设置任务结果到Promise参与者，进入下次一次循环。</li>
+</ul>
+<h2 id="需要注意的问题">需要注意的问题</h2>
+<h3 id="工作队列的选择">工作队列的选择</h3>
+<p>  工作队列通常可以在 <strong>有界队列(Bounded Queue)</strong> 、 <strong>无界队列(Unbounded Queue)</strong> 和 <strong>直接交接队列(Synchronous Queue)</strong> 之间选择。</p>
+<p>  以<strong>无界队列(如 LinkedBlockingQueue )</strong> 作为工作队列，虽然工作队列本身并不限制线程池中等待运行的任务的数量，但工作队列中实际可容纳的数量取决于任务本身对资源的使用情况。例如，线程池的客户端代码在创建向线程池提交的任务对象(Runnable)较大。这样一来，随着工作队列中这项的任务对象越来越多，这些任务对象所占用的内存也越来越大(这些任务还没有执行，因此其占用的内存空间不能被垃圾回收)。在极端情况下，这种情形还会导致Java虚拟机内存溢出，从而影响了Java应用程序，而不仅仅是使用该线程池的对象。因此，无界队列可能导致系统不稳定，适合在任务占用的内存空间以及其他稀缺资源比较少的情况下使用。</p>
+<p>  如果应用程序需要比较大的工作队列容量，而且又想避免无界队列可能导致的问题，可以考虑使用交接队列。直接交接队列实现上并不使用缓存空间。由于ThreadPoolExecutor内部实现任务提交的时候调用的是工作队列(BlockingQueue接口的实现类)的非阻塞式入队列方法(offer方法)，因此在使用直接交接队列作为工作队列的前提下，在客户端代码向线程池提交任务而线程池中又没有空闲的线程能够从直接交接队列中取一个任务时，相应的offer方法调用就会失败(即任务没有存入工作队列)。此时，ThreadPoolExecutor会新建一个工作者线程，用于对这个入队列失败的任务进行处理(设此时线程池的大小还未达到其最大线程大小)。所以，使用直接交接队列作为工作队列，工作队列本身并不限制执行的任务数量。但此时需要限定线程池的最大大小为一个合理的有限值，而不是<code>Integer.MAX_VALUE</code>，否则可能导致线程池中的工作者线程的数量一直增加，直到系统资源无法承受。</p>
+<p>  以有界队列(如 <strong>ArrayBlockingQueue</strong>、有界的 <strong>LinkedBlockingQueue</strong>)作为工作队列，则可以限定线程池中待执行任务的数量，这在一定程度上可以限制资源的消耗。通常，使有界队列作为工作队列需要制定线程池的最大大小为一个合理的有限值，而不是<code>Integer.MAX_VALUE</code>。其理由类似上面使用交接队列作为工作队列的情形。而有界队列加上有限数量的工作线程则可能导致死锁。</p>
+<h3 id="线程池大小调校">线程池大小调校</h3>
+<p>  线程池大小指线程池中工作者线程的数量。线程池大小太大会消耗过的的系统资源，并增加上下文切换。线程池大小太小又可能导致无法充分利用CPU资源，是任务处理的吞吐率过低。</p>
+<p>  系统资源状况主要考虑系统CPU个数以及Java虚拟机堆内存的大小。通常，线程池大小不会硬编码(Hard-coded)在代码中，而是可配置的(如通过配置文件配置)或者动态计算出来。动态计算出来的线程池大小通常是基于CPU核心数来计算。在Java中，可以通过<code>java.lang.Runtime.availableProcessors()</code>方法获取Java虚拟机宿主机的CPU核心数。</p>
+<p>  任务的特性主要考虑任务是CPU密集型、IO密集型和混合型(同时包含多计算和IO操作)的。对于CPU密集型任务，相应的线程池大小可以考虑为 <strong>CPU核心数+1</strong> ，之所以线程池大小比CPU的个数多1个，是因为考虑到即便是CPU密集型的任务，执行线程也可能在某一时间由于某种原因，如缺页中断(Page Fault)，而出现等待情况。此时，一个额外的线程可以继续使用CPU时间片。对于I/O密集型任务，相应的时间相对于其使用CPU的时间长，而处于I/O等待状态的线程并不会消耗CPU资源，因此相应的线程池大小可以调成大于 <strong>CPU核心数</strong> 的数字，比如 <strong>2xCPU核心数</strong>。另外，对于I/O密集型任务我们需要注意I/O操作引起上下文切换，这就意味着I/O操作的线程越多由I/O操作引起的上下文切换越多。对于这类任务，不妨将相应的线程池的核心线程池大小(Core Pool Size)设置为 <strong>1</strong> ，并将其最大线程池大小(Maximum Pool Size)设置为 <strong>2xCPU核心数</strong> 。这样，如果线程池只需要一个工作者线程，就可以轻松处理提交给其的任务，那么此时因I/O操作导致的上下文切换是最少的，如果一个工作者线程无法满足任务处理的需要，那么ThreadPoolExecutor会逐渐增加工作者线程的数量，直到其达到线程池的最大大小。</p>
+<blockquote>
+<p>ThreadPoolExecutor支持将其核心线程以外的空闲线程进行清理。在创建ThreadPoolExecutor实例时，我们可以通过其构造器的第3、4个参数指定一个空闲时间。在工作线程以外的工作线程空闲了指定时间以后，ThreadPoolExecutor就可以将其清理。</p>
+</blockquote>
+<h3 id="线程泄漏">线程泄漏</h3>
+<p>  线程泄漏(Thread Leak)指线程池中的工作线程意外中止，使得线程池中实际可用的工作线程变少。如果线程泄漏维持存在，那么线程池中的工作者线程会越来越少，最终使得线程池无法处理提交给自己的任务。线程泄漏通常是由于线程对象的 <strong>run</strong> 方法中的异常处理没有捕获 <strong>RuntimeExecption</strong> 和 <strong>Error</strong>，从而导致 <strong>run</strong> 方法意外返回，使得相应线程提前终止。</p>
+<h3 id="死锁">死锁</h3>
+<p>  如果线程池中执行的任务在执行过程中又向同一个线程池提交了另外一个任务，而前一个任务的执行结束有依赖后一个任务的执行结果，那么当线程池中所有线程都处于这种等待其他任务的处理结果而这些线程所等待的任务仍然在工作队列中的时候，由于线程池已经没有可以对线程池中的任务进行处理的工作者线程，因此这种等待就会一直持续下去而形成死锁(Dead Lock)。</p>
+<p>  因此，适合提交给同一线程池实例执行的任务是互相独立的任务，而不是彼此又依赖关系的任务。</p>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]Active Object(主动对象)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-producer-consumer/">[多线程设计模式]Producer-Consumer(生产者/消费者)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-promise/">[多线程设计模式]Promise(承诺)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-two-phase-termination/">[多线程设计模式]Two-Phase Termination(两阶段终止)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-guarded-suspension/">[多线程设计模式]Guarded Suspension(保护性暂挂)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-immutable-object/">[多线程设计模式]Immutable Object(不可变对象)模式</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
+      
+
+      
+        <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
+
+
+      
+    </div>
+
+    
+  </div>
+
+      </main>
+    </div><footer class="footer footer__base">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></body>
+</html>

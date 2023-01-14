@@ -10,7 +10,7 @@
   <title>
     
       
-        Immutable Object(不可变对象)模式 |
+        [多线程设计模式]Immutable Object(不可变对象)模式 |
       Yxx
 
   </title>
@@ -111,13 +111,13 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Immutable Object(不可变对象)模式"/>
+<meta name="twitter:title" content="[多线程设计模式]Immutable Object(不可变对象)模式"/>
 <meta name="twitter:description" content="  在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。Immutable Object模式使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。"/>
 
 
 
   
-  <meta property="og:title" content="Immutable Object(不可变对象)模式" />
+  <meta property="og:title" content="[多线程设计模式]Immutable Object(不可变对象)模式" />
 <meta property="og:description" content="  在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。Immutable Object模式使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-immutable-object/" /><meta property="article:section" content="archive" />
@@ -137,8 +137,8 @@
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "articleSection": "archive",
-        "name": "Immutable Object(不可变对象)模式",
-        "headline": "Immutable Object(不可变对象)模式",
+        "name": "[多线程设计模式]Immutable Object(不可变对象)模式",
+        "headline": "[多线程设计模式]Immutable Object(不可变对象)模式",
         "alternativeHeadline": "",
         "description": "
       
@@ -420,7 +420,7 @@
   >
     
     <div class="post__content">
-      <h1>Immutable Object(不可变对象)模式</h1>
+      <h1>[多线程设计模式]Immutable Object(不可变对象)模式</h1>
       <p>  在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。<strong>Immutable Object模式</strong>使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。</p>
 <p>  在多线程环境中，一个对象常常会被多个线程共享。在这种情况下，如果存在多个线程并发地修改该对象的状态，而我们不得不做一些同步访问控制以保证数据一致性。而这些同步访问控制，如：<strong>显式锁(Explicit Lock)</strong> 和 <strong>CAS(Compare And Swap)</strong> 操作,会带来额外的开销和问题，如：上下文切换、需要等待和ABA问题等。<strong>Immutable Object模式</strong>的意图是通过使用对外可见的状态不可变对象(<strong>Immutable Object</strong>)，使得被共享对象&quot;天生&quot;具有线程安全性，而无需进行额外的同步控制。这既保证了数据一致性，又避免了同步访问控制所产生的额外开销和问题，也简化了编程。</p>
 <p>  状态不可变的对象，即一经创建，其对外可见的状态就保持不变的对象，例如：<strong>Java</strong>中的<strong>String</strong>和<strong>Integer</strong>。</p>
@@ -513,17 +513,19 @@
 <h3>这个系列的帖子</h3>
 <ul>
   
-    <li><a href="/archive/multi-thread-patterns-active-object/">Active Object(主动对象)模式</a></li>
+    <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-producer-consumer/">Producer-Consumer(生产者/消费者)模式</a></li>
+    <li><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]Active Object(主动对象)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-promise/">Promise(承诺)模式</a></li>
+    <li><a href="/archive/multi-thread-patterns-producer-consumer/">[多线程设计模式]Producer-Consumer(生产者/消费者)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-two-phase-termination/">Two-Phase Termination(两阶段终止)模式</a></li>
+    <li><a href="/archive/multi-thread-patterns-promise/">[多线程设计模式]Promise(承诺)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-guarded-suspension/">Guarded Suspension(保护性暂挂)模式</a></li>
+    <li><a href="/archive/multi-thread-patterns-two-phase-termination/">[多线程设计模式]Two-Phase Termination(两阶段终止)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-immutable-object/">Immutable Object(不可变对象)模式</a></li>
+    <li><a href="/archive/multi-thread-patterns-guarded-suspension/">[多线程设计模式]Guarded Suspension(保护性暂挂)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-immutable-object/">[多线程设计模式]Immutable Object(不可变对象)模式</a></li>
   
 </ul>
 </div>

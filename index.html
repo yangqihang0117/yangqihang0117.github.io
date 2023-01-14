@@ -361,7 +361,41 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-active-object/">ACTIVE OBJECT(主动对象)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]THREAD POOL(线程池)模式</a></h3>
+        
+          <p>一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(<code>java.lang.Thread</code>实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&hellip;</p>
+        
+        </div>
+
+      
+      <div class="post__footer">
+        <em class="fas fa-calendar-day"></em>
+        <span class="post__footer-date"
+          >
+            
+              2019/12/27
+            
+
+          </span
+        >
+        
+
+        
+          <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
+
+
+        
+      </div>
+    </div>
+  
+    <div
+      class="post 
+        animated fadeInDown
+      "
+    >
+      
+      <div class="post__content">
+        <h3><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]ACTIVE OBJECT(主动对象)模式</a></h3>
         
           <p><strong>Active Object模式</strong>是一种异步编程模式。它通过对<strong>方法的调用(Method Invocation)</strong>、 <strong>方法的执行(Method Execution)</strong> 进行 <strong>解耦(Decoupling)</strong> 来提高并发性。若以任务的概念来说，<strong>Active Object模式</strong> 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。</p>
         
@@ -395,7 +429,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-producer-consumer/">PRODUCER-CONSUMER(生产者/消费者)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-producer-consumer/">[多线程设计模式]PRODUCER-CONSUMER(生产者/消费者)模式</a></h3>
         
           <p><strong>Producer-Consumer模式</strong>可以看成设计模式的设计模式。很多的多线程设计模式都可以看作<strong>Producer-Consumer模式</strong>的一个实例。</p>
         
@@ -429,7 +463,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-promise/">PROMISE(承诺)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-promise/">[多线程设计模式]PROMISE(承诺)模式</a></h3>
         
           <p><strong>Promise模式</strong>是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。</p>
         
@@ -463,7 +497,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-two-phase-termination/">TWO-PHASE TERMINATION(两阶段终止)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-two-phase-termination/">[多线程设计模式]TWO-PHASE TERMINATION(两阶段终止)模式</a></h3>
         
           <p>有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用<code>java.lang.Thread</code>类的<em>stop</em>方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。</p>
         
@@ -497,7 +531,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-guarded-suspension/">GUARDED SUSPENSION(保护性暂挂)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-guarded-suspension/">[多线程设计模式]GUARDED SUSPENSION(保护性暂挂)模式</a></h3>
         
           <p>为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。</p>
         
@@ -531,7 +565,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-immutable-object/">IMMUTABLE OBJECT(不可变对象)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-immutable-object/">[多线程设计模式]IMMUTABLE OBJECT(不可变对象)模式</a></h3>
         
           <p>在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。<strong>Immutable Object模式</strong>使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。</p>
         

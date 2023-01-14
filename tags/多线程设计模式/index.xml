@@ -6,9 +6,20 @@
     <description>Recent content in 多线程设计模式 on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 15 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Active Object(主动对象)模式</title>
+      <title>[多线程设计模式]Thread Pool(线程池)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</link>
+      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</guid>
+      
+        <description>&lt;p&gt;  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(&lt;code&gt;java.lang.Thread&lt;/code&gt;实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&amp;hellip;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>[多线程设计模式]Active Object(主动对象)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/</link>
       <pubDate>Sun, 15 Dec 2019 00:00:00 +0000</pubDate>
       
@@ -19,7 +30,7 @@
     </item>
     
     <item>
-      <title>Producer-Consumer(生产者/消费者)模式</title>
+      <title>[多线程设计模式]Producer-Consumer(生产者/消费者)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</link>
       <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
       
@@ -30,7 +41,7 @@
     </item>
     
     <item>
-      <title>Promise(承诺)模式</title>
+      <title>[多线程设计模式]Promise(承诺)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</link>
       <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
       
@@ -41,7 +52,7 @@
     </item>
     
     <item>
-      <title>Two-phase Termination(两阶段终止)模式</title>
+      <title>[多线程设计模式]Two-phase Termination(两阶段终止)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</link>
       <pubDate>Sat, 09 Nov 2019 00:00:00 +0000</pubDate>
       
@@ -52,7 +63,7 @@
     </item>
     
     <item>
-      <title>Guarded Suspension(保护性暂挂)模式</title>
+      <title>[多线程设计模式]Guarded Suspension(保护性暂挂)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</link>
       <pubDate>Sun, 03 Nov 2019 00:00:00 +0000</pubDate>
       
@@ -63,7 +74,7 @@
     </item>
     
     <item>
-      <title>Immutable Object(不可变对象)模式</title>
+      <title>[多线程设计模式]Immutable Object(不可变对象)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-immutable-object/</link>
       <pubDate>Thu, 24 Oct 2019 00:00:00 +0000</pubDate>
       
