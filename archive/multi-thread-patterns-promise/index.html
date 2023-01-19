@@ -423,6 +423,7 @@
       <h1>[多线程设计模式]Promise(承诺)模式</h1>
       <p>  <strong>Promise模式</strong>是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。</p>
 <h2 id="模式架构">模式架构</h2>
+<p><img src="https://p.ipic.vip/mc87j0.png" alt=""></p>
 <p>  在Promise模式中，客户端代码调用某个异步方法所得到的返回值仅是一个凭据对象(该对象被称为<em>Promise</em>，意为&quot;承诺&quot;)。凭借该对象，客户端代码可以获取异步任务的执行结果。</p>
 <p>  <strong>Promise(承诺)模式</strong>的主要参与者如下。</p>
 <ul>
@@ -469,6 +470,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
   

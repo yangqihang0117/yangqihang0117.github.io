@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="zh-cn"
+  data-theme=""
+  
+    class="html theme--light"
+  
+><head>
+  <title>
+    
+      
+        [多线程设计模式]Thread Specific Storage(线程特有存储)模式 |
+      Yxx
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.109.0"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Yxx" />
+  <meta
+    name="description"
+    content="Stay Hungry,Stay Foolish"
+  />
+  
+  
+    
+    
+    <link
+      rel="stylesheet"
+      href="/scss/main.min.5794be192d21535bdd301561e043a96b6adbad2b5c08279deff459e4661c613f.css"
+      integrity="sha256-V5S&#43;GS0hU1vdMBVh4EOpa2rbrStcCCed7/RZ5GYcYT8="
+      crossorigin="anonymous"
+      type="text/css"
+    />
+  
+
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.31b0a1f317f55c529a460897848c97436bb138b19c399b37de70d463a8bf6ed5.css"
+    integrity="sha256-MbCh8xf1XFKaRgiXhIyXQ2uxOLGcOZs33nDUY6i/btU="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/fontawesome.min.7d272de35b410fb165377550cdf9c4d3a80fbbcc961e111914e4d5c0eaf5729f.css"
+    integrity="sha256-fSct41tBD7FlN3VQzfnE06gPu8yWHhEZFOTVwOr1cp8="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/solid.min.55d8333481b07a08e07cf6f37319753a2b47e99f4c395394c5747b48b495aa9b.css"
+    integrity="sha256-VdgzNIGwegjgfPbzcxl1OitH6Z9MOVOUxXR7SLSVqps="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/regular.min.a7448d02590b43449364b6b5922ed9af5410abb4de4238412a830316dedb850b.css"
+    integrity="sha256-p0SNAlkLQ0STZLa1ki7Zr1QQq7TeQjhBKoMDFt7bhQs="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/brands.min.9ed75a5d670c953fe4df935937674b4646f92674367e9e66eb995bb04e821647.css"
+    integrity="sha256-ntdaXWcMlT/k35NZN2dLRkb5JnQ2fp5m65lbsE6CFkc="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.f9132794301a01ff16550ed66763482bd848f62243d278f5e550229a158bfd32.js"
+    integrity="sha256-&#43;RMnlDAaAf8WVQ7WZ2NIK9hI9iJD0nj15VAimhWL/TI="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.d6d329d93844b162e8bed1e915619625ca91687952177552b9b3e211014a2957.js"
+      integrity="sha256-1tMp2ThEsWLovtHpFWGWJcqRaHlSF3VSubPiEQFKKVc="
+      crossorigin="anonymous"
+    ></script>
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[多线程设计模式]Thread Specific Storage(线程特有存储)模式"/>
+<meta name="twitter:description" content="  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，Thread Specific Storage模式 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。"/>
+
+
+
+  
+  <meta property="og:title" content="[多线程设计模式]Thread Specific Storage(线程特有存储)模式" />
+<meta property="og:description" content="  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，Thread Specific Storage模式 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2020-01-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-26T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+
+
+
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "[多线程设计模式]Thread Specific Storage(线程特有存储)模式",
+        "headline": "[多线程设计模式]Thread Specific Storage(线程特有存储)模式",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，\u003cstrong\u003eThread Specific Storage模式\u003c\/strong\u003e 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-thread-specific-storage\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2020",
+        "dateCreated": "2020-01-26T00:00:00.00Z",
+        "datePublished": "2020-01-26T00:00:00.00Z",
+        "dateModified": "2020-01-26T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-thread-specific-storage\/",
+        "wordCount" : "3600",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "Java"
+
+    
+      
+        ,
+
+      
+      "多线程"
+
+    
+      
+        ,
+
+      
+      "多线程设计模式"
+
+    ]
+    }
+  </script>
+
+
+</head>
+<body class="body">
+    <div class="wrapper">
+      <aside
+        
+          class="wrapper__sidebar"
+        
+      ><div
+  class="sidebar
+    animated fadeInDown
+  "
+>
+  <div class="sidebar__content">
+    <div class="sidebar__introduction">
+      <img
+        class="sidebar__introduction-profileimage"
+        src="/images/logo.jpeg"
+        alt="profile picture"
+      />
+      
+        <div class="sidebar__introduction-title">
+          <a href="/">Yxx&#39;s Study Notes</a>
+        </div>
+      
+      <div class="sidebar__introduction-description">
+        <p>Stay Hungry,Stay Foolish</p>
+      </div>
+    </div>
+    <ul class="sidebar__list">
+      
+        <li class="sidebar__list-item">
+          <a
+            href="https://github.com/yangqihang0117"
+            target="_blank"
+            rel="noopener me"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+        <li class="sidebar__list-item">
+          <a
+            href="mailto:yangqihang@petalmail.com"
+            target="_blank"
+            rel="noopener me"
+            aria-label="e-mail"
+            title="e-mail"
+          >
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div><footer class="footer footer__sidebar">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></div>
+</aside>
+      <main
+        
+          class="wrapper__main"
+        
+      >
+        <header class="header"><div
+  class="
+    animated fadeInDown
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+  </a>
+  <nav class="nav">
+    <ul class="nav__list" id="navMenu">
+      
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/series/"
+              
+              title=""
+              >Series</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/tags/"
+              
+              title=""
+              >Tags</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/archive/"
+              
+              title=""
+              >Archive</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+        
+
+      
+    </ul>
+    <ul class="nav__list nav__list--end">
+      
+      
+        <li class="nav__list-item">
+          <div class="themeswitch">
+            <a title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+</header>
+  <div
+    class="post 
+      animated fadeInDown
+    "
+  >
+    
+    <div class="post__content">
+      <h1>[多线程设计模式]Thread Specific Storage(线程特有存储)模式</h1>
+      <p>  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，<strong>Thread Specific Storage模式</strong> 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。</p>
+<p>  只要将线程需要访问的变量作为线程对象的私有实例变量即可实现各个线程访问各自的变量，互相之间不共享变量。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ThreadPrivateMember</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">new</span> <span class="n">PrintThread</span><span class="o">(</span><span class="s">&#34;message-&#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">50</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">PrintThread</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="nf">PrintThread</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">this</span><span class="o">.</span><span class="na">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+</span></span><span class="line"><span class="cl">				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">message</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>  使用线程对象的私有变量这种方法可以看成 <strong>Thread Specific Storage模式</strong> 的一个最小实现。但是，这种方法的通用性不强。毕竟代码之间的调用关系并不总是通过run方法去访问线程对象的私有变量的关系。</p>
+<p>  如果多个线程都需要使用某个TSSObject，而为了实现线程安全和避免与锁相关的问题我们又不希望这些线程共享TSSObject实例，那么可以使这些线程中的每个线程都获得一个且仅有一个TSSObject实例。这样的TSSObject实例就被称为线程特有对象(Thread Specific Object)，他只会被一个线程特有，该线程对其状态的修改不会影响到其他线程。而且，为了隐藏相关实现细节以便这些线程获取所需的线程特有对象，我们引入一个线程特有对象的代理类 <strong>TSSObjectProxy</strong>。不同的线程使用同一个 <strong>TSSObjectProxy</strong> 实例可以获得所需的线程特有对象。这样就形成了一种效果：不同的线程使用统一的接入点(TSSObjectProxy)，可以获取该线程所特有的TSSObject实例。这就是<strong>Thread Specific Storage模式的核心思想</strong>。</p>
+<h2 id="模式架构">模式架构</h2>
+<p>  <strong>Thread Specific Storage模式</strong>的基础是为每个线程&quot;装备&quot;一个线程特有存储(Thread Specific Storage)。线程特有存储可以理解为一个<strong>Map</strong>。该 <strong>Map</strong> 存放了若干个条目(Entry)。每个条目中的值(Value)是一个线程特有对象，键(Key)是用于获取相应线程特有对象的 <strong>TSSObjectProxy</strong> 实例。客户端代码通过<strong>TSSObjectProxy</strong>实例获取其所需的线程特有对象。从逻辑上说，每个线程都有其线程特有存储。因此，不同线程使用同一个<strong>TSSObjectProxy</strong>实例可以获取不同的线程特有对象实例。同一个线程使用不同的<strong>TSSObjectProxy</strong>实例也可以获取不同的线程特有实例。</p>
+<p><img src="https://p.ipic.vip/hclmja.png" alt=""></p>
+<ul>
+<li><strong>Application Thread</strong>：<strong>Thread Specific Storge模式</strong>的客户端，表示各个应用线程。</li>
+<li><strong>TSSObjectProxy</strong>：用于访问线程特有对象的代理对象，其主要职责如下。
+<ul>
+<li>get：获取与其所属 <strong>TSSObjectProxy</strong> 实例相关的线程特有对象实例。</li>
+<li>set：建立其所属 <strong>TSSObjectProxy</strong> 实例与指定线程特有对象实例的关联。</li>
+<li>remove：建立其所属 <strong>TSSObjectProxy</strong> 实例与线程特有对象实例的关联。</li>
+</ul>
+</li>
+<li><strong>TSSObject</strong>：表示线程特有对象，具体的类型由应用决定。</li>
+<li><strong>ThreadSpecificStorage</strong>：线程特有存储。该参与者实例可以理解为一个Map，每个线程都有这样的一个Map。这个Map存储了 <strong>TSSObjectProxy</strong> 实例到 <strong>TSSObject</strong> 实例的映射。其主要职责如下。
+<ul>
+<li>get：获取与指定 <strong>TSSObjectProxy</strong> 实例相关的TSSObject实例。</li>
+<li>set：设置指定 <strong>TSSObjectProxy</strong> 实例与指定TSObject实例的关联关系。</li>
+</ul>
+</li>
+</ul>
+<p>  Java标准库中的类<code>java.lang.ThreadLocal&lt;T&gt;</code>可以看成<strong>TSSObjectProxy</strong>参与者的一个通用实现。ThreadLocal的类型参数T可以看成TSSObject参与者。</p>
+<h3 id="模式序列">模式序列</h3>
+<p><img src="https://p.ipic.vip/zgkzhf.png" alt=""></p>
+<ul>
+<li><strong>第1步</strong>：客户端代码调用 <strong>TSSObjectProxy</strong> 实例的get方法。</li>
+<li><strong>第2、3步</strong>：get方法调用与当前线程关联的 <strong>ThreadSpecificStorage</strong> 实例的get方法，并获得其返回值tssObject。</li>
+<li><strong>第4步</strong>：get方法将tssObject作为其返回值返回。</li>
+<li><strong>第5、6步</strong>：客户端代码调用tssObject的相关方法。</li>
+</ul>
+<p>  上述第2、3步是最关键的一步，这两部需要获取与当前线程关联的ThreadSpecificStorage实例。</p>
+<h2 id="需要注意的问题">需要注意的问题</h2>
+<h3 id="线程池环境下使用thread-specific-storage模式">线程池环境下使用Thread Specific Storage模式</h3>
+<p>  在线程池环境下使用Thread Specific Storage模式需要谨慎，这时因为线程池环境下使用线程持有对象可能导致数据错乱的现象。在线程池环境下，一个工作者线程往往先用于执行多个不同的任务。对于线程池中的一个工作者线程而言，如果它所执行的一个任务更换或者修改了线程的线程特有对象，那么在该工作者线程继续执行其他任务的时候，这些任务所&quot;看到&quot;的是一个新的线程特有对象。在这种场景下，如果线程特有对象的状态与当前工作者线程所处理的任务有关，则会导致其他任务在执行的时候&quot;看到&quot;了本不属于它们的数据，从而产生错乱。</p>
+<p>  因此，在线程池环境下使用线程特有对象，需要考虑在适当的时间和地方清理线程特有对象，以便同一个工作者线程在处理其他任务的时候不会产生数据错乱。清理线程特有对象只需要调用获取相应线程特有对象实例时所使用的ThreadLocal实例的remove方法。当然，如果进一步分析不难发现，这种情况下使用Thread Specific Storage模式所得到的线程持有对象其实更像是&quot;任务特有对象&quot;。因为每个任务都需要一个自己的线程特有对象。</p>
+<h3 id="内存泄漏与伪内存泄漏">内存泄漏与伪内存泄漏</h3>
+<p>  内存泄漏(Memory Leak)指由于对象永远无法被垃圾回收导致其占用的Java虚拟机内存无法释放。持续的内存泄漏导致Java虚拟机可用内存逐渐减少，并最终可能导致Java虚拟机内存溢出(Out of Memory)，甚至java虚拟机宕机。</p>
+<p>  伪内存泄漏(Memory Pseudo-leak)类似于内存泄漏。不同的是，伪内存泄漏中对象所占用的内存在其不再使用后的相当长的时间内无法被回收，甚至可能永远无法被回收。也就是说，伪内存泄漏中对象占用的内存可能会被回收，也可能永远无法被回收(此时，就变成了内存泄漏)。</p>
+<p>  在服务器环境(如Apache Tomcat)下使用Thread Specific Storage模式需要注意ThreadLocal可能导致内存泄漏和伪内存泄漏。</p>
+<p>  首先我们看下ThreadLocal是如何实现Thread Specific Storage模式的。JDK标准库类<code>java.lang.Thread</code>的实例变量threaLocals会引用一个ThreadLocal.ThreadLocalMap实例。该实例相当于Thread Specific Storage模式的ThreadSpecificStorage参与者实例，从效果上可以理解为一个WeakHashMap。该&quot;WeakHashMap&quot;包含若干条目(Entry)，每个条目的(Key)指向一个ThreadLocal实例的弱引用(Weak Reference)，值(Value)指向线程持有对象(TSSObject)实例。</p>
+<p><img src="https://p.ipic.vip/zlq8si.png" alt=""></p>
+<p>  ThreadLocalMap的条目对ThreadLocal实例的引用是弱引用，因此它不会阻止垃圾回收器(Garbage Collector)将其引用的ThreadLocal实例回收。而ThreadLocalMap的条目对线程特有对象实例的引用是强引用(Strong Reference)，因此它会阻止垃圾回收器将其引用的线程特有对象回收。</p>
+<p>  对于某个ThreadLocal实例而言，如果在某一个时间段内该实例除了ThreadLocalMap条目对其有可达引用(Reachable Reference)外，没有其他可达的引用，那么垃圾回收器就可以将该ThreadLocal实例回收。此时，先前引用该ThreadLocal实例的ThreadLocalMap条目由于其Key值变为null，因此成了一条无效的条目(Stale Entry)。这种无效的条目(即Key值为null，Value值可能仍然指向一个线程特有对象)在其所属的ThreadLocalMap有新增条目时可能被删除。如果在某个线程引用的ThreadLocalMap实例产生无效条目后，某段时间内该线程处于非运行状态，则该线程引用的ThreadLocalMap实例就没有新增的条目，因此其所有的无效条目在该时间段内也无法被删除。如果该线程一直处于非运行状态，则该线程引用的ThreadLocalMap实例的无效条目永远无法被删除。所以这种情形就会导致伪内存泄漏。</p>
+<p>  对于某个ThreadLocal实例而言，如果在某一时间段内系统中除了ThreadLocalMap条目对其有可达性的引用(弱引用)外，还有其他可达的强引用，那么相应的ThreadLocalMap条目不会被删除，再加上ThreadLocalMap条目对线程特有对象的引用是强引用，此时只要引用该ThreadLocalMap实例的线程存在，则该条目会阻止垃圾回收器将相应的线程特有对象实例回收。如果引用该ThreadLocalMap条目的线程永远存在，则该ThreadLocalMap条目引用的ThreadLocal实例及其对应的线程特有对象实例都无法被垃圾回收，这就产生了内存泄漏。</p>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]Active Object(主动对象)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-producer-consumer/">[多线程设计模式]Producer-Consumer(生产者/消费者)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-promise/">[多线程设计模式]Promise(承诺)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-two-phase-termination/">[多线程设计模式]Two-Phase Termination(两阶段终止)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-guarded-suspension/">[多线程设计模式]Guarded Suspension(保护性暂挂)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-immutable-object/">[多线程设计模式]Immutable Object(不可变对象)模式</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
+      
+
+      
+        <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
+
+
+      
+    </div>
+
+    
+  </div>
+
+      </main>
+    </div><footer class="footer footer__base">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></body>
+</html>

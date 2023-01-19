@@ -6,7 +6,18 @@
     <description>Recent content in 多线程 on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 27 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[多线程设计模式]Thread Specific Storage(线程特有存储)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</link>
+      <pubDate>Sun, 26 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</guid>
+      
+        <description>&lt;p&gt;  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，&lt;strong&gt;Thread Specific Storage模式&lt;/strong&gt; 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>[多线程设计模式]Thread Pool(线程池)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</link>

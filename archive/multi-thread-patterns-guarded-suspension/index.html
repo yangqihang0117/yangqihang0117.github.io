@@ -425,6 +425,7 @@
 <p>  <strong>Guarded Suspension模式</strong>可以帮助我们解决上述等待问题。该模式的核心思想是：如果某个线程在执行特定的操作前需要满足一定的条件，则在该条件未满足时将该线程暂停运行(即暂挂线程，使其处于等待(<em>WAITING</em>)状态，直到该条件满足，才通知该线程继续执行)。</p>
 <h2 id="模式架构">模式架构</h2>
 <p>  <strong>Guarded Suspension模式</strong>的核心是一个<strong>受保护方法(Guarded Method)</strong>。该方法在执行其所要真正执行的操作时需要满足特定的条件(<em>Predicate</em>，保护条件)。当该条件不满足时，执行受保护方法的线程会被挂起并进入等待(<em>WAITING</em>)状态，直到该条件满足，该线程才会继续运行。此时受保护方法才会真正执行其所要执行的操作。</p>
+<p><img src="https://p.ipic.vip/zhh3s7.png" alt=""></p>
 <ul>
 <li><strong>GuardedObject</strong>：包含受保护方法的对象，其职责如下。
 <ul>
@@ -512,6 +513,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
   
