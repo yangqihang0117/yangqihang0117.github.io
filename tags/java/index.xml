@@ -6,7 +6,18 @@
     <description>Recent content in Java on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 26 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[多线程设计模式]Master-Slave(主仆)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/</link>
+      <pubDate>Sat, 15 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/</guid>
+      
+        <description>Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者</description>
+      
+    </item>
+    
     <item>
       <title>[多线程设计模式]Thread Specific Storage(线程特有存储)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</link>
