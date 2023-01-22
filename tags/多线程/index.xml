@@ -14,7 +14,7 @@
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/</guid>
       
-        <description>Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者</description>
+        <description>&lt;p&gt;  Master-Slave模式是一个基于&lt;strong&gt;分而治之&lt;/strong&gt;思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者线程来并行执行这些子任务。原始任务的处理结果是通过整合各个子任务的处理结果而形成的。而这些与分而治之相关的处理细节对于原始任务的提交方来说又是不可见的。因此，Master-Slave模式既提高了计算效率，又实现了数据隐藏。&lt;/p&gt;</description>
       
     </item>
     

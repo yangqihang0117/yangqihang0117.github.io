@@ -112,13 +112,13 @@
   
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[多线程设计模式]Master-Slave(主仆)模式"/>
-<meta name="twitter:description" content="Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者"/>
+<meta name="twitter:description" content="  Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者线程来并行执行这些子任务。原始任务的处理结果是通过整合各个子任务的处理结果而形成的。而这些与分而治之相关的处理细节对于原始任务的提交方来说又是不可见的。因此，Master-Slave模式既提高了计算效率，又实现了数据隐藏。"/>
 
 
 
   
   <meta property="og:title" content="[多线程设计模式]Master-Slave(主仆)模式" />
-<meta property="og:description" content="Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者" />
+<meta property="og:description" content="  Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者线程来并行执行这些子任务。原始任务的处理结果是通过整合各个子任务的处理结果而形成的。而这些与分而治之相关的处理细节对于原始任务的提交方来说又是不可见的。因此，Master-Slave模式既提高了计算效率，又实现了数据隐藏。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/" /><meta property="article:section" content="archive" />
 <meta property="article:published_time" content="2020-02-15T00:00:00+00:00" />
@@ -142,7 +142,7 @@
         "alternativeHeadline": "",
         "description": "
       
-        Master-Slave模式是一个基于分而治之思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者
+        \u003cp\u003e  Master-Slave模式是一个基于\u003cstrong\u003e分而治之\u003c\/strong\u003e思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的字任务，并由专门工作者线程来并行执行这些子任务。原始任务的处理结果是通过整合各个子任务的处理结果而形成的。而这些与分而治之相关的处理细节对于原始任务的提交方来说又是不可见的。因此，Master-Slave模式既提高了计算效率，又实现了数据隐藏。\u003c\/p\u003e
 
 
       
@@ -478,7 +478,6 @@
 <p>  为了提高计算的可靠性，Master参与者在侦测到上述异常时可以考虑由其自身重新执行处理失败的子任务，即让处理失败的子任务运行在客户端线程中，而不是运行在Slave参与者的工作者线程中。这类似于ThreadPoolExecutor提供的<code>java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy</code>任务提交失败处理策略。</p>
 <h3 id="slave线程的停止">Slave线程的停止</h3>
 <p>  在并行计算场景中，每个Slave参与者实例就是一个线程。通常，这些线程会使用阻塞队列来接收子任务，而线程则从阻塞队列中取出子任务来执行。而BlockingQueue的take方法在队列为空时会使当前线程一直处于等待状态，因此当Slave线程处理完分配给其的所有子任务时，Slave线程仍然未停止。此时，我们可以使用<a href="../multi-thread-patterns-two-phase-termination">Two-phase Termination模式</a>来实现Slave线程在处理完分配给其的子任务后停止。</p>
-
 
 
 <h3>这个系列的帖子</h3>
