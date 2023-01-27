@@ -121,8 +121,8 @@
 <meta property="og:description" content="  Producer-Consumer模式可以看成设计模式的设计模式。很多的多线程设计模式都可以看作Producer-Consumer模式的一个实例。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/" /><meta property="article:section" content="archive" />
-<meta property="article:published_time" content="2019-11-30T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-11-30T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="article:published_time" content="2020-01-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-18T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
 
 
 
@@ -171,10 +171,10 @@
             "@type": "Person",
             "name": "Yxx"
         },
-        "copyrightYear" : "2019",
-        "dateCreated": "2019-11-30T00:00:00.00Z",
-        "datePublished": "2019-11-30T00:00:00.00Z",
-        "dateModified": "2019-11-30T00:00:00.00Z",
+        "copyrightYear" : "2020",
+        "dateCreated": "2020-01-18T00:00:00.00Z",
+        "datePublished": "2020-01-18T00:00:00.00Z",
+        "dateModified": "2020-01-18T00:00:00.00Z",
         "publisher":{
             "@type":"Organization",
             "name": "Yxx",
@@ -424,9 +424,9 @@
       <p>  <strong>Producer-Consumer模式</strong>可以看成设计模式的设计模式。很多的多线程设计模式都可以看作<strong>Producer-Consumer模式</strong>的一个实例。</p>
 <p>  数据的提供方可形象地称为数据的生产者，它&quot;生产&quot;了数据，而数据的加工方则相应地称为&quot;消费者&quot;，它&quot;消费&quot;了数据。实际上，生产者&quot;生产&quot;数据的速率和消费者&quot;消费&quot;数据的速率往往是不均衡的，比如数据的&quot;生产&quot;要比其&quot;消费&quot;快。为避免数据的生产者与消费者中处理速率快的一方需要等待处理速率慢的一方，<strong>Producer-Consumer模式</strong>通过数据的生产者和消费者之间引入一个通道(Channel，暂时可以将其简单地理解为一个队列)对二者进行解耦(Decoupling)：生产者将其&quot;生产&quot;的数据放入通道，消费者从相应通道中取出数据进行&quot;消费&quot;(处理)，生产者和消费者各自进行在各自的线程中，从而使双方处理速率互不影响。</p>
 <h2 id="模式架构">模式架构</h2>
-<p><img src="https://p.ipic.vip/d2xdni.png" alt=""></p>
 <p>  <strong>Producer-Consumer模式</strong>的核心是，通过管道对数据(或任务)的生产者和消费者进行解耦，使二者不直接进行交互，从而使二者的处理速率相对来说互不影响。</p>
 <p>  <strong>Producer-Consumer模式</strong>的主要参与者有以下几种。</p>
+<p><img src="https://p.ipic.vip/d2xdni.png" alt=""></p>
 <ul>
 <li><strong>Producer</strong>：生产者，负责生成相应的&quot;产品&quot;并将其存入通道，其主要职责如下。
 <ul>
@@ -506,11 +506,11 @@
   
     <li><a href="/archive/multi-thread-patterns-pipeline/">[多线程设计模式]Pipeline(流水线)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
-  
     <li><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]Active Object(主动对象)模式</a></li>
   

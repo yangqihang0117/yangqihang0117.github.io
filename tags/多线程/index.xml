@@ -6,15 +6,37 @@
     <description>Recent content in 多线程 on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[多线程设计模式]Pipeline(流水线)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</link>
-      <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</guid>
       
         <description>&lt;p&gt;  Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>[多线程设计模式]Thread Specific Storage(线程特有存储)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</link>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</guid>
+      
+        <description>&lt;p&gt;  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，&lt;strong&gt;Thread Specific Storage模式&lt;/strong&gt; 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>[多线程设计模式]Thread Pool(线程池)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</guid>
+      
+        <description>&lt;p&gt;  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(&lt;code&gt;java.lang.Thread&lt;/code&gt;实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&amp;hellip;&lt;/p&gt;</description>
       
     </item>
     
@@ -30,31 +52,9 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Thread Specific Storage(线程特有存储)模式</title>
-      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</link>
-      <pubDate>Sun, 26 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</guid>
-      
-        <description>&lt;p&gt;  与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，&lt;strong&gt;Thread Specific Storage模式&lt;/strong&gt; 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>[多线程设计模式]Thread Pool(线程池)模式</title>
-      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</link>
-      <pubDate>Fri, 27 Dec 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</guid>
-      
-        <description>&lt;p&gt;  一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(&lt;code&gt;java.lang.Thread&lt;/code&gt;实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&amp;hellip;&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
       <title>[多线程设计模式]Active Object(主动对象)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/</link>
-      <pubDate>Sun, 15 Dec 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/</guid>
       
@@ -65,7 +65,7 @@
     <item>
       <title>[多线程设计模式]Producer-Consumer(生产者/消费者)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</link>
-      <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</guid>
       
@@ -76,7 +76,7 @@
     <item>
       <title>[多线程设计模式]Promise(承诺)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</link>
-      <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</guid>
       
@@ -87,7 +87,7 @@
     <item>
       <title>[多线程设计模式]Two-phase Termination(两阶段终止)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</link>
-      <pubDate>Sat, 09 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</guid>
       
@@ -98,7 +98,7 @@
     <item>
       <title>[多线程设计模式]Guarded Suspension(保护性暂挂)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</link>
-      <pubDate>Sun, 03 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</guid>
       

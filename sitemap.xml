@@ -3,55 +3,55 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/java/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/series/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/series/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-03-21T00:00:00+00:00</lastmod>
+    <lastmod>2020-06-29T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</loc>
+    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/</loc>
     <lastmod>2020-02-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</loc>
-    <lastmod>2020-01-26T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</loc>
-    <lastmod>2019-12-27T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/</loc>
-    <lastmod>2019-12-15T00:00:00+00:00</lastmod>
+    <lastmod>2020-02-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</loc>
-    <lastmod>2019-11-30T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</loc>
-    <lastmod>2019-11-24T00:00:00+00:00</lastmod>
+    <lastmod>2019-12-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</loc>
-    <lastmod>2019-11-09T00:00:00+00:00</lastmod>
+    <lastmod>2019-11-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</loc>
-    <lastmod>2019-11-03T00:00:00+00:00</lastmod>
+    <lastmod>2019-11-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-immutable-object/</loc>
     <lastmod>2019-10-24T00:00:00+00:00</lastmod>

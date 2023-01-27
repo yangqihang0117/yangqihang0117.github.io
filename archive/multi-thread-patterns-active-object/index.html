@@ -121,8 +121,8 @@
 <meta property="og:description" content="  Active Object模式是一种异步编程模式。它通过对方法的调用(Method Invocation)、 方法的执行(Method Execution) 进行 解耦(Decoupling) 来提高并发性。若以任务的概念来说，Active Object模式 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/" /><meta property="article:section" content="archive" />
-<meta property="article:published_time" content="2019-12-15T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-12-15T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="article:published_time" content="2020-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-08T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
 
 
 
@@ -171,10 +171,10 @@
             "@type": "Person",
             "name": "Yxx"
         },
-        "copyrightYear" : "2019",
-        "dateCreated": "2019-12-15T00:00:00.00Z",
-        "datePublished": "2019-12-15T00:00:00.00Z",
-        "dateModified": "2019-12-15T00:00:00.00Z",
+        "copyrightYear" : "2020",
+        "dateCreated": "2020-02-08T00:00:00.00Z",
+        "datePublished": "2020-02-08T00:00:00.00Z",
+        "dateModified": "2020-02-08T00:00:00.00Z",
         "publisher":{
             "@type":"Organization",
             "name": "Yxx",
@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-active-object\/",
-        "wordCount" : "2739",
+        "wordCount" : "2760",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -424,6 +424,7 @@
       <p>  <strong>Active Object模式</strong>是一种异步编程模式。它通过对<strong>方法的调用(Method Invocation)</strong>、 <strong>方法的执行(Method Execution)</strong> 进行 <strong>解耦(Decoupling)</strong> 来提高并发性。若以任务的概念来说，<strong>Active Object模式</strong> 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。</p>
 <h2 id="模式架构">模式架构</h2>
 <p>  当<strong>Active Object模式</strong>对外暴露的异步方法被调用时，与该方法调用相关的上下文信息，包含调用的异步方法名(或其代表的操作)、客户端代码所传递的参数等，会被封装成一个对象。该对象被称为 <strong>方法请求(Method Request)</strong>。方法请求对象会被存入 <strong>Active Object模式</strong> 所维护的 <strong>缓冲区(ActivationQueue)</strong> 中，并由专门的工作者线程负责根据其包含的上下文信息执行相应的操作。也就是说，方法请求对象是由客户端线程通过调用Active Object模式对外暴露的异步方法生成的，而方法请求所代表的操作则有专门的工作者线程来执行，从而实现了调用与执行的分离，产生了并发。</p>
+<p>  Active Object模式的主要参与者有以下几种。</p>
 <p><img src="https://p.ipic.vip/3smgo5.png" alt=""></p>
 <ul>
 <li><strong>Proxy</strong>：负责对外暴露异步方法接口，其主要职责如下。
@@ -520,11 +521,11 @@
   
     <li><a href="/archive/multi-thread-patterns-pipeline/">[多线程设计模式]Pipeline(流水线)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
-  
     <li><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]Active Object(主动对象)模式</a></li>
   

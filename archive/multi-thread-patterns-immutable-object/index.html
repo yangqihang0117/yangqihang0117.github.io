@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-immutable-object\/",
-        "wordCount" : "2847",
+        "wordCount" : "3028",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -473,13 +473,23 @@
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><p>  状态不可变对象并非指现实世界的实体的状态不可变，而是我们的一种策略：现实世界实体的状态总在变化，但我们可以用状态不可变对象来对这些实体进行建模。</p>
 <h2 id="模式架构">模式架构</h2>
+<p>  Immutable Object模式的主要参与者有以下几种。</p>
 <p><img src="https://p.ipic.vip/gbt6y2.png" alt=""></p>
 <p>  <strong>Immutable Object模式</strong>将现实世界中状态可变的实体建模为状态不可变的对象，并通过创建不同的状态不可变的对象来反应实现世界实体的状态变更。</p>
 <ul>
-<li><strong>ImmutableObject</strong>：负责存储一组不可变状态。该参与者不对外暴露任何可修改其状态的方法</li>
-<li><strong>Manipulator</strong>：负责维护<strong>ImmutableObject</strong>所建模的现实世界实体状态的变更。当相应的现实世界实体状态变更时，该参与者负责生成新的<strong>ImmutableObject</strong>实例，以反映新的状态。</li>
+<li><strong>ImmutableObject</strong>：负责存储一组不可变状态。该参与者不对外暴露任何可修改其状态的方法
+<ul>
+<li>get*：这些get方法返回所属ImmutableObject实例维护的状态相关字段的值。这些字段在对象实例化时通过其构造器的参数获得值。</li>
+<li>getStateSnapshot：返回其所需ImmutableObject实例维护的一组状态的快照。</li>
 </ul>
-<h3 id="状态不可变对象的使用情况">状态不可变对象的使用情况:</h3>
+</li>
+<li><strong>Manipulator</strong>：负责维护<strong>ImmutableObject</strong>所建模的现实世界实体状态的变更。当相应的现实世界实体状态变更时，该参与者负责生成新的<strong>ImmutableObject</strong>实例，以反映新的状态。
+<ul>
+<li>changeStateTo：根据新状态值生成新的ImmutableObject实例。</li>
+</ul>
+</li>
+</ul>
+<h3 id="状态不可变对象的使用情况">状态不可变对象的使用情况</h3>
 <ul>
 <li><strong>获取单个状态的值</strong>：调用不可变对象的相关<code>Getter</code>方法即可实现。</li>
 <li><strong>获取一组状态的快照</strong>：状态不可变对象可以提供一个<code>Getter</code>方法，该方法需要对其返回值做<strong>防御性复制(Defensive Copy)</strong> 或者返回一个只读对象，以避免因其状态对外暴露而改变。</li>
@@ -498,7 +508,7 @@
 <li><strong>同时对一组相关的数据进行写操作，因此需要保证操作的原子性</strong>：为了保证操作的原子性，通常的做法是使用显式锁。但若采用<strong>Immutable Object</strong>模式将这一组相关的数据&quot;组合&quot;成一个不可变对象，则对这一组数据的操作无需加显示锁也能保证原子性。</li>
 <li><strong>使用某个对象作为安全的HashMap的Key</strong>：在一个对象作为<strong>HashMap</strong>的<strong>Key</strong>被放入<strong>HashMap</strong>之后，若该对象状态发生变化导致了<strong>Hash Code</strong>变化，则会进一步导致用同样对象作为Key的时候无法获取相关的值，哪怕该<strong>HashMap</strong>中的确存在以该对象为<strong>Key</strong>的条目。相反，由于不可变对象的状态不变，其<strong>Hash Code</strong>也不变，这使得不可变对象非常适合做<strong>HashMap</strong>的<strong>Key</strong>。</li>
 </ul>
-<h3 id="需要注意的问题">需要注意的问题</h3>
+<h2 id="需要注意的问题">需要注意的问题</h2>
 <h4 id="对垃圾回收garbage-collection的影响">对垃圾回收(Garbage Collection)的影响</h4>
 <p>  使用不可变对象能够对垃圾回收效率产生影响，影响既有积极的一面也有消极的一面。由于基于不可变对象设计的系统其状态变更时通过创建新的不可变对象实例来实现的，因此系统的状态频繁变更或者不可变对象所占用的内存空间比较大时，不可变对象的不断创建会增加垃圾回收的负担。但是，使用不可变对象也可能有利于降低垃圾回收的开销。因为创建不可变对象往往导致堆空间<strong>年轻代(Young Generation)</strong> 中的<strong>对象(新创建的不可变对象实例)</strong> 引用<strong>年老代(Old Generation)</strong> 中的对象。而这种对象引用方式相比使用可变对象所导致的<strong>老年代对象引用年轻代对象</strong>的引用方式更加有利于降低垃圾回收的开销：修改一个状态可变对象的引用型实例变量值的时候，如果这个对象已经位于老年代中，那么垃圾回收器进行下一轮次要回收(<strong>Minor Collection</strong>)的时候，老年代中包含这个对象的卡片(<strong>Card，老年代中存储对象的存储单位，一个卡片的大小为512B</strong>)中的所有对象都必须被扫描一遍，以确定老年代中是否有对象对<strong>待回收的对象</strong>持有引用。因此，老年代对象持有对年轻代对象的引用会导致次要回收的开销增加。</p>
 <h4 id="使用等效或者近似的不可变对象">使用等效或者近似的不可变对象</h4>
@@ -515,11 +525,11 @@
   
     <li><a href="/archive/multi-thread-patterns-pipeline/">[多线程设计模式]Pipeline(流水线)模式</a></li>
   
-    <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
-  
     <li><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]Thread Pool(线程池)模式</a></li>
+  
+    <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]Active Object(主动对象)模式</a></li>
   
