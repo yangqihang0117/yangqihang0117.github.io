@@ -6,7 +6,18 @@
     <description>Recent content in 多线程 on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 15 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[多线程设计模式]Pipeline(流水线)模式</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</link>
+      <pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</guid>
+      
+        <description>&lt;p&gt;  Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>[多线程设计模式]Master-Slave(主仆)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/</link>

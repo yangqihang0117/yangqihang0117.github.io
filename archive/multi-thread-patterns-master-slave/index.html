@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-master-slave\/",
-        "wordCount" : "3145",
+        "wordCount" : "3170",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -425,6 +425,7 @@
 <h2 id="模式架构">模式架构</h2>
 <p>  为了提高计算效率，我们往往将一个规模比较大的任务分解成若干个子任务，并使用专门的工作者线程来执行这些子任务。然后将各个子任务的处理结果整合为原始任务的处理结果。但是，对于服务的客户端代码而言，有关任务的分解、子任务处理结果的合并以及工作者线程的管理等细节都应该是不可见的，以便提高服务代码的可维护性和简化客户端代码。</p>
 <p>  Master-Slave模式通过在子任务和服务的客户端代码之间引入了一个协调性对象(Master)解决了上述的问题。</p>
+<p>  Master-Slave模式的主要参与者有以下几种。</p>
 <p><img src="https://p.ipic.vip/8poevr.png" alt=""></p>
 <ul>
 <li>Master：负责原始任务的分解，子任务的派发和子任务处理结果的合并，其主要职责如下。
@@ -432,7 +433,7 @@
 <li>service：这是Master参与者对外暴露的接口，用于接收原始任务并返回其处理结果。</li>
 <li>splitWork：将原始任务分解成若干个语义等同的子任务。</li>
 <li>callSlaves：将各个子任务派发给各个Slave实例进行处理。</li>
-<li>combineResults：将各个子任务的处理结果进行整合，形成原始任务的处理结果，。</li>
+<li>combineResults：将各个子任务的处理结果进行整合，形成原始任务的处理结果。</li>
 </ul>
 </li>
 <li>Slave：负责处理子任务，其主要职责如下。
@@ -482,6 +483,8 @@
 
 <h3>这个系列的帖子</h3>
 <ul>
+  
+    <li><a href="/archive/multi-thread-patterns-pipeline/">[多线程设计模式]Pipeline(流水线)模式</a></li>
   
     <li><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]Master-Slave(主仆)模式</a></li>
   

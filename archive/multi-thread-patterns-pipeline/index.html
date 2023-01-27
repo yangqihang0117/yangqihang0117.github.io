@@ -10,7 +10,7 @@
   <title>
     
       
-        [多线程设计模式]Promise(承诺)模式 |
+        [多线程设计模式]Pipeline(流水线)模式 |
       Yxx
 
   </title>
@@ -82,7 +82,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 
-  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/" />
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/" />
 
   
   
@@ -111,18 +111,18 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[多线程设计模式]Promise(承诺)模式"/>
-<meta name="twitter:description" content="  Promise模式是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。"/>
+<meta name="twitter:title" content="[多线程设计模式]Pipeline(流水线)模式"/>
+<meta name="twitter:description" content="  Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。"/>
 
 
 
   
-  <meta property="og:title" content="[多线程设计模式]Promise(承诺)模式" />
-<meta property="og:description" content="  Promise模式是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。" />
+  <meta property="og:title" content="[多线程设计模式]Pipeline(流水线)模式" />
+<meta property="og:description" content="  Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/" /><meta property="article:section" content="archive" />
-<meta property="article:published_time" content="2019-11-24T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-11-24T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2020-03-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-21T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
 
 
 
@@ -137,12 +137,12 @@
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "articleSection": "archive",
-        "name": "[多线程设计模式]Promise(承诺)模式",
-        "headline": "[多线程设计模式]Promise(承诺)模式",
+        "name": "[多线程设计模式]Pipeline(流水线)模式",
+        "headline": "[多线程设计模式]Pipeline(流水线)模式",
         "alternativeHeadline": "",
         "description": "
       
-        \u003cp\u003e  \u003cstrong\u003ePromise模式\u003c\/strong\u003e是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。\u003c\/p\u003e
+        \u003cp\u003e  Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。\u003c\/p\u003e
 
 
       
@@ -153,7 +153,7 @@
         "isFamilyFriendly": "true",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-promise\/"
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-pipeline\/"
         },
         "author" : {
             "@type": "Person",
@@ -171,10 +171,10 @@
             "@type": "Person",
             "name": "Yxx"
         },
-        "copyrightYear" : "2019",
-        "dateCreated": "2019-11-24T00:00:00.00Z",
-        "datePublished": "2019-11-24T00:00:00.00Z",
-        "dateModified": "2019-11-24T00:00:00.00Z",
+        "copyrightYear" : "2020",
+        "dateCreated": "2020-03-21T00:00:00.00Z",
+        "datePublished": "2020-03-21T00:00:00.00Z",
+        "dateModified": "2020-03-21T00:00:00.00Z",
         "publisher":{
             "@type":"Organization",
             "name": "Yxx",
@@ -191,8 +191,8 @@
       ]
 
     ,
-        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-promise\/",
-        "wordCount" : "1789",
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-pipeline\/",
+        "wordCount" : "2875",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -420,52 +420,112 @@
   >
     
     <div class="post__content">
-      <h1>[多线程设计模式]Promise(承诺)模式</h1>
-      <p>  <strong>Promise模式</strong>是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。</p>
+      <h1>[多线程设计模式]Pipeline(流水线)模式</h1>
+      <p>  Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。</p>
 <h2 id="模式架构">模式架构</h2>
-<p><img src="https://p.ipic.vip/mc87j0.png" alt=""></p>
-<p>  在Promise模式中，客户端代码调用某个异步方法所得到的返回值仅是一个凭据对象(该对象被称为<em>Promise</em>，意为&quot;承诺&quot;)。凭借该对象，客户端代码可以获取异步任务的执行结果。</p>
-<p>  <strong>Promise(承诺)模式</strong>的主要参与者如下。</p>
+<p>  Pipeline模式将任务的处理过程分解为若干个处理阶段，并将其中的每个处理阶段抽象为一个对象。这些表示处理阶段的对象都有其工作者线程负责对输入进行处理，并将输出作为下一个处理阶段的输入。</p>
+<p>  按照处理阶段中是否包含并发处理阶段，Pipeline模式可分为线性Pipeline和非线性Pipeline两种。</p>
+<p><img src="https://p.ipic.vip/2rgk2m.png" alt=""></p>
+<center>
+	<font color="#888" size="2" >线性流水线</font>
+</center>
+<p><img src="https://p.ipic.vip/b35j76.png" alt=""></p>
+<center>
+	<font color="#888" size="2" >非线性流水线</font>
+</center>
+<p>  Pipeline模式的主要参与者有以下几种。</p>
+<p><img src="https://p.ipic.vip/aixiei.png" alt=""></p>
 <ul>
-<li><strong>Promisor</strong>：负责对外暴露可以返回<em>Promise</em>对象的异步方法，并启动执行异步任务。其主要职责如下。
+<li><strong>Pipe</strong>：对处理阶段的抽象，负责对输入进行处理，并将输出作为下一个处理阶段的输入。因此，一个Pipe实例可以被理解为包含输入、输出和处理过程的三元组。其主要职责如下。
 <ul>
-<li>compute：启动执行异步任务，并返回用于获取异步任务执行结果的凭据。</li>
+<li>process：用于处理接收前一个处理阶段的处理结果，作为该处理阶段的输入。</li>
+<li>init：初始化当前处理阶段对外提供的服务。</li>
+<li>shutdown：关闭当前处理阶段对外提供的服务。</li>
+<li>setNextPipe：设置当前处理阶段的下一个处理阶段。</li>
 </ul>
 </li>
-<li><strong>Promise</strong>：包装异步任务处理结果的凭据对象。负责监测异步任务是否处理完毕，返回和存储异步任务结果。其主要职责如下。
+<li><strong>PipeContext</strong>：对各个处理阶段的计算环境进行抽象，主要用于异常处理，其主要职责如下。
 <ul>
-<li>getResult：获取与其所属<em>Promise</em>实例关联的异步任务的执行结果。</li>
-<li>setResult：设置与其所属<em>Promise</em>实例关联的异步任务的执行结果。</li>
-<li>isDone：检测与其所属<em>Promise</em>实例关联的异步任务的执行是否完成。</li>
+<li>handleError：用于对处理阶段抛出的异常进行处理。</li>
 </ul>
 </li>
-<li><strong>Result</strong>：负责表示异步任务处理结果，具体类型由应用决定。</li>
-<li><strong>TaskExecutor</strong>：负责真正执行异步任务所包含的计算过程，并将其计算结果设置到相应的<em>Promise</em>实例上，其主要职责如下。
+<li><strong>AbstractPipe</strong>：Pipe接口的抽象实现类，其主要职责如下。
 <ul>
-<li>run：执行异步任务所代表的计算过程</li>
+<li>process：接收前一个处理阶段的处理结果，并调用子类实现的doProcess方法对输入进行处理。相应处理结果会作为下一阶段的输入。</li>
+<li>init：保存对其参数中指定的PipeContext实例的引用，子类可根据需要覆盖该方法以实现其服务的初始化。</li>
+<li>shutdown：子类可根据需要覆盖该方法实现服务停止。</li>
+<li>setNextPipe：设置当前处理阶段的下一个处理阶段。</li>
+<li>doProcess：留给子类实现的抽象方法，用于子类实现其对输入的处理逻辑。</li>
+</ul>
+</li>
+<li><strong>WorkerThreadPipeDecorator</strong>：基于工作线程的Pipe实现类。该Pipe实例会将接收到的输入存入队列，由指定个数的工作者线程对队列输入进行处理。该类自身主要负责工作者线程的生命周期管理。其主要职责如下。
+<ul>
+<li>process：接收前一个处理阶段的处理结果，将其存入队列，由工作者线程进行取出进行处理。</li>
+<li>init：启动工作者线程，并调用委托Pipe实例的init方法。</li>
+<li>shutdown：停止工作者线程，并调用委托Pipe实例的shutdown方法。</li>
+<li>setNextPipe：调用委托Pipe实例的setNextPipe方法。</li>
+<li>dispath：从队列中取出元素，并调用委托Pipe实例的process方法对其进行处理。</li>
+</ul>
+</li>
+<li><strong>ThreadPoolPipeDecorator</strong>：基于线程池的Pipe实现类。该类主要实现用线程池中的工作线程去执行对各个输入的处理过程。其主要职责如下。
+<ul>
+<li>process：接受前一个处理阶段的处理结果，并向线程池提交一个对该输入进行相应的任务。</li>
+<li>init：调用委托Pipe实例的init方法。</li>
+<li>shutdown：关闭当前Pipe实例对外提供的服务，并调用委托Pipe实例的shutdown方法。</li>
+<li>setNextPipe：调用委托Pipe实例的setNextPipe方法。</li>
+</ul>
+</li>
+<li><strong>AbstractParallelPipe</strong>：AbstractPipe的子类，支持并行处理的Pipe实现类。该类对其每个输入(原始任务)生成一组子任务，并以并行的方式执行这些子任务。各个子任务的执行结果会被合并为相应原始任务的输出结果。其主要职责如下。
+<ul>
+<li>buildTasks：留给子类实现的抽象方法，用于根据指定的输入构造一组子任务。</li>
+<li>invokeParallel：实现并行的方式执行一组任务。</li>
+<li>combineResults：留给子类实现的抽象方法。对各个并行子任务的处理结果进行合并，形成相应输入的输出结果。</li>
+<li>doProcess：实现该类对其输入的处理逻辑。</li>
+</ul>
+</li>
+<li><strong>ConcreteParallelPipe</strong>：由应用定义的AbstractParallelPipe的子类，其主要职责如下。
+<ul>
+<li>buildTasks：根据输入构造一组子任务。</li>
+<li>combineResults：对各个并行子任务的处理结果进行合并，形成相应输入元素的输出结果。</li>
+</ul>
+</li>
+<li><strong>Pipeline</strong>：对复合Pipe对抽象，一个Pipeline实例可包含多个Pipe实例。其主要职责如下。
+<ul>
+<li>addPipe：往Pipeline实例中提那家一个Pipe实例。</li>
+</ul>
+</li>
+<li><strong>SimplePipeline</strong>：基于ABstractPipeline的Pipeline接口的一个简单实现类，其主要职责如下。
+<ul>
+<li>addPipe：往该Pipeline实例中添加一个Pipe实例。</li>
+<li>addAsWorkerThreadBasedPipe：将制定的Pipe实例用WorkThreadPipeDecorator实例包装后加入Pipeline实例。</li>
+<li>addAsThreadPoolBasedPipe：将制定的Pipe实例用ThreadPoolPipeDecorator实例包装后加入Pipeline实例。</li>
 </ul>
 </li>
 </ul>
-<h3 id="获取异步任务处理结果过程序列">获取异步任务处理结果过程序列</h3>
-<p><img src="https://p.ipic.vip/oqurs9.png" alt=""></p>
+<h3 id="初始化序列">初始化序列</h3>
+<p><img src="https://p.ipic.vip/j5wqq0.png" alt=""></p>
 <ul>
-<li><strong>第1步</strong>：客户端代码调用<em>Promisor</em>的异步方法<em>compute</em>。</li>
-<li><strong>第2、3步</strong>：<em>compute</em>方法创建<em>Promise</em>实例作为该方法的返回值并返回。</li>
-<li><strong>第4步</strong>：客户端代码调用其所得到的<em>Promise</em>对象的<em>getResult</em>方法，获取异步任务处理结果。如果此时异步任务执行尚未完成，则<em>getResult</em>方法会阻塞(即调用方代码的运行线程暂时进入阻塞状态)。</li>
+<li><strong>第1步</strong>：客户端代码创建Pipeline参与者实例。</li>
+<li><strong>第2、3步</strong>：客户端代码创建其所需的各个Pipe参与者实例。</li>
+<li><strong>第4步</strong>：客户端代码调用Pipeline实例的addPipe方法添加其创建的Pipe实例。</li>
+<li><strong>第5步</strong>：客户端代码创建PipeContext参与者实例。</li>
+<li><strong>第6步</strong>：客户端代码调用Pipeline实例的init方法。</li>
+<li><strong>第7～10步</strong>：init方法调用其所属Pipeline实例所包含的各个Pipe实例的init方法，以初始化这些Pipe实例所提供的服务。</li>
+<li><strong>第11步</strong>：init方法返回。</li>
 </ul>
-<h3 id="异步任务执行及处理结果设置序列">异步任务执行及处理结果设置序列</h3>
-<p><img src="https://p.ipic.vip/yxljxi.png" alt=""></p>
+<h3 id="调用序列">调用序列</h3>
+<p>  以客户端调用基于WorkThreadPipelineDecorator和AbstractPipe实现的Pipeline服务为例。</p>
+<p><img src="https://p.ipic.vip/qd7xjx.png" alt=""></p>
 <ul>
-<li><strong>第1步</strong>：<em>Promisor</em>的异步方法<em>compute</em>创建<em>TaskExecutor</em>实例。</li>
-<li><strong>第2步</strong>：执行<em>TaskExecutor</em>的<em>run</em>方法(可以由专门的线程或者线程池来调用<em>run</em>方法)。</li>
-<li><strong>第3步</strong>：<em>run</em>方法创建表示其执行结果的<em>Result</em>实例。</li>
-<li><strong>第4、5步</strong>：<em>run</em>方法将其处理结果设置到相应的<em>Promise</em>实例上。</li>
+<li><strong>第1步</strong>：客户端代码调用Pipeline参与者实例的process方法提交一个任务。</li>
+<li><strong>第2、3步</strong>：process方法调用当前Pipeline实例所包含的第一个Pipe实例的process方法。</li>
+<li><strong>第4步</strong>：process方法返回。</li>
+<li><strong>第5步</strong>：Pipeline实例中第一个Pipe实例开始处理其任务，其dispatch方法被工作者线程(或者线程池中的工作者线程)调用。</li>
+<li><strong>第6步</strong>：dispatch方法调用pipe1的委托Pipe实例的process方法。</li>
+<li><strong>第7步</strong>：pipe1(AbstractPipe)的process方法调用其doProcess方法对输入(inputA)进行处理，相应处理结果为outA。</li>
+<li><strong>第8、9步</strong>：pipe1(AbstractPipe)的process方法获取下一个Pipe实例pipe2，并调用pipe2的process方法，将outA作为输入提交给pipe2处理。</li>
+<li><strong>第10步</strong>：pipe1的process方法返回。</li>
 </ul>
-<h2 id="需要注意的问题">需要注意的问题</h2>
-<h3 id="异步方法的异常处理">异步方法的异常处理</h3>
-<p>  如果<em>Promisor</em>的<em>compute</em>的方法是一个异步方法，那么客户端代码在调用完该方法后异步任务可能尚未开始执行。另外，异步任务运行在自己的线程中，并不是运行在<em>compute</em>方法的调用方线程中。因此，异步任务执行过程中产生的异常无法在<em>compute</em>方法中抛出。为了让<em>Promise</em>模式的客户端代码能够捕获到异步任务执行过程中发生的异常，一个可行的办法是让<em>TaskExecutor</em>在执行任务捕获异常后，将异常对象&quot;记录&quot;在<em>Promise</em>对象的一个专门的属性上，然后由<em>Promise</em>实例的<em>getResult</em>方法对该实例变量进行检查。若该属性的值不为<code>null</code>，则<em>getResult</em>方法抛出异常。这样，<em>Promise</em>模式的客户端代码通过捕获<em>getResult</em>方法抛出的异常即可&quot;知道&quot;异步任务执行过程中出现的异常。<em>JDK</em>中提供的类<code>java.util.concurrent.FutureTask</code>就是采用这种方法对<em>compute</em>异步方法的异常进行处理的。</p>
-<h3 id="轮训">轮训</h3>
-<p>  客户端代码对<em>Promise</em>的<em>getResult</em>方法的调用可能由于异步任务尚未执行完毕而阻塞，这实际上也是一种等待。虽然可以通过尽可能早地调用<em>compute</em>方法并尽可能晚地调用<em>getResult</em>方法来降低这种等待的可能性，但是它仍然可能会出现。在某些场景下，可能根本不希望出现任何等待。此时，我们需要在调用<em>Promise</em>的<em>getResult</em>方法之前确保异步任务已经执行完毕。因此，<em>Promise</em>需要暴露一个<em>isDone</em>方法，用于检测异步任务是否已执行完毕。<em>JDK</em>提供的类<code>java.util.concurrent.FutureTask</code>的<em>isDone</em>方法正是处于这种考虑，它允许我们在&quot;适当&quot;的时候才调用<em>Promise</em>的<em>getResult</em>方法(相当于<em>FutureTask</em>d的<em>get</em>方法)。</p>
 
 
 <h3>这个系列的帖子</h3>
