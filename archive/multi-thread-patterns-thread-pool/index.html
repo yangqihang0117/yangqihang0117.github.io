@@ -429,7 +429,7 @@
 </blockquote>
 <h2 id="模式架构">模式架构</h2>
 <p>  Thread Pool模式的主要参与者有以下几种。</p>
-<p><img src="https://p.ipic.vip/5j4j1d.png" alt=""></p>
+<p><img src="https://p.ipic.vip/uazwwj.png" alt=""></p>
 <ul>
 <li><strong>ThreadPool</strong>：负责接收和存储任务以及工作线程的生命周期管理。其主要职责如下。
 <ul>
@@ -457,14 +457,14 @@
 </li>
 </ul>
 <h3 id="客户端代码向线程池提交任务序列">客户端代码向线程池提交任务序列</h3>
-<p><img src="https://p.ipic.vip/s2ceuz.png" alt=""></p>
+<p><img src="https://p.ipic.vip/j62fpr.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用ThreadPool参与者实例的submit方法提交一个任务。</li>
 <li><strong>第2～4步</strong>：创建用于获取当前任务结果的Promise参与者实例，将要执行的任务放入任务队列中。</li>
 <li><strong>第5步</strong>：返回Promise参与者实例。</li>
 </ul>
 <h3 id="线程池执行任务序列">线程池执行任务序列</h3>
-<p><img src="https://p.ipic.vip/1x8ip9.png" alt=""></p>
+<p><img src="https://p.ipic.vip/ius1h4.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：某个工作者线程开始执行，其run方法被Java虚拟机调用。</li>
 <li><strong>第2～4步</strong>：进入run方法中的循环，重复地从工作队列中取出一个任务执行。若队列中暂时没有任务，则当前工作者线程会被挂起，直到工作队列中有新的任务。</li>

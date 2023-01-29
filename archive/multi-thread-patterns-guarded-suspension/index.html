@@ -426,7 +426,7 @@
 <h2 id="模式架构">模式架构</h2>
 <p>  <strong>Guarded Suspension模式</strong>的核心是一个<strong>受保护方法(Guarded Method)</strong>。该方法在执行其所要真正执行的操作时需要满足特定的条件(<em>Predicate</em>，保护条件)。当该条件不满足时，执行受保护方法的线程会被挂起并进入等待(<em>WAITING</em>)状态，直到该条件满足，该线程才会继续运行。此时受保护方法才会真正执行其所要执行的操作。</p>
 <p>  Guarded Suspension模式的主要参与者有以下几种。</p>
-<p><img src="https://p.ipic.vip/zhh3s7.png" alt=""></p>
+<p><img src="https://p.ipic.vip/o4mqca.png" alt=""></p>
 <ul>
 <li><strong>GuardedObject</strong>：包含受保护方法的对象，其职责如下。
 <ul>
@@ -457,7 +457,7 @@
 </li>
 </ul>
 <h3 id="受保护方法的内部处理序列">受保护方法的内部处理序列</h3>
-<p><img src="https://p.ipic.vip/l26kmr.png" alt=""></p>
+<p><img src="https://p.ipic.vip/wdjlam.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用受保护方法<em>guardedMethod()</em>。</li>
 <li><strong>第2步</strong>：<em>guardedMethod</em>方法创建<em>GuardedAction</em>的实例<em>guardedAction</em>。</li>
@@ -470,7 +470,7 @@
 </ul>
 <p>  在受保护方法的执行暂被挂载后，当保护条件成立时，其他线程需要唤醒该线程。</p>
 <h3 id="被挂载线程的唤醒序列">被挂载线程的唤醒序列</h3>
-<p><img src="https://p.ipic.vip/je3dgv.png" alt=""></p>
+<p><img src="https://p.ipic.vip/erix2w.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用<em>stateChanged</em>方法改变<em>GuardedObject</em>实例的状态。这些状态包含了保护条件所关心的状态。</li>
 <li><strong>第2步</strong>：<em>stateChanged</em>方法创建<code>java.util.concurrent.Callable</code>的实例<em>stateOperation</em>。<em>stateOperation</em>封装了改变<em>GuardedObject</em>实例状态所需的操作。</li>

@@ -426,7 +426,7 @@
 <p>  为了提高计算效率，我们往往将一个规模比较大的任务分解成若干个子任务，并使用专门的工作者线程来执行这些子任务。然后将各个子任务的处理结果整合为原始任务的处理结果。但是，对于服务的客户端代码而言，有关任务的分解、子任务处理结果的合并以及工作者线程的管理等细节都应该是不可见的，以便提高服务代码的可维护性和简化客户端代码。</p>
 <p>  Master-Slave模式通过在子任务和服务的客户端代码之间引入了一个协调性对象(Master)解决了上述的问题。</p>
 <p>  Master-Slave模式的主要参与者有以下几种。</p>
-<p><img src="https://p.ipic.vip/8poevr.png" alt=""></p>
+<p><img src="https://p.ipic.vip/ko1amx.png" alt=""></p>
 <ul>
 <li>Master：负责原始任务的分解，子任务的派发和子任务处理结果的合并，其主要职责如下。
 <ul>
@@ -443,7 +443,7 @@
 </li>
 </ul>
 <h3 id="模式序列">模式序列</h3>
-<p><img src="https://p.ipic.vip/4cldeo.png" alt=""></p>
+<p><img src="https://p.ipic.vip/9cn7jt.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用Master参与者实例的service方法提交一个任务(原始任务)。</li>
 <li><strong>第2步</strong>：service方法调用splitWork方法将原始任务分解为若干个语义等同的任务。</li>
@@ -459,7 +459,7 @@
 <li><strong>计算精度</strong>：该场景使用Master-Slave模式是为了提高计算精确度。在此情形下，原始任务的处理结果是所有Slave实例中处理结果精确度最低的一个结果。</li>
 </ul>
 <p>  上述三种场景，只有第一种场景下的所有Slave参与者实例都使用一个实现类，而在另外两种场景下，不同的Slave参与者实例对应着不同的实现类。此时，为了保证Slave参与者实例在数量、类型上如果有变动对Master可能产生影响最小，需要在Slave参与者中使用 <strong>Strategy(策略)模式</strong>，使得所有的Slave实现类都有一个共同的接口。</p>
-<p><img src="https://p.ipic.vip/d2fiti.png" alt=""></p>
+<p><img src="https://p.ipic.vip/cqlhbv.png" alt=""></p>
 <p>  使用Master-Slave模式能够带来一下几点好处。</p>
 <ul>
 <li><strong>可交换性和可扩展性</strong>：如果使所有的Slave参与者实现类拥有共同的接口，那么替换某个Slave实例、增加一个Slave实例对Master参与者产生的影响很小。客户端代码也不会受此影响。如果Master进行任务分解、任务派发和兵法子任务处理结果所涉及的算法有改变，也不会影响Slave参与者和客户端代码。</li>

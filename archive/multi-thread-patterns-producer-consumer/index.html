@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-thread-patterns-producer-consumer\/",
-        "wordCount" : "3018",
+        "wordCount" : "2990",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -426,7 +426,7 @@
 <h2 id="模式架构">模式架构</h2>
 <p>  <strong>Producer-Consumer模式</strong>的核心是，通过管道对数据(或任务)的生产者和消费者进行解耦，使二者不直接进行交互，从而使二者的处理速率相对来说互不影响。</p>
 <p>  <strong>Producer-Consumer模式</strong>的主要参与者有以下几种。</p>
-<p><img src="https://p.ipic.vip/d2xdni.png" alt=""></p>
+<p><img src="https://p.ipic.vip/s8xeuv.png" alt=""></p>
 <ul>
 <li><strong>Producer</strong>：生产者，负责生成相应的&quot;产品&quot;并将其存入通道，其主要职责如下。
 <ul>
@@ -446,18 +446,18 @@
 </ul>
 </li>
 </ul>
-<h3 id="产品生产序列">&ldquo;产品&quot;生产序列</h3>
-<p><img src="https://p.ipic.vip/yxljxi.png" alt=""></p>
+<h3 id="产品生产序列">产品生产序列</h3>
+<p><img src="https://p.ipic.vip/g0795z.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用<em>Producer</em>的service方法。</li>
-<li><strong>第2～4步</strong>：<em>service</em>方法生成相应的&quot;产品&rdquo;，并调用<em>Channel</em>参与者实例的<em>put</em>方法将&quot;产品&quot;存入通道。</li>
+<li><strong>第2～4步</strong>：<em>service</em>方法生成相应的&quot;产品&quot;，并调用<em>Channel</em>参与者实例的<em>put</em>方法将&quot;产品&quot;存入通道。</li>
 <li><strong>第5步</strong>：<em>service</em>方法返回。</li>
 </ul>
-<h3 id="产品消费序列">&ldquo;产品&quot;消费序列</h3>
-<p><img src="https://p.ipic.vip/m24f98.png" alt=""></p>
+<h3 id="产品消费序列">产品消费序列</h3>
+<p><img src="https://p.ipic.vip/t1h5qb.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：<em>Consumer</em>参与者实例的工作者线程开始运行，其<em>dispatch</em>方法被调用。<em>dispatch</em>方法会重复执行第2～4步。</li>
-<li><strong>第2～4步</strong>：<em>dispatch</em>方法调用<em>Channel</em>参与者实例的<em>take</em>方法，取出一个&quot;产品&rdquo;，并对其进行相应的处理。</li>
+<li><strong>第2～4步</strong>：<em>dispatch</em>方法调用<em>Channel</em>参与者实例的<em>take</em>方法，取出一个&quot;产品&quot;，并对其进行相应的处理。</li>
 </ul>
 <h2 id="需要注意的问题">需要注意的问题</h2>
 <h3 id="产品的粒度">产品的粒度</h3>

@@ -455,7 +455,7 @@
 <h2 id="模式架构">模式架构</h2>
 <p>  <strong>Thread Specific Storage模式</strong>的基础是为每个线程&quot;装备&quot;一个线程特有存储(Thread Specific Storage)。线程特有存储可以理解为一个<strong>Map</strong>。该 <strong>Map</strong> 存放了若干个条目(Entry)。每个条目中的值(Value)是一个线程特有对象，键(Key)是用于获取相应线程特有对象的 <strong>TSSObjectProxy</strong> 实例。客户端代码通过<strong>TSSObjectProxy</strong>实例获取其所需的线程特有对象。从逻辑上说，每个线程都有其线程特有存储。因此，不同线程使用同一个<strong>TSSObjectProxy</strong>实例可以获取不同的线程特有对象实例。同一个线程使用不同的<strong>TSSObjectProxy</strong>实例也可以获取不同的线程特有实例。</p>
 <p>  Thread Specific Storage模式的主要参与者有以下几种。</p>
-<p><img src="https://p.ipic.vip/hclmja.png" alt=""></p>
+<p><img src="https://p.ipic.vip/032dnm.png" alt=""></p>
 <ul>
 <li><strong>Application Thread</strong>：<strong>Thread Specific Storge模式</strong>的客户端，表示各个应用线程。</li>
 <li><strong>TSSObjectProxy</strong>：用于访问线程特有对象的代理对象，其主要职责如下。
@@ -475,7 +475,7 @@
 </ul>
 <p>  Java标准库中的类<code>java.lang.ThreadLocal&lt;T&gt;</code>可以看成<strong>TSSObjectProxy</strong>参与者的一个通用实现。ThreadLocal的类型参数T可以看成TSSObject参与者。</p>
 <h3 id="模式序列">模式序列</h3>
-<p><img src="https://p.ipic.vip/zgkzhf.png" alt=""></p>
+<p><img src="https://p.ipic.vip/knrzy9.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用 <strong>TSSObjectProxy</strong> 实例的get方法。</li>
 <li><strong>第2、3步</strong>：get方法调用与当前线程关联的 <strong>ThreadSpecificStorage</strong> 实例的get方法，并获得其返回值tssObject。</li>
@@ -492,7 +492,7 @@
 <p>  伪内存泄漏(Memory Pseudo-leak)类似于内存泄漏。不同的是，伪内存泄漏中对象所占用的内存在其不再使用后的相当长的时间内无法被回收，甚至可能永远无法被回收。也就是说，伪内存泄漏中对象占用的内存可能会被回收，也可能永远无法被回收(此时，就变成了内存泄漏)。</p>
 <p>  在服务器环境(如Apache Tomcat)下使用Thread Specific Storage模式需要注意ThreadLocal可能导致内存泄漏和伪内存泄漏。</p>
 <p>  首先我们看下ThreadLocal是如何实现Thread Specific Storage模式的。JDK标准库类<code>java.lang.Thread</code>的实例变量threaLocals会引用一个ThreadLocal.ThreadLocalMap实例。该实例相当于Thread Specific Storage模式的ThreadSpecificStorage参与者实例，从效果上可以理解为一个WeakHashMap。该&quot;WeakHashMap&quot;包含若干条目(Entry)，每个条目的(Key)指向一个ThreadLocal实例的弱引用(Weak Reference)，值(Value)指向线程持有对象(TSSObject)实例。</p>
-<p><img src="https://p.ipic.vip/zlq8si.png" alt=""></p>
+<p><img src="https://p.ipic.vip/2wz2fw.png" alt=""></p>
 <p>  ThreadLocalMap的条目对ThreadLocal实例的引用是弱引用，因此它不会阻止垃圾回收器(Garbage Collector)将其引用的ThreadLocal实例回收。而ThreadLocalMap的条目对线程特有对象实例的引用是强引用(Strong Reference)，因此它会阻止垃圾回收器将其引用的线程特有对象回收。</p>
 <p>  对于某个ThreadLocal实例而言，如果在某一个时间段内该实例除了ThreadLocalMap条目对其有可达引用(Reachable Reference)外，没有其他可达的引用，那么垃圾回收器就可以将该ThreadLocal实例回收。此时，先前引用该ThreadLocal实例的ThreadLocalMap条目由于其Key值变为null，因此成了一条无效的条目(Stale Entry)。这种无效的条目(即Key值为null，Value值可能仍然指向一个线程特有对象)在其所属的ThreadLocalMap有新增条目时可能被删除。如果在某个线程引用的ThreadLocalMap实例产生无效条目后，某段时间内该线程处于非运行状态，则该线程引用的ThreadLocalMap实例就没有新增的条目，因此其所有的无效条目在该时间段内也无法被删除。如果该线程一直处于非运行状态，则该线程引用的ThreadLocalMap实例的无效条目永远无法被删除。所以这种情形就会导致伪内存泄漏。</p>
 <p>  对于某个ThreadLocal实例而言，如果在某一时间段内系统中除了ThreadLocalMap条目对其有可达性的引用(弱引用)外，还有其他可达的强引用，那么相应的ThreadLocalMap条目不会被删除，再加上ThreadLocalMap条目对线程特有对象的引用是强引用，此时只要引用该ThreadLocalMap实例的线程存在，则该条目会阻止垃圾回收器将相应的线程特有对象实例回收。如果引用该ThreadLocalMap条目的线程永远存在，则该ThreadLocalMap条目引用的ThreadLocal实例及其对应的线程特有对象实例都无法被垃圾回收，这就产生了内存泄漏。</p>

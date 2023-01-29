@@ -425,7 +425,7 @@
 <h2 id="模式架构">模式架构</h2>
 <p>  当<strong>Active Object模式</strong>对外暴露的异步方法被调用时，与该方法调用相关的上下文信息，包含调用的异步方法名(或其代表的操作)、客户端代码所传递的参数等，会被封装成一个对象。该对象被称为 <strong>方法请求(Method Request)</strong>。方法请求对象会被存入 <strong>Active Object模式</strong> 所维护的 <strong>缓冲区(ActivationQueue)</strong> 中，并由专门的工作者线程负责根据其包含的上下文信息执行相应的操作。也就是说，方法请求对象是由客户端线程通过调用Active Object模式对外暴露的异步方法生成的，而方法请求所代表的操作则有专门的工作者线程来执行，从而实现了调用与执行的分离，产生了并发。</p>
 <p>  Active Object模式的主要参与者有以下几种。</p>
-<p><img src="https://p.ipic.vip/3smgo5.png" alt=""></p>
+<p><img src="https://p.ipic.vip/kfw7c1.png" alt=""></p>
 <ul>
 <li><strong>Proxy</strong>：负责对外暴露异步方法接口，其主要职责如下。
 <ul>
@@ -462,7 +462,7 @@
 </li>
 </ul>
 <h3 id="方法的调用序列">方法的调用序列</h3>
-<p><img src="https://p.ipic.vip/p85rip.png" alt=""></p>
+<p><img src="https://p.ipic.vip/3zrxdz.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端调用<em>Proxy</em>的异步方法<em>callAsync</em>。</li>
 <li><strong>第2、3步</strong>：<em>callAsync</em>方法创建<em>Future</em>实例作为返回值，并将客户端代码对其的调用封装为<em>MethodRequest</em>对象。</li>
@@ -470,7 +470,7 @@
 <li><strong>第8步</strong>：<em>calAsync</em>返回其创建的<em>Future</em>实例。</li>
 </ul>
 <h3 id="方法的执行序列">方法的执行序列</h3>
-<p><img src="https://p.ipic.vip/rd2kh6.png" alt=""></p>
+<p><img src="https://p.ipic.vip/q01qn3.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：<em>Scheduler</em>实例采用专用的工作者线程运行<em>dispatch</em>方法。</li>
 <li><strong>第2～4步</strong>：<em>dispatch</em>方法从调用缓冲区的<em>dequeue</em>方法从中取出一个<em>MethodRequest</em>实例，然后调用<em>MethodRequest</em>对象的<em>call</em>方法。</li>

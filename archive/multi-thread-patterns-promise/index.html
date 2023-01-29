@@ -425,7 +425,7 @@
 <h2 id="模式架构">模式架构</h2>
 <p>  在Promise模式中，客户端代码调用某个异步方法所得到的返回值仅是一个凭据对象(该对象被称为<em>Promise</em>，意为&quot;承诺&quot;)。凭借该对象，客户端代码可以获取异步任务的执行结果。</p>
 <p>  <strong>Promise(承诺)模式</strong>的主要参与者如下。</p>
-<p><img src="https://p.ipic.vip/mc87j0.png" alt=""></p>
+<p><img src="https://p.ipic.vip/dv47py.png" alt=""></p>
 <ul>
 <li><strong>Promisor</strong>：负责对外暴露可以返回<em>Promise</em>对象的异步方法，并启动执行异步任务。其主要职责如下。
 <ul>
@@ -447,14 +447,14 @@
 </li>
 </ul>
 <h3 id="获取异步任务处理结果过程序列">获取异步任务处理结果过程序列</h3>
-<p><img src="https://p.ipic.vip/oqurs9.png" alt=""></p>
+<p><img src="https://p.ipic.vip/p77hxf.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：客户端代码调用<em>Promisor</em>的异步方法<em>compute</em>。</li>
 <li><strong>第2、3步</strong>：<em>compute</em>方法创建<em>Promise</em>实例作为该方法的返回值并返回。</li>
 <li><strong>第4步</strong>：客户端代码调用其所得到的<em>Promise</em>对象的<em>getResult</em>方法，获取异步任务处理结果。如果此时异步任务执行尚未完成，则<em>getResult</em>方法会阻塞(即调用方代码的运行线程暂时进入阻塞状态)。</li>
 </ul>
 <h3 id="异步任务执行及处理结果设置序列">异步任务执行及处理结果设置序列</h3>
-<p><img src="https://p.ipic.vip/yxljxi.png" alt=""></p>
+<p><img src="https://p.ipic.vip/0if5s4.png" alt=""></p>
 <ul>
 <li><strong>第1步</strong>：<em>Promisor</em>的异步方法<em>compute</em>创建<em>TaskExecutor</em>实例。</li>
 <li><strong>第2步</strong>：执行<em>TaskExecutor</em>的<em>run</em>方法(可以由专门的线程或者线程池来调用<em>run</em>方法)。</li>
