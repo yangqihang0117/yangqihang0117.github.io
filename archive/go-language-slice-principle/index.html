@@ -10,7 +10,7 @@
   <title>
     
       
-        Java多线程设计模式 |
+        [Go语言]Slice(切片)实现原理 |
       Yxx
 
   </title>
@@ -82,10 +82,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 
-  <link rel="canonical" href="https://yangqihang0117.github.io/series/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/go-language-slice-principle/" />
 
   
-  <link rel="alternate" type="application/rss+xml" href="/series/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" title="Yxx's Study Notes" />
   
   
   
@@ -112,22 +111,111 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Java多线程设计模式"/>
-<meta name="twitter:description" content="Stay Hungry,Stay Foolish"/>
+<meta name="twitter:title" content="[Go语言]Slice(切片)实现原理"/>
+<meta name="twitter:description" content="  slice是数组的一个引用，所以它是引用类型。但它本身是结构体，通过值复制(value-copy)传递，slice的长度是可变的，所以slice切片又被称为动态数组，可以方便的进行扩容、传递等操作。"/>
 
 
 
   
-  <meta property="og:title" content="Java多线程设计模式" />
-<meta property="og:description" content="Stay Hungry,Stay Foolish" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://yangqihang0117.github.io/series/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+  <meta property="og:title" content="[Go语言]Slice(切片)实现原理" />
+<meta property="og:description" content="  slice是数组的一个引用，所以它是引用类型。但它本身是结构体，通过值复制(value-copy)传递，slice的长度是可变的，所以slice切片又被称为动态数组，可以方便的进行扩容、传递等操作。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/go-language-slice-principle/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+
 
 
 
 
   
   
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "[Go语言]Slice(切片)实现原理",
+        "headline": "[Go语言]Slice(切片)实现原理",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  \u003ccode\u003eslice\u003c\/code\u003e是数组的一个\u003cb\u003e引用\u003c\/b\u003e，所以它是引用类型。但它本身是结构体，通过\u003cb\u003e值复制(value-copy)\u003c\/b\u003e传递，\u003ccode\u003eslice\u003c\/code\u003e的长度是\u003cb\u003e可变\u003c\/b\u003e的，所以\u003ccode\u003eslice\u003c\/code\u003e切片又被称为\u003cstrong\u003e动态数组\u003c\/strong\u003e，可以方便的进行扩容、传递等操作。\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/go-language-slice-principle\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2020",
+        "dateCreated": "2020-10-25T00:00:00.00Z",
+        "datePublished": "2020-10-25T00:00:00.00Z",
+        "dateModified": "2020-10-25T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/go-language-slice-principle\/",
+        "wordCount" : "728",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "Go"
+
+    
+      
+        ,
+
+      
+      "Golang"
+
+    
+      
+        ,
+
+      
+      "Go Language"
+
+    ]
+    }
+  </script>
+
 
   <style>
     .post__content img{
@@ -331,157 +419,59 @@
 </div>
 </header>
   <div
-    class="archive 
+    class="post 
       animated fadeInDown
     "
   >
     
-      <div class="archive__heading">2020</div>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-pipeline/" title="[多线程设计模式]Pipeline(流水线)模式">[多线程设计模式]Pipeline(流水线)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/7/23
-                
+    <div class="post__content">
+      <h1>[Go语言]Slice(切片)实现原理</h1>
+      <p>  <code>slice</code>是数组的一个<b>引用</b>，所以它是引用类型。但它本身是结构体，通过<b>值复制(value-copy)</b>传递，<code>slice</code>的长度是<b>可变</b>的，所以<code>slice</code>切片又被称为<strong>动态数组</strong>，可以方便的进行扩容、传递等操作。</p>
+<p>  源码位置在<code>src/runtime/slice.go</code> 文件中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">slice</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">array</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">len</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">cap</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>  <code>slice</code>是一个拥有三个字段的结构：一个表示长度的<code>int</code>字段、一个表示容量的int字段以及一个指向内存块的指针。</p>
+<ul>
+<li><code>slice</code>本身不是动态数组或数组的指针。它内部实现通过指针引用底层数组，设定相关属性将数据读写操作限定在指定区域内。</li>
+<li><code>slice</code>是对数组一个连续片段的引用，切片是一个引用类型，给定项的切片长度可能比相关数组的相同元素的长度小。和数组不同的是，切片的长度可以在运行时修改，最小为0最大为相关数组的长度。</li>
+</ul>
+<p><img src="https://p.ipic.vip/o9a6pc.jpg" alt=""></p>
+<h2 id="操作细节">操作细节</h2>
+<p>  当一个切片被复制到不同的变量或传入到一个函数时，长度、容量、指针都会被复制。</p>
+<p><img src="https://p.ipic.vip/m02hyc.jpg" alt=""></p>
+<p>  改变切片中的值会改变指针所指向的内存，所以这些改变对副本切片和原切片都是可见的。</p>
+<p><img src="https://p.ipic.vip/kszdmx.jpg" alt=""></p>
+<p>  对长度和容量发生改变不会反映在原切片上，因为他们只在副本中。改变容量意味着现在指向了一个新的更大的内存块。</p>
+<blockquote>
+<p>使用<code>append</code>函数向<code>slice</code>追加数据时，如果相关数组的空间不足将会触发扩容，重新分配一块更大的数组，将原数组中的数据拷贝到新的数组。</p>
+<p>切片扩容的逻辑：
+  在原切片大小小于1024的情况下切片容量的大小将扩容为原来的两倍。
+  在原切片大小大于1024的情况下切片容量的大小将扩容为原来的1.25倍。</p>
+</blockquote>
+<p><img src="https://p.ipic.vip/w8qe5l.jpg" alt=""></p>
+<p>  如果切片副本增加，而且有足够的容量不需要扩容，那么副本的长度就会改变，新的值会被存储在副本和原切片共享的内存块中。然而，原切片的长度保持不变。这意味着Go运行时阻止原切片看到这些值，因为它们超出了原切片的长度。</p>
+<p><img src="https://p.ipic.vip/pyf0u4.jpg" alt=""></p>
 
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-master-slave/" title="[多线程设计模式]Master-Slave(主仆)模式">[多线程设计模式]Master-Slave(主仆)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/6/29
-                
 
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-thread-specific-storage/" title="[多线程设计模式]Thread Specific Storage(线程特有存储)模式">[多线程设计模式]Thread Specific Storage(线程特有存储)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/5/24
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-thread-pool/" title="[多线程设计模式]Thread Pool(线程池)模式">[多线程设计模式]Thread Pool(线程池)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/3/29
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-active-object/" title="[多线程设计模式]Active Object(主动对象)模式">[多线程设计模式]Active Object(主动对象)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/2/8
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-producer-consumer/" title="[多线程设计模式]Producer-Consumer(生产者/消费者)模式">[多线程设计模式]Producer-Consumer(生产者/消费者)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/1/18
-                
-
-              
-            </div>
-          </li>
-        </ul>
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/go-language-slice-principle/">[Go语言]Slice(切片)实现原理</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
       
 
-    
-      <div class="archive__heading">2019</div>
       
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-promise/" title="[多线程设计模式]Promise(承诺)模式">[多线程设计模式]Promise(承诺)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/12/22
-                
+        <span><a class="tag" href="/tags/go/">Go</a><a class="tag" href="/tags/golang/">Golang</a><a class="tag" href="/tags/go-language/">Go Language</a></span>
 
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-two-phase-termination/" title="[多线程设计模式]Two-phase Termination(两阶段终止)模式">[多线程设计模式]Two-phase Termination(两阶段终止)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/11/30
-                
 
-              
-            </div>
-          </li>
-        </ul>
       
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-guarded-suspension/" title="[多线程设计模式]Guarded Suspension(保护性暂挂)模式">[多线程设计模式]Guarded Suspension(保护性暂挂)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/11/10
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-immutable-object/" title="[多线程设计模式]Immutable Object(不可变对象)模式">[多线程设计模式]Immutable Object(不可变对象)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/10/24
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
+    </div>
 
     
   </div>

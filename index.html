@@ -140,6 +140,11 @@
   </script>
 
 
+  <style>
+    .post__content img{
+      max-width: 88%;
+    }
+  </style>
 </head>
 <body class="body">
     <div class="wrapper">
@@ -353,6 +358,40 @@
   
 
   
+  
+    <div
+      class="post 
+        animated fadeInDown
+      "
+    >
+      
+      <div class="post__content">
+        <h3><a href="/archive/go-language-slice-principle/">[GO语言]SLICE(切片)实现原理</a></h3>
+        
+          <p><code>slice</code>是数组的一个<b>引用</b>，所以它是引用类型。但它本身是结构体，通过<b>值复制(value-copy)</b>传递，<code>slice</code>的长度是<b>可变</b>的，所以<code>slice</code>切片又被称为<strong>动态数组</strong>，可以方便的进行扩容、传递等操作。</p>
+        
+        </div>
+
+      
+      <div class="post__footer">
+        <em class="fas fa-calendar-day"></em>
+        <span class="post__footer-date"
+          >
+            
+              2020/10/25
+            
+
+          </span
+        >
+        
+
+        
+          <span><a class="tag" href="/tags/go/">Go</a><a class="tag" href="/tags/golang/">Golang</a><a class="tag" href="/tags/go-language/">Go Language</a></span>
+
+
+        
+      </div>
+    </div>
   
     <div
       class="post 
@@ -660,42 +699,36 @@
       </div>
     </div>
   
-    <div
-      class="post 
-        animated fadeInDown
-      "
-    >
-      
-      <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-immutable-object/">[多线程设计模式]IMMUTABLE OBJECT(不可变对象)模式</a></h3>
-        
-          <p>在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。<strong>Immutable Object模式</strong>使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。</p>
-        
-        </div>
-
-      
-      <div class="post__footer">
-        <em class="fas fa-calendar-day"></em>
-        <span class="post__footer-date"
-          >
-            
-              2019/10/24
-            
-
-          </span
-        >
-        
-
-        
-          <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
-
-
-        
-      </div>
-    </div>
-  
   <div class="pagination">
     
+  <ul class="pagination__list">
+    
+    
+    
+    
+      
+        <li class="pagination__list-item">
+          <span class="page-link current">1</span>
+        </li>
+      
+
+    
+      
+        <li class="pagination__list-item">
+          <a class="page-link" href="/page/2/">2</a>
+        </li>
+      
+
+    
+    
+      <li class="pagination__list-item">
+        <a class="page-link" href="/page/2/">
+          <i class="fa fa-angle-right" aria-label="Next"></i>
+        </a>
+      </li>
+    
+  </ul>
+
 
   </div>
 
