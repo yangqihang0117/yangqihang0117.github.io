@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/go-language-slice-principle\/",
-        "wordCount" : "728",
+        "wordCount" : "737",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -220,6 +220,10 @@
   <style>
     .post__content img{
       max-width: 88%;
+    }
+    .post__content .highlight{
+      max-width: 92%;
+      margin: 0 auto;
     }
   </style>
 </head>
@@ -427,6 +431,7 @@
     <div class="post__content">
       <h1>[Go语言]Slice(切片)实现原理</h1>
       <p>  <code>slice</code>是数组的一个<b>引用</b>，所以它是引用类型。但它本身是结构体，通过<b>值复制(value-copy)</b>传递，<code>slice</code>的长度是<b>可变</b>的，所以<code>slice</code>切片又被称为<strong>动态数组</strong>，可以方便的进行扩容、传递等操作。</p>
+<h2 id="数据结构与内存布局">数据结构与内存布局</h2>
 <p>  源码位置在<code>src/runtime/slice.go</code> 文件中</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">slice</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">array</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
