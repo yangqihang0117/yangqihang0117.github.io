@@ -6,7 +6,18 @@
     <description>Recent content in Archives on Yxx&#39;s Study Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/archive/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/archive/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>多线程上下文切换</title>
+      <link>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</guid>
+      
+        <description>&lt;p&gt;  上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>[Go语言]Slice(切片)实现原理</title>
       <link>https://yangqihang0117.github.io/archive/go-language-slice-principle/</link>

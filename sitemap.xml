@@ -2,10 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yangqihang0117.github.io/archive/go-language-slice-principle/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://yangqihang0117.github.io/archive/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/tags/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/archive/go-language-slice-principle/</loc>
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/go/</loc>
@@ -23,12 +35,6 @@
     <loc>https://yangqihang0117.github.io/series/</loc>
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://yangqihang0117.github.io/tags/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</loc>
     <lastmod>2020-07-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -36,9 +42,6 @@
     <lastmod>2020-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/series/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2020-07-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2020-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
