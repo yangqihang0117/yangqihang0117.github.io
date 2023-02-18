@@ -10,7 +10,7 @@
   <title>
     
       
-        [Go语言]Slice(切片)实现原理 |
+        Slice(切片)实现原理 |
       Yxx
 
   </title>
@@ -111,18 +111,18 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[Go语言]Slice(切片)实现原理"/>
+<meta name="twitter:title" content="Slice(切片)实现原理"/>
 <meta name="twitter:description" content="  slice是数组的一个引用，所以它是引用类型。但它本身是结构体，通过值复制(value-copy)传递，slice的长度是可变的，所以slice切片又被称为动态数组，可以方便的进行扩容、传递等操作。"/>
 
 
 
   
-  <meta property="og:title" content="[Go语言]Slice(切片)实现原理" />
+  <meta property="og:title" content="Slice(切片)实现原理" />
 <meta property="og:description" content="  slice是数组的一个引用，所以它是引用类型。但它本身是结构体，通过值复制(value-copy)传递，slice的长度是可变的，所以slice切片又被称为动态数组，可以方便的进行扩容、传递等操作。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/go-language-slice-principle/" /><meta property="article:section" content="archive" />
 <meta property="article:published_time" content="2020-10-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="article:modified_time" content="2020-10-25T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blogs" />
 
 
 
@@ -137,8 +137,8 @@
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "articleSection": "archive",
-        "name": "[Go语言]Slice(切片)实现原理",
-        "headline": "[Go语言]Slice(切片)实现原理",
+        "name": "Slice(切片)实现原理",
+        "headline": "Slice(切片)实现原理",
         "alternativeHeadline": "",
         "description": "
       
@@ -196,21 +196,14 @@
         "genre" : [ ],
         "keywords" : [ 
       
-      "Go"
+      "Go语言"
 
     
       
         ,
 
       
-      "Golang"
-
-    
-      
-        ,
-
-      
-      "Go Language"
+      "Go数据结构"
 
     ]
     }
@@ -247,7 +240,7 @@
       />
       
         <div class="sidebar__introduction-title">
-          <a href="/">Yxx&#39;s Study Notes</a>
+          <a href="/">Yxx&#39;s Blogs</a>
         </div>
       
       <div class="sidebar__introduction-description">
@@ -429,7 +422,7 @@
   >
     
     <div class="post__content">
-      <h1>[Go语言]Slice(切片)实现原理</h1>
+      <h1>Slice(切片)实现原理</h1>
       <p>  <code>slice</code>是数组的一个<b>引用</b>，所以它是引用类型。但它本身是结构体，通过<b>值复制(value-copy)</b>传递，<code>slice</code>的长度是<b>可变</b>的，所以<code>slice</code>切片又被称为<strong>动态数组</strong>，可以方便的进行扩容、传递等操作。</p>
 <h2 id="数据结构与内存布局">数据结构与内存布局</h2>
 <p>  源码位置在<code>src/runtime/slice.go</code> 文件中</p>
@@ -464,7 +457,9 @@
 <h3>这个系列的帖子</h3>
 <ul>
   
-    <li><a href="/archive/go-language-slice-principle/">[Go语言]Slice(切片)实现原理</a></li>
+    <li><a href="/archive/go-language-concurrency-basics/">Go语言的并发基础</a></li>
+  
+    <li><a href="/archive/go-language-slice-principle/">Slice(切片)实现原理</a></li>
   
 </ul>
 </div>
@@ -472,7 +467,7 @@
       
 
       
-        <span><a class="tag" href="/tags/go/">Go</a><a class="tag" href="/tags/golang/">Golang</a><a class="tag" href="/tags/go-language/">Go Language</a></span>
+        <span><a class="tag" href="/tags/go%E8%AF%AD%E8%A8%80/">Go语言</a><a class="tag" href="/tags/go%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Go数据结构</a></span>
 
 
       

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Series on Yxx&#39;s Study Notes</title>
+    <title>Series on Home</title>
     <link>https://yangqihang0117.github.io/series/</link>
-    <description>Recent content in Series on Yxx&#39;s Study Notes</description>
+    <description>Recent content in Series on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 25 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Go语言数据结构</title>
-      <link>https://yangqihang0117.github.io/series/go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
-      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      <title>Go语言</title>
+      <link>https://yangqihang0117.github.io/series/go%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yangqihang0117.github.io/series/go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <guid>https://yangqihang0117.github.io/series/go%E8%AF%AD%E8%A8%80/</guid>
       
         <description></description>
       

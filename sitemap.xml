@@ -3,13 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yangqihang0117.github.io/archive/</loc>
-    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://yangqihang0117.github.io/tags/</loc>
-    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+    <loc>https://yangqihang0117.github.io/tags/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/tags/go%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/series/go%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</loc>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/</loc>
-    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/series/</loc>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/tags/</loc>
+    <lastmod>2021-01-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
     <lastmod>2020-12-20T00:00:00+00:00</lastmod>
@@ -17,31 +32,19 @@
     <loc>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</loc>
     <lastmod>2020-12-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://yangqihang0117.github.io/tags/go%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://yangqihang0117.github.io/archive/go-language-slice-principle/</loc>
     <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/tags/go/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/tags/go-language/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/tags/golang/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/series/go%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/series/</loc>
-    <lastmod>2020-10-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</loc>
-    <lastmod>2020-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/java/</loc>
     <lastmod>2020-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/series/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-07-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</loc>
     <lastmod>2020-07-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>

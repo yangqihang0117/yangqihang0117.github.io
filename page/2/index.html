@@ -10,7 +10,7 @@
   <title>
     
       
-        Yxx&#39;s Study Notes |
+        Home |
       Yxx
 
   </title>
@@ -85,7 +85,7 @@
   <link rel="canonical" href="https://yangqihang0117.github.io/" />
 
   
-  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Yxx's Study Notes" />
+  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Home" />
   
   
   
@@ -112,16 +112,16 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Yxx&#39;s Study Notes"/>
+<meta name="twitter:title" content="Home"/>
 <meta name="twitter:description" content="Stay Hungry,Stay Foolish"/>
 
 
 
   
-  <meta property="og:title" content="Yxx&#39;s Study Notes" />
+  <meta property="og:title" content="Home" />
 <meta property="og:description" content="Stay Hungry,Stay Foolish" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://yangqihang0117.github.io/" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="og:url" content="https://yangqihang0117.github.io/" /><meta property="og:site_name" content="Yxx&#39;s Blogs" />
 
 
 
@@ -131,7 +131,7 @@
     {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      "name": "Yxx's Study Notes",
+      "name": "Home",
       "url": "https:\/\/yangqihang0117.github.io\/",
       "description": "Stay Hungry,Stay Foolish",
       "thumbnailUrl": "https:\/\/yangqihang0117.github.io\/",
@@ -170,7 +170,7 @@
       />
       
         <h1 class="sidebar__introduction-title">
-          <a href="/">Yxx&#39;s Study Notes</a>
+          <a href="/">Yxx&#39;s Blogs</a>
         </h1>
       
       <div class="sidebar__introduction-description">
@@ -370,7 +370,41 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-guarded-suspension/">[多线程设计模式]GUARDED SUSPENSION(保护性暂挂)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-two-phase-termination/">TWO-PHASE TERMINATION(两阶段终止)模式</a></h3>
+        
+          <p>有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用<code>java.lang.Thread</code>类的<em>stop</em>方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。</p>
+        
+        </div>
+
+      
+      <div class="post__footer">
+        <em class="fas fa-calendar-day"></em>
+        <span class="post__footer-date"
+          >
+            
+              2019/11/30
+            
+
+          </span
+        >
+        
+
+        
+          <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
+
+
+        
+      </div>
+    </div>
+  
+    <div
+      class="post 
+        animated fadeInDown
+      "
+    >
+      
+      <div class="post__content">
+        <h3><a href="/archive/multi-thread-patterns-guarded-suspension/">GUARDED SUSPENSION(保护性暂挂)模式</a></h3>
         
           <p>为了提高并发性，往往将一个任务拆解为不同的部分，将其交由不同的线程执行。当这些线程间互相协作时，仍然可能会出现一个线程等待另一个线程完成一定的操作后其自身才能继续运行的情形。</p>
         
@@ -404,7 +438,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-immutable-object/">[多线程设计模式]IMMUTABLE OBJECT(不可变对象)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-immutable-object/">IMMUTABLE OBJECT(不可变对象)模式</a></h3>
         
           <p>在多线程共享的情况下，为保证数据一致性，往往需要对这些变量的访问进行加锁。而锁本身又会带来一些问题与开销。<strong>Immutable Object模式</strong>使得我们可以在不使用锁的情况下，既保证共享变量的线程安全，又避免引入锁可能带来的问题与开销。</p>
         

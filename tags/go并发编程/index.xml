@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go并发编程 on Home</title>
+    <link>https://yangqihang0117.github.io/tags/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+    <description>Recent content in Go并发编程 on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 02 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go语言的并发基础</title>
+      <link>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</guid>
+      
+        <description>&lt;p&gt;  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Yxx&#39;s Study Notes</title>
+    <title>Home</title>
     <link>https://yangqihang0117.github.io/</link>
-    <description>Recent content on Yxx&#39;s Study Notes</description>
+    <description>Recent content on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go语言的并发基础</title>
+      <link>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</guid>
+      
+        <description>&lt;p&gt;  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>多线程上下文切换</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</link>
@@ -19,7 +30,7 @@
     </item>
     
     <item>
-      <title>[Go语言]Slice(切片)实现原理</title>
+      <title>Slice(切片)实现原理</title>
       <link>https://yangqihang0117.github.io/archive/go-language-slice-principle/</link>
       <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
       
@@ -30,7 +41,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Pipeline(流水线)模式</title>
+      <title>Pipeline(流水线)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-pipeline/</link>
       <pubDate>Thu, 23 Jul 2020 00:00:00 +0000</pubDate>
       
@@ -41,7 +52,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Master-Slave(主仆)模式</title>
+      <title>Master-Slave(主仆)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-master-slave/</link>
       <pubDate>Mon, 29 Jun 2020 00:00:00 +0000</pubDate>
       
@@ -52,7 +63,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Thread Specific Storage(线程特有存储)模式</title>
+      <title>Thread Specific Storage(线程特有存储)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-specific-storage/</link>
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
@@ -63,7 +74,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Thread Pool(线程池)模式</title>
+      <title>Thread Pool(线程池)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-thread-pool/</link>
       <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
       
@@ -74,7 +85,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Active Object(主动对象)模式</title>
+      <title>Active Object(主动对象)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-active-object/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
@@ -85,7 +96,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Producer-Consumer(生产者/消费者)模式</title>
+      <title>Producer-Consumer(生产者/消费者)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-producer-consumer/</link>
       <pubDate>Sat, 18 Jan 2020 00:00:00 +0000</pubDate>
       
@@ -96,7 +107,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Promise(承诺)模式</title>
+      <title>Promise(承诺)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-promise/</link>
       <pubDate>Sun, 22 Dec 2019 00:00:00 +0000</pubDate>
       
@@ -107,7 +118,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Two-phase Termination(两阶段终止)模式</title>
+      <title>Two-phase Termination(两阶段终止)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-two-phase-termination/</link>
       <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
       
@@ -118,7 +129,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Guarded Suspension(保护性暂挂)模式</title>
+      <title>Guarded Suspension(保护性暂挂)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-guarded-suspension/</link>
       <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
       
@@ -129,7 +140,7 @@
     </item>
     
     <item>
-      <title>[多线程设计模式]Immutable Object(不可变对象)模式</title>
+      <title>Immutable Object(不可变对象)模式</title>
       <link>https://yangqihang0117.github.io/archive/multi-thread-patterns-immutable-object/</link>
       <pubDate>Thu, 24 Oct 2019 00:00:00 +0000</pubDate>
       

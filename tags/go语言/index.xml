@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go语言 on Home</title>
+    <link>https://yangqihang0117.github.io/tags/go%E8%AF%AD%E8%A8%80/</link>
+    <description>Recent content in Go语言 on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 02 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/go%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go语言的并发基础</title>
+      <link>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</link>
+      <pubDate>Sat, 02 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</guid>
+      
+        <description>&lt;p&gt;  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Slice(切片)实现原理</title>
+      <link>https://yangqihang0117.github.io/archive/go-language-slice-principle/</link>
+      <pubDate>Sun, 25 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/go-language-slice-principle/</guid>
+      
+        <description>&lt;p&gt;  &lt;code&gt;slice&lt;/code&gt;是数组的一个&lt;b&gt;引用&lt;/b&gt;，所以它是引用类型。但它本身是结构体，通过&lt;b&gt;值复制(value-copy)&lt;/b&gt;传递，&lt;code&gt;slice&lt;/code&gt;的长度是&lt;b&gt;可变&lt;/b&gt;的，所以&lt;code&gt;slice&lt;/code&gt;切片又被称为&lt;strong&gt;动态数组&lt;/strong&gt;，可以方便的进行扩容、传递等操作。&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>

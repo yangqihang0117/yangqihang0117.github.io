@@ -10,7 +10,7 @@
   <title>
     
       
-        Yxx&#39;s Study Notes |
+        Home |
       Yxx
 
   </title>
@@ -85,7 +85,7 @@
   <link rel="canonical" href="https://yangqihang0117.github.io/" />
 
   
-  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Yxx's Study Notes" />
+  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Home" />
   
   
   
@@ -112,16 +112,16 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Yxx&#39;s Study Notes"/>
+<meta name="twitter:title" content="Home"/>
 <meta name="twitter:description" content="Stay Hungry,Stay Foolish"/>
 
 
 
   
-  <meta property="og:title" content="Yxx&#39;s Study Notes" />
+  <meta property="og:title" content="Home" />
 <meta property="og:description" content="Stay Hungry,Stay Foolish" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://yangqihang0117.github.io/" /><meta property="og:site_name" content="Yxx&#39;s Study Notes" />
+<meta property="og:url" content="https://yangqihang0117.github.io/" /><meta property="og:site_name" content="Yxx&#39;s Blogs" />
 
 
 
@@ -131,7 +131,7 @@
     {
       "@context": "http://schema.org",
       "@type": "WebSite",
-      "name": "Yxx's Study Notes",
+      "name": "Home",
       "url": "https:\/\/yangqihang0117.github.io\/",
       "description": "Stay Hungry,Stay Foolish",
       "thumbnailUrl": "https:\/\/yangqihang0117.github.io\/",
@@ -170,7 +170,7 @@
       />
       
         <h1 class="sidebar__introduction-title">
-          <a href="/">Yxx&#39;s Study Notes</a>
+          <a href="/">Yxx&#39;s Blogs</a>
         </h1>
       
       <div class="sidebar__introduction-description">
@@ -370,6 +370,40 @@
     >
       
       <div class="post__content">
+        <h3><a href="/archive/go-language-concurrency-basics/">GO语言的并发基础</a></h3>
+        
+          <p>并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。</p>
+        
+        </div>
+
+      
+      <div class="post__footer">
+        <em class="fas fa-calendar-day"></em>
+        <span class="post__footer-date"
+          >
+            
+              2021/1/2
+            
+
+          </span
+        >
+        
+
+        
+          <span><a class="tag" href="/tags/go%E8%AF%AD%E8%A8%80/">Go语言</a><a class="tag" href="/tags/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">Go并发编程</a></span>
+
+
+        
+      </div>
+    </div>
+  
+    <div
+      class="post 
+        animated fadeInDown
+      "
+    >
+      
+      <div class="post__content">
         <h3><a href="/archive/multi-thread-context-switch/">多线程上下文切换</a></h3>
         
           <p>上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。</p>
@@ -404,7 +438,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/go-language-slice-principle/">[GO语言]SLICE(切片)实现原理</a></h3>
+        <h3><a href="/archive/go-language-slice-principle/">SLICE(切片)实现原理</a></h3>
         
           <p><code>slice</code>是数组的一个<b>引用</b>，所以它是引用类型。但它本身是结构体，通过<b>值复制(value-copy)</b>传递，<code>slice</code>的长度是<b>可变</b>的，所以<code>slice</code>切片又被称为<strong>动态数组</strong>，可以方便的进行扩容、传递等操作。</p>
         
@@ -424,7 +458,7 @@
         
 
         
-          <span><a class="tag" href="/tags/go/">Go</a><a class="tag" href="/tags/golang/">Golang</a><a class="tag" href="/tags/go-language/">Go Language</a></span>
+          <span><a class="tag" href="/tags/go%E8%AF%AD%E8%A8%80/">Go语言</a><a class="tag" href="/tags/go%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">Go数据结构</a></span>
 
 
         
@@ -438,7 +472,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-pipeline/">[多线程设计模式]PIPELINE(流水线)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-pipeline/">PIPELINE(流水线)模式</a></h3>
         
           <p>Pipeline模式的核心思想是将一个任务处理过程分解为若干个处理阶段(Stage)，其中每个处理阶段的输出作为下一个阶段的输入，而且各个处理阶段都有相应的工作者线程去执行相应的计算工作。因此，在处理一批任务时，各个任务的各个处理阶段是并行(Parallel)的。通过并行计算，Pipeline模式使应用程序能够充分利用多核CPU资源提高计算效率。</p>
         
@@ -472,7 +506,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-master-slave/">[多线程设计模式]MASTER-SLAVE(主仆)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-master-slave/">MASTER-SLAVE(主仆)模式</a></h3>
         
           <p>Master-Slave模式是一个基于<strong>分而治之</strong>思想的设计模式。其核心思想是将一个任务(初始任务)分解成若干个语义等同的子任务，并由专门工作者线程来并行执行这些子任务。原始任务的处理结果是通过整合各个子任务的处理结果而形成的。而这些与分而治之相关的处理细节对于原始任务的提交方来说又是不可见的。因此，Master-Slave模式既提高了计算效率，又实现了数据隐藏。</p>
         
@@ -506,7 +540,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-thread-specific-storage/">[多线程设计模式]THREAD SPECIFIC STORAGE(线程特有存储)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-thread-specific-storage/">THREAD SPECIFIC STORAGE(线程特有存储)模式</a></h3>
         
           <p>与多线程相关的问题(如线程安全、死锁等)归根到底是多线程共享变量导致的。有鉴于此，<strong>Thread Specific Storage模式</strong> 通过不共享变量实现了线程安全，并由此自然地避免了与锁相关的消耗及与之有关的问题。</p>
         
@@ -540,7 +574,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-thread-pool/">[多线程设计模式]THREAD POOL(线程池)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-thread-pool/">THREAD POOL(线程池)模式</a></h3>
         
           <p>一个系统中的线程相对于其所要处理的任务而言，总是一种非常有限的资源。线程不仅在其执行任务时需要消耗CPU时间和内存等资源，线程对象(<code>java.lang.Thread</code>实例)本身以及线程所需的调用栈(Call Stack)也占用内存，而且在Java中创建一个线程往往意味着Java虚拟机会在其依赖的宿主机操作系统创建本地线程(Native Thread)。因此，为每一个(每一批)任务创建一个线程以供其执行通常是一件奢侈且不现实的事情&hellip;</p>
         
@@ -574,7 +608,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-active-object/">[多线程设计模式]ACTIVE OBJECT(主动对象)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-active-object/">ACTIVE OBJECT(主动对象)模式</a></h3>
         
           <p><strong>Active Object模式</strong>是一种异步编程模式。它通过对<strong>方法的调用(Method Invocation)</strong>、 <strong>方法的执行(Method Execution)</strong> 进行 <strong>解耦(Decoupling)</strong> 来提高并发性。若以任务的概念来说，<strong>Active Object模式</strong> 的核心是它允许任务的提交(相当于对异步方法的调用)和任务的执行(相当于异步方法的真正执行)分离。</p>
         
@@ -608,7 +642,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-producer-consumer/">[多线程设计模式]PRODUCER-CONSUMER(生产者/消费者)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-producer-consumer/">PRODUCER-CONSUMER(生产者/消费者)模式</a></h3>
         
           <p><strong>Producer-Consumer模式</strong>可以看成设计模式的设计模式。很多的多线程设计模式都可以看作<strong>Producer-Consumer模式</strong>的一个实例。</p>
         
@@ -642,7 +676,7 @@
     >
       
       <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-promise/">[多线程设计模式]PROMISE(承诺)模式</a></h3>
+        <h3><a href="/archive/multi-thread-patterns-promise/">PROMISE(承诺)模式</a></h3>
         
           <p><strong>Promise模式</strong>是一种编程模式。使得可以先开始一个任务的执行，并得到一个用于获取该任务执行结果的凭据对象，而不用等待该任务执行完毕就可以继续执行其他操作。当需要该任务的执行结果时，再调用凭据对象的相关方法来获取结果。这样避免了不必要的等待，增加了系统的并发行。</p>
         
@@ -655,40 +689,6 @@
           >
             
               2019/12/22
-            
-
-          </span
-        >
-        
-
-        
-          <span><a class="tag" href="/tags/java/">Java</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">多线程设计模式</a></span>
-
-
-        
-      </div>
-    </div>
-  
-    <div
-      class="post 
-        animated fadeInDown
-      "
-    >
-      
-      <div class="post__content">
-        <h3><a href="/archive/multi-thread-patterns-two-phase-termination/">[多线程设计模式]TWO-PHASE TERMINATION(两阶段终止)模式</a></h3>
-        
-          <p>有时我们希望提前结束线程，但安全可靠地停止线程是一件不那么简单的事情。首先Java没有提供直接的API用于停止线程(早已不提倡使用<code>java.lang.Thread</code>类的<em>stop</em>方法)。停止线程还有一些额外的细节需要考虑，如待停止的线程处于阻塞(如等待获得锁)或者等待(等待其他线程)状态、尚有未处理完毕的任务等。</p>
-        
-        </div>
-
-      
-      <div class="post__footer">
-        <em class="fas fa-calendar-day"></em>
-        <span class="post__footer-date"
-          >
-            
-              2019/11/30
             
 
           </span

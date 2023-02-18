@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="zh-cn"
+  data-theme=""
+  
+    class="html theme--light"
+  
+><head>
+  <title>
+    
+      
+        Go语言的并发基础 |
+      Yxx
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.109.0"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Yxx" />
+  <meta
+    name="description"
+    content="Stay Hungry,Stay Foolish"
+  />
+  
+  
+    
+    
+    <link
+      rel="stylesheet"
+      href="/scss/main.min.5794be192d21535bdd301561e043a96b6adbad2b5c08279deff459e4661c613f.css"
+      integrity="sha256-V5S&#43;GS0hU1vdMBVh4EOpa2rbrStcCCed7/RZ5GYcYT8="
+      crossorigin="anonymous"
+      type="text/css"
+    />
+  
+
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.31b0a1f317f55c529a460897848c97436bb138b19c399b37de70d463a8bf6ed5.css"
+    integrity="sha256-MbCh8xf1XFKaRgiXhIyXQ2uxOLGcOZs33nDUY6i/btU="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/fontawesome.min.7d272de35b410fb165377550cdf9c4d3a80fbbcc961e111914e4d5c0eaf5729f.css"
+    integrity="sha256-fSct41tBD7FlN3VQzfnE06gPu8yWHhEZFOTVwOr1cp8="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/solid.min.55d8333481b07a08e07cf6f37319753a2b47e99f4c395394c5747b48b495aa9b.css"
+    integrity="sha256-VdgzNIGwegjgfPbzcxl1OitH6Z9MOVOUxXR7SLSVqps="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/regular.min.a7448d02590b43449364b6b5922ed9af5410abb4de4238412a830316dedb850b.css"
+    integrity="sha256-p0SNAlkLQ0STZLa1ki7Zr1QQq7TeQjhBKoMDFt7bhQs="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/brands.min.9ed75a5d670c953fe4df935937674b4646f92674367e9e66eb995bb04e821647.css"
+    integrity="sha256-ntdaXWcMlT/k35NZN2dLRkb5JnQ2fp5m65lbsE6CFkc="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/go-language-concurrency-basics/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.f9132794301a01ff16550ed66763482bd848f62243d278f5e550229a158bfd32.js"
+    integrity="sha256-&#43;RMnlDAaAf8WVQ7WZ2NIK9hI9iJD0nj15VAimhWL/TI="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.d6d329d93844b162e8bed1e915619625ca91687952177552b9b3e211014a2957.js"
+      integrity="sha256-1tMp2ThEsWLovtHpFWGWJcqRaHlSF3VSubPiEQFKKVc="
+      crossorigin="anonymous"
+    ></script>
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go语言的并发基础"/>
+<meta name="twitter:description" content="  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。"/>
+
+
+
+  
+  <meta property="og:title" content="Go语言的并发基础" />
+<meta property="og:description" content="  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/go-language-concurrency-basics/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2021-01-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-01-02T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blogs" />
+
+
+
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "Go语言的并发基础",
+        "headline": "Go语言的并发基础",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/go-language-concurrency-basics\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2021",
+        "dateCreated": "2021-01-02T00:00:00.00Z",
+        "datePublished": "2021-01-02T00:00:00.00Z",
+        "dateModified": "2021-01-02T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/go-language-concurrency-basics\/",
+        "wordCount" : "3588",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "Go语言"
+
+    
+      
+        ,
+
+      
+      "Go并发编程"
+
+    ]
+    }
+  </script>
+
+
+  <style>
+    .post__content img{
+      max-width: 88%;
+    }
+    .post__content .highlight{
+      max-width: 92%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="body">
+    <div class="wrapper">
+      <aside
+        
+          class="wrapper__sidebar"
+        
+      ><div
+  class="sidebar
+    animated fadeInDown
+  "
+>
+  <div class="sidebar__content">
+    <div class="sidebar__introduction">
+      <img
+        class="sidebar__introduction-profileimage"
+        src="/images/logo.jpeg"
+        alt="profile picture"
+      />
+      
+        <div class="sidebar__introduction-title">
+          <a href="/">Yxx&#39;s Blogs</a>
+        </div>
+      
+      <div class="sidebar__introduction-description">
+        <p>Stay Hungry,Stay Foolish</p>
+      </div>
+    </div>
+    <ul class="sidebar__list">
+      
+        <li class="sidebar__list-item">
+          <a
+            href="https://github.com/yangqihang0117"
+            target="_blank"
+            rel="noopener me"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+        <li class="sidebar__list-item">
+          <a
+            href="mailto:yangqihang@petalmail.com"
+            target="_blank"
+            rel="noopener me"
+            aria-label="e-mail"
+            title="e-mail"
+          >
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div><footer class="footer footer__sidebar">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></div>
+</aside>
+      <main
+        
+          class="wrapper__main"
+        
+      >
+        <header class="header"><div
+  class="
+    animated fadeInDown
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+  </a>
+  <nav class="nav">
+    <ul class="nav__list" id="navMenu">
+      
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/series/"
+              
+              title=""
+              >Series</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/tags/"
+              
+              title=""
+              >Tags</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/archive/"
+              
+              title=""
+              >Archive</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+        
+
+      
+    </ul>
+    <ul class="nav__list nav__list--end">
+      
+      
+        <li class="nav__list-item">
+          <div class="themeswitch">
+            <a title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+</header>
+  <div
+    class="post 
+      animated fadeInDown
+    "
+  >
+    
+    <div class="post__content">
+      <h1>Go语言的并发基础</h1>
+      <p>  并发是编程里面一个非常重要的概念，Go语言在语言层面天生支持并发，这也是Go语言流行的一个很重要的原因。</p>
+<p>  Go语言的并发机制运用起来非常简便，在启动并发的方式上直接添加了语言级的关键字就可以实现，和其他编程语言相比更加轻量。</p>
+<h2 id="goroutine">Goroutine</h2>
+<p>  <code>goroutine</code>是由Go运行时管理的轻量级进程。当Go程序启动时，Go运行时会创建一些线程并启动一个<code>goroutine</code>来运行程序。程序创建的所有<code>goroutine</code>(包括程序入口部分)都由Go运行时调度器分配给这些线程，就像操作系统在CPU内核间调度线程一样。</p>
+<p>  这看起来似乎是多此一举，因为底层操作系统已经包含了一个管理线程和进程的调度器，但<code>goroutine</code>相比线程有几个好处。</p>
+<ul>
+<li>创建<code>goroutine</code>比创建线程更快，因为这只是在用户态的操作，不会调用系统及的资源。</li>
+<li><code>goroutine</code>的初始栈比线程栈小，而且可以根据需要增长。这使得<code>goroutine</code>的内存效率更高。</li>
+<li>在<code>goroutine</code>之间切换比线程之间切换更快，因为<code>goroutine</code>之间的切换完全发生在进程内部，避免了操作系统的调用。</li>
+<li>调度器作为Go运行时的一部分能够进行优化。如：调度器与网络轮训一起使用时，可以检测<code>goroutine</code>何时因为 <strong>I/O阻塞</strong> 而无法调度。</li>
+</ul>
+<p>  这些优势可以使得Go程序可以同时生成数百、数千甚至数万个<code>goroutine</code>。如果在一种使用本地线程的语言中启动成千上万个线程，程序就会慢到离谱(如果还可以运行得下去的话)。</p>
+<p>  在一个函数调用前置<code>go</code>关键字就可以启动一个<code>goroutine</code>。与其他函数一样，可以向它传递参数以初始化其状态。不过，函数的返回值会被忽略。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">doProcessing</span><span class="p">(</span><span class="nx">val</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// do something...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">inChannel</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span><span class="nx">outChannel</span> <span class="kd">chan</span><span class="o">&lt;-</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">inChannel</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">result</span> <span class="o">:=</span> <span class="nf">doProcessing</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">outChannel</span> <span class="o">&lt;-</span> <span class="nx">result</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="通道">通道</h2>
+<p>  <code>goroutine</code>使用 <strong>channel(通道)</strong> 进行通信。通道与切片(slice)和映射(map)一样，也是一个使用<code>make</code>函数创建的内置类型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">channel</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span></code></pre></div><p>  通道是引用类型，当把通道传递给函数时，实际上是在传递指向该通道的指针。</p>
+<h3 id="读写与缓冲">读写与缓冲</h3>
+<p>  使用<code>&lt;-</code>操作符(也称为数据接收操作符)来对通道进行操作。将<code>&lt;-</code>操作符放置在通道左边表示对通道执行读操作，放置在右边表示对通道执行写操作。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">val</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel</span>
+</span></span><span class="line"><span class="cl"><span class="nx">channel</span> <span class="o">&lt;-</span> <span class="nx">newValue</span>
+</span></span></code></pre></div><p>  通道中的值只能被读取一次。如果多个<code>goroutine</code>从同一个通道中的一个值也只能被其中一个<code>goroutine</code>读取。</p>
+<p>  一个<code>goroutine</code>读和写同一个通道并不常见。当把一个通道分配给一个变量或字段，或把它传递给一个函数时，在<code>chan</code>关键字前使用一个数据接收操作符(<code>channel &lt;-chan int</code>)来表示<code>goroutine</code>只从该通道读取；在<code>chan</code>关键字后使用一个数据接收操作符(<code>channel chan&lt;- int</code>)来表示<code>goroutine</code>只向通道写入。这样做允许Go编译器确保一个通道只能被函数读取或只能被函数写入。</p>
+<p>  默认情况下，通道是无缓冲的。每次对一个已打开、无缓冲的通道写入都会导致<code>goroutine</code>写暂停，直到另一个<code>goroutine</code>从同一个通道读取。同样，读取一个一打开的、无缓冲的通道会导致<code>goroutine</code>读暂停，直到另一个<code>goroutine</code>写入同一个通道。这意味着在没有两个同时运行的<code>goroutine</code>的情况下，不能向无缓冲的通道写入或从该通道读取。</p>
+<p>  有缓冲通道是通过在创建通道时指定缓冲区容量创建的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">bufferedChannel</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span></code></pre></div><p>  有缓冲通道在无阻塞的情况下可以缓冲有限数量的写操作。如果在读取通道的数据前，缓冲区已经填满了，那么将无法向通道写入任何数据，直到该通道的数据被读取。就像向一个缓冲区已满的通道写入时会阻塞一样，读取一个缓冲为空的通道也会阻塞。</p>
+<p>  内置函数<code>len</code>和<code>cap</code>可以返回关于缓冲通道的信息。使用<code>len</code>可以获得当前在缓冲区内有多少值，使用<code>cap</code>可以获得最大的缓冲区大小。缓冲区的容量无法修改。无缓冲通道的长度和容量都为0。</p>
+<p>  还可以使用<code>for-range</code>循环从通道中读取数据。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">value</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">channel</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>  与其他<code>for-range</code>循环不同的是，该通道只声明了一个变量，也就是值。循环将一直持续到通道被关闭，遇到<code>break</code>或<code>return</code>语句也会停止。</p>
+<h3 id="关闭">关闭</h3>
+<p>  当完成对一个通道的写入时，可以使用内置的<code>close</code>函数关闭通道。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nb">close</span><span class="p">(</span><span class="nx">channel</span><span class="p">)</span>
+</span></span></code></pre></div><p>  一旦通道被关闭，任何试图写入该通道或再次关闭该通道的操作都会发生<code>panic</code>，但可以读取被关闭的通道。如果该通道是有缓冲的，而且有一些值没有被读取，这些值依次返回。如果通道是无缓冲的，或者通道缓冲区中没有任何值，则返回通道类型的零值。</p>
+<p>  这导致了一个问题，从一个通道中读取到零值时，如何区分这是一个被写入的零值，还是因为通道关闭而返回的零值？Go提供的解决方案是使用 <strong>ok模式</strong> 来检测一个通道是否已经关闭。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">value</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel</span>
+</span></span></code></pre></div><p>  如果<code>ok</code>为<code>true</code>，那么该通道是打开的。如果为<code>false</code>，则该通道已被关闭。</p>
+<p>  是否关闭一个通道主要取决于向该通道写入的<code>goroutine</code>。只有在<code>goroutine</code>等待通道关闭的情况下才需要关闭通道(比如使用<code>for-range</code>循环从通道中读取数据的情况)。由于通道也是一种变量，所以Go的运行时可以检测到不再使用的通道，并对其进行垃圾回收。</p>
+<h3 id="通道的状态">通道的状态</h3>
+<p>  通道有许多不同的状态，每个状态在读取、写入或关闭时都有不同的行为。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th>无缓冲,打开</th>
+<th>无缓冲,关闭</th>
+<th>有缓冲,打开</th>
+<th>有缓冲,关闭</th>
+<th>nil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">读取</td>
+<td>阻塞直到有数据写入</td>
+<td>返回零值(需要使用ok模式判断通道是否关闭)</td>
+<td>如果缓冲区无数据则会阻塞</td>
+<td>剩余值仍然在缓冲区中，当缓冲区数据为空时返回零值(需要使用ok模式判断通道是否关闭)</td>
+<td>挂起</td>
+</tr>
+<tr>
+<td style="text-align:center">写入</td>
+<td>阻塞直到有数据被读出</td>
+<td><code>panic</code></td>
+<td>如果缓冲区已满则会阻塞</td>
+<td><code>panic</code></td>
+<td>挂起</td>
+</tr>
+<tr>
+<td style="text-align:center">关闭</td>
+<td>正常工作</td>
+<td><code>panic</code></td>
+<td>正常工作，剩余数据仍然存在</td>
+<td><code>panic</code></td>
+<td><code>panic</code></td>
+</tr>
+</tbody>
+</table>
+<p>  必须避免导致Go程序产生<code>panic</code>的情况。如前所述，标准的模式是负责写入的<code>goroutine</code>在写操作结束时关闭通道。但当多个<code>goroutine</code>向同一个通道写入时，情况变得更加复杂，因为在同一个通道上调用两次<code>close</code>会产生<code>panic</code>。此外，如果在一个<code>goroutine</code>中关闭一个通道，那么在另一个<code>goroutine</code>中对该关闭的通道写入也会产生<code>panic</code>。</p>
+<h2 id="select语句">select语句</h2>
+<p>  <code>select</code>语句时Go并发模型的另一个特性。它是Go中并发的控制结构，优雅地解决了一个常见的问题：如果可以执行两个并发的操作，优先执行哪一个？不能偏好某个操作，否则就永远无法处理某种情况。也就是所谓的<strong>饥饿(starvation)</strong>。</p>
+<p>  <code>select</code>关键字允许一个<code>goroutine</code>从一组通道中读取或写入。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">value</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">value</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">channel3</span> <span class="o">&lt;-</span> <span class="nx">newValue</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;wrote:&#34;</span><span class="p">,</span><span class="nx">newValue</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>  <code>select</code>中的每一个<code>case</code>语句都是对一个通道的读写操作。如果一个<code>case</code>有可能被读或写，它就会和<code>case</code>代码块一起执行。与<code>switch</code>一样，<code>select</code>中的每个<code>case</code>语句都拥有单独的代码块。</p>
+<p>  如果多个<code>case</code>语句中都对通道有读或写会发生什么？<code>select</code>算法语句很简单，它从任何一个可执行的<code>case</code>语句中随机挑选，顺序并不重要。这种处理干净利落的解决了饥饿问题，因为所有的<code>case</code>语句都在同一时间被检查。</p>
+<p>  <code>select</code>语句随机选择的另一个好处是可以防止以不一致的顺序获取锁，从而避免死锁。如果有两个<code>goroutine</code>同时访问相同的两个通道，则它们必须在两个<code>goroutine</code>中以相同的顺序被访问，否则会出现死锁。如果Go程序中的每个<code>goroutine</code>都出现了死锁，Go运行时就会强制关闭程序。</p>
+<h4 id="死锁示例">死锁示例</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">channel1</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">channel2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">value</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">channel1</span> <span class="o">&lt;-</span> <span class="nx">value</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">value2</span> <span class="p">=</span> <span class="o">&lt;-</span><span class="nx">channel2</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">value2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">value</span> <span class="o">:=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">channel2</span> <span class="o">&lt;-</span> <span class="nx">value</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">value2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel1</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">value2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>  运行以上程序会看到以下错误。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">fatal error: all goroutines are asleep - deadlock!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">goroutine 1 [chan send]:
+</span></span><span class="line"><span class="cl">main.main()
+</span></span><span class="line"><span class="cl">	/Users/yxx/go-examples/concurrent/main.go:17 +0xac
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">goroutine 18 [chan send]:
+</span></span><span class="line"><span class="cl">main.main.func1()
+</span></span><span class="line"><span class="cl">	/Users/yxx/go-examples/concurrent/main.go:11 +0x34
+</span></span><span class="line"><span class="cl">created by main.main
+</span></span><span class="line"><span class="cl">	/Users/yxx/go-examples/concurrent/main.go:9 +0x98
+</span></span><span class="line"><span class="cl">exit status 2
+</span></span></code></pre></div><p>  <code>main</code>函数也是在Go运行时创建的<code>goroutine</code>上运行的。<code>goroutine</code>在读取<code>channel1</code>之前不会继续执行，而主<code>goroutine</code>在读取<code>channel2</code>之前也不会继续执行。</p>
+<p>  如果把主<code>goroutine</code>的通道访问封装在<code>select</code>语句中，就可以避免死锁。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">channel1</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">channel2</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">value</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">channel1</span> <span class="o">&lt;-</span> <span class="nx">value</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">value2</span> <span class="p">=</span> <span class="o">&lt;-</span><span class="nx">channel2</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">value2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">value</span> <span class="o">:=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">value2</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">channel2</span> <span class="o">&lt;-</span> <span class="nx">value</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">value2</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel1</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">value2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>  运行上面的程序可以获得以下输出。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">2 1
+</span></span></code></pre></div><p>  因为<code>select</code>语句会检查其任意的<code>case</code>语句是否可以继续执行，所以避免了死锁。启动的<code>goroutine</code>把值从1写进了<code>channel1</code>，所以在主<code>goroutine</code>中从<code>channel1</code>读取到<code>value2</code>到过程能够执行成功。</p>
+<p>  由于<code>select</code>负责在多个通道上进行通信，所以它通常嵌入<code>for</code>循环中。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">done</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="k">case</span> <span class="nx">value</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>  这种情况非常普遍，所以这种组合经常被称为<code>for-select</code>循环。当使用<code>for-select</code>循环时，必须包含一个退出循环的途径。</p>
+<p>  与<code>switch</code>语句一样，<code>select</code>语句有一个<code>default</code>从句。在没有可以读写通道的情况下，就执行<code>default</code>从句。如果想在一个通道上实现非阻塞的读或写操作，那么可以使用<code>default</code>的<code>select</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">value</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">channel</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;read from channel:&#34;</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;no value written to channel&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/go-language-concurrency-basics/">Go语言的并发基础</a></li>
+  
+    <li><a href="/archive/go-language-slice-principle/">Slice(切片)实现原理</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
+      
+
+      
+        <span><a class="tag" href="/tags/go%E8%AF%AD%E8%A8%80/">Go语言</a><a class="tag" href="/tags/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">Go并发编程</a></span>
+
+
+      
+    </div>
+
+    
+  </div>
+
+      </main>
+    </div><footer class="footer footer__base">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></body>
+</html>
