@@ -6,7 +6,18 @@
     <description>Recent content in Archives on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 02 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/archive/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/archive/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java对象的创建流程</title>
+      <link>https://yangqihang0117.github.io/archive/java-virtual-machine-object/</link>
+      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/java-virtual-machine-object/</guid>
+      
+        <description>&lt;p&gt;  Java程序运行过程中无时无刻都有对象被创建出来。在语言层面上，创建对象通常仅仅是一个&lt;code&gt;new&lt;/code&gt;关键字而已，在虚拟机中对象的创建又是怎样一个过程呢？&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>Go语言的并发基础</title>
       <link>https://yangqihang0117.github.io/archive/go-language-concurrency-basics/</link>

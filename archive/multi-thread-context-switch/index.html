@@ -122,7 +122,8 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-thread-context-switch/" /><meta property="article:section" content="archive" />
 <meta property="article:published_time" content="2020-12-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-12-20T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blogs" />
+<meta property="article:modified_time" content="2020-12-20T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blog" />
+
 
 
 
@@ -232,7 +233,7 @@
       />
       
         <div class="sidebar__introduction-title">
-          <a href="/">Yxx&#39;s Blogs</a>
+          <a href="/">Yxx&#39;s Blog</a>
         </div>
       
       <div class="sidebar__introduction-description">
@@ -443,7 +444,16 @@
 <li>处理器高速缓存重新加载的开销。一个被切出的线程可能在稍后被另外一个处理器继续运行。由于这个处理器之前未运行过该线程，那么这个线程在其继续运行过程中需访问的变量仍然需要被处理器重新从主内存或者通过缓存一致性协议从其他处理器加载到高速缓存中。</li>
 <li>上下文切换也可能导致整个一级高速缓存中的内容被冲刷(Flush)，即一级高速缓存中的内容会被写入下一级高速缓存(如二级高速缓存)或者主内存(RAM)中。</li>
 </ul>
-<p>  多线程编程相比单线程来说，它意味着更多的上下文切换。因此，多线程编程不一定就比单线程编程运行效率更高。</p></div>
+<p>  多线程编程相比单线程来说，它意味着更多的上下文切换。因此，多线程编程不一定就比单线程编程运行效率更高。</p>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/multi-thread-context-switch/">多线程上下文切换</a></li>
+  
+</ul>
+</div>
     <div class="post__footer">
       
 

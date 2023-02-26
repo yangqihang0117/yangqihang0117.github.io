@@ -10,7 +10,7 @@
   <title>
     
       
-        Archives |
+        Java对象的创建流程 |
       Yxx
 
   </title>
@@ -82,10 +82,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 
-  <link rel="canonical" href="https://yangqihang0117.github.io/archive/" />
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/java-virtual-machine-object/" />
 
   
-  <link rel="alternate" type="application/rss+xml" href="/archive/index.xml" title="Home" />
   
   
   
@@ -112,22 +111,104 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Archives"/>
-<meta name="twitter:description" content="Stay Hungry,Stay Foolish"/>
+<meta name="twitter:title" content="Java对象的创建流程"/>
+<meta name="twitter:description" content="  Java程序运行过程中无时无刻都有对象被创建出来。在语言层面上，创建对象通常仅仅是一个new关键字而已，在虚拟机中对象的创建又是怎样一个过程呢？"/>
 
 
 
   
-  <meta property="og:title" content="Archives" />
-<meta property="og:description" content="Stay Hungry,Stay Foolish" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://yangqihang0117.github.io/archive/" /><meta property="og:site_name" content="Yxx&#39;s Blog" />
+  <meta property="og:title" content="Java对象的创建流程" />
+<meta property="og:description" content="  Java程序运行过程中无时无刻都有对象被创建出来。在语言层面上，创建对象通常仅仅是一个new关键字而已，在虚拟机中对象的创建又是怎样一个过程呢？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/java-virtual-machine-object/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2021-02-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-28T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blog" />
+
 
 
 
 
   
   
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "Java对象的创建流程",
+        "headline": "Java对象的创建流程",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  Java程序运行过程中无时无刻都有对象被创建出来。在语言层面上，创建对象通常仅仅是一个\u003ccode\u003enew\u003c\/code\u003e关键字而已，在虚拟机中对象的创建又是怎样一个过程呢？\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/java-virtual-machine-object\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2021",
+        "dateCreated": "2021-02-28T00:00:00.00Z",
+        "datePublished": "2021-02-28T00:00:00.00Z",
+        "dateModified": "2021-02-28T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/java-virtual-machine-object\/",
+        "wordCount" : "1666",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "Java虚拟机"
+
+    
+      
+        ,
+
+      
+      "HotSpot"
+
+    ]
+    }
+  </script>
+
 
   <style>
     .post__content img{
@@ -295,8 +376,6 @@
           <li class="nav__list-item">
             <a
               
-                class="nav__link--active"
-              
               href="/archive/"
               
               title=""
@@ -337,217 +416,39 @@
 </div>
 </header>
   <div
-    class="archive 
+    class="post 
       animated fadeInDown
     "
   >
     
-      <div class="archive__heading">2021</div>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/java-virtual-machine-object/" title="Java对象的创建流程">Java对象的创建流程</a>
-            <div class="archive__list-date">
-              
-                
-                  2021/2/28
-                
+    <div class="post__content">
+      <h1>Java对象的创建流程</h1>
+      <p>  Java程序运行过程中无时无刻都有对象被创建出来。在语言层面上，创建对象通常仅仅是一个<code>new</code>关键字而已，在虚拟机中对象的创建又是怎样一个过程呢？</p>
+<p>  当Java虚拟机遇到<code>new</code>字节码指令时，会检查这个这个指令的参数是否能在常量池中定位到一个类的符号引用，并检查这个符号引用所代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行这个类的加载过程。</p>
+<p>  在类加载检查通过后，虚拟机将为新生对象分配内存。对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间实际上便等同于把一块确定大小的内存从Java堆中划分出来。如果Java堆中内存是绝对规整的，所有被使用过的内存都被放在一边，空闲的内存被放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间方向挪动一段与对象大小相等的距离，这种分配方式称为 <strong>&ldquo;指针碰撞&rdquo;(Bump The Pointer)</strong>。但如果Java堆中的内存并不是规整的，已被使用的内存和空闲的内存相互交错在一起，那就没有办法简单的进行指针碰撞了，虚拟机就必须维护一个列表，记录上那些内存块是可用的，在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为 <strong>&ldquo;空闲列表&rdquo;(Free List)</strong>。选择哪种分配方式由Java堆是否规整确定，而Java堆是否规整又由所采用的垃圾收集器是否带有空间压缩整理(Compact)的能力决定。因此，当使用Serial、ParNew等带空间整理过程的收集器时，系统采用的分配算法是指针碰撞，即简单又高效；当使用CMS这种基于清除(Sweep)算法的收集器时，理论上就只能采用较为复杂的空闲列表来分配内存。</p>
+<p>  除如何划分可用空间外，还有另外一个需要考虑的问题：对象检查在虚拟机中是非常频繁的行为，即使仅仅修改一个指针所指向的位置，在并发情况下并不是线程安全的，可能出现正在给对象A分配内存，指针还没来得及修改，对象B又同时使用了原来的指针来分配内存的情况。解决这个问题有两种方案：一种是对分配内存空间的动作进行同步处理——实际上虚拟机是采用CAS配上失败重试的方式保证更新操作的原子性；另外一种是把内存分配的动作按照线程划分在不同的空间中进行，即每个线程在Java堆中预先分配一小块内存，称为本地线程分配缓冲(Thread Local Allocation Buffer,TLAB)，哪个线程要分配内存，就在哪个内存线程的本地缓冲区中分配，只有本地缓冲区用完了，分配新的内存缓冲区时才需要同步锁定。虚拟机是否使用TLAB通过<code>-XX:+/-UseTLAB</code>参数来设置。</p>
+<p>  内存分配完成后，虚拟机必须将分配到的内存空间(不包括对象头)都初始化为零值，如果使用了TLAB的话，这项工作也可以提前至TLAB分配时顺便进行。这步操作保证了对象的实例字段在Java代码中可以不赋初始值就直接使用，使程序能访问到这些字段的数据类型所对应的零值。</p>
+<p>  Java虚拟机还要对对象进行必要的设置，例如这个对象时哪个类的实例、如何才能找到类的元数据信息、对象的哈希码(实际上对象的哈希码是在真正调用<code>Object::hashCode()</code>方法时才计算)、对象的GC分代年龄等信息。这些信息都存放在对象头中。根据虚拟机当前运行状态的不同，如是否启用偏向锁等，对象头都会有不同的设置方式。</p>
+<p>  上面工作都完成后，从虚拟机视角来看，一个对象已经产生了。但是从程序的视角来看，对象创建才刚刚开始——构造函数，即Class文件中的<code>&lt;init&gt;()</code>方法还没有执行，所有的字段都为默认的零值，对象需要的其他资源和状态信息都还没有按照预定的意图构造好。一般来说(由字节码中的<code>new</code>指令后面跟随的<code>invokespecial</code>指令所决定，Java编译器会在遇到<code>new</code>关键字的地方同时生成这两条指令，但如果直接通过其他方式产生的则不一定如此)，<code>new</code>指令之后会接着执行<code>&lt;init&gt;()</code>方法，按照开发者的医院对对象进行初始化，这样一个真正可用的对象才算完全构造完成。</p>
+<p><img src="https://p.ipic.vip/dk7sv0.jpg" alt=""></p>
 
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/go-language-concurrency-basics/" title="Go语言的并发基础">Go语言的并发基础</a>
-            <div class="archive__list-date">
-              
-                
-                  2021/1/2
-                
 
-              
-            </div>
-          </li>
-        </ul>
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/java-virtual-machine-object/">Java对象的创建流程</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
       
 
-    
-      <div class="archive__heading">2020</div>
       
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-context-switch/" title="多线程上下文切换">多线程上下文切换</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/12/20
-                
+        <span><a class="tag" href="/tags/java%E8%99%9A%E6%8B%9F%E6%9C%BA/">Java虚拟机</a><a class="tag" href="/tags/hotspot/">HotSpot</a></span>
 
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/go-language-slice-principle/" title="Slice(切片)实现原理">Slice(切片)实现原理</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/10/25
-                
 
-              
-            </div>
-          </li>
-        </ul>
       
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-pipeline/" title="Pipeline(流水线)模式">Pipeline(流水线)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/7/23
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-master-slave/" title="Master-Slave(主仆)模式">Master-Slave(主仆)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/6/29
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-thread-specific-storage/" title="Thread Specific Storage(线程特有存储)模式">Thread Specific Storage(线程特有存储)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/5/24
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-thread-pool/" title="Thread Pool(线程池)模式">Thread Pool(线程池)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/3/29
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-active-object/" title="Active Object(主动对象)模式">Active Object(主动对象)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/2/8
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-producer-consumer/" title="Producer-Consumer(生产者/消费者)模式">Producer-Consumer(生产者/消费者)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2020/1/18
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-
-    
-      <div class="archive__heading">2019</div>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-promise/" title="Promise(承诺)模式">Promise(承诺)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/12/22
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-two-phase-termination/" title="Two-phase Termination(两阶段终止)模式">Two-phase Termination(两阶段终止)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/11/30
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-guarded-suspension/" title="Guarded Suspension(保护性暂挂)模式">Guarded Suspension(保护性暂挂)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/11/10
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
-        <ul class="archive__list">
-          <li class="archive__list-item">
-            <a class="archive__list-title" href="/archive/multi-thread-patterns-immutable-object/" title="Immutable Object(不可变对象)模式">Immutable Object(不可变对象)模式</a>
-            <div class="archive__list-date">
-              
-                
-                  2019/10/24
-                
-
-              
-            </div>
-          </li>
-        </ul>
-      
+    </div>
 
     
   </div>
