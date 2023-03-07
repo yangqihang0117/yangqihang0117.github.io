@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="zh-cn"
+  data-theme=""
+  
+    class="html theme--light"
+  
+><head>
+  <title>
+    
+      
+        高速缓存与缓存一致性协议 |
+      Yxx
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.109.0"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Yxx" />
+  <meta
+    name="description"
+    content="Stay Hungry,Stay Foolish"
+  />
+  
+  
+    
+    
+    <link
+      rel="stylesheet"
+      href="/scss/main.min.5794be192d21535bdd301561e043a96b6adbad2b5c08279deff459e4661c613f.css"
+      integrity="sha256-V5S&#43;GS0hU1vdMBVh4EOpa2rbrStcCCed7/RZ5GYcYT8="
+      crossorigin="anonymous"
+      type="text/css"
+    />
+  
+
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.31b0a1f317f55c529a460897848c97436bb138b19c399b37de70d463a8bf6ed5.css"
+    integrity="sha256-MbCh8xf1XFKaRgiXhIyXQ2uxOLGcOZs33nDUY6i/btU="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/fontawesome.min.7d272de35b410fb165377550cdf9c4d3a80fbbcc961e111914e4d5c0eaf5729f.css"
+    integrity="sha256-fSct41tBD7FlN3VQzfnE06gPu8yWHhEZFOTVwOr1cp8="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/solid.min.55d8333481b07a08e07cf6f37319753a2b47e99f4c395394c5747b48b495aa9b.css"
+    integrity="sha256-VdgzNIGwegjgfPbzcxl1OitH6Z9MOVOUxXR7SLSVqps="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/regular.min.a7448d02590b43449364b6b5922ed9af5410abb4de4238412a830316dedb850b.css"
+    integrity="sha256-p0SNAlkLQ0STZLa1ki7Zr1QQq7TeQjhBKoMDFt7bhQs="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/brands.min.9ed75a5d670c953fe4df935937674b4646f92674367e9e66eb995bb04e821647.css"
+    integrity="sha256-ntdaXWcMlT/k35NZN2dLRkb5JnQ2fp5m65lbsE6CFkc="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-threaded-programming-cache-consistency-protocol/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.f9132794301a01ff16550ed66763482bd848f62243d278f5e550229a158bfd32.js"
+    integrity="sha256-&#43;RMnlDAaAf8WVQ7WZ2NIK9hI9iJD0nj15VAimhWL/TI="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.d6d329d93844b162e8bed1e915619625ca91687952177552b9b3e211014a2957.js"
+      integrity="sha256-1tMp2ThEsWLovtHpFWGWJcqRaHlSF3VSubPiEQFKKVc="
+      crossorigin="anonymous"
+    ></script>
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="高速缓存与缓存一致性协议"/>
+<meta name="twitter:description" content="  现代处理器的处理能力远胜于主内存(DRAM)访问速率的提升，主内存执行一次内存读、写操作所需的时间可能足够处理器执行上百条指令。为了弥补处理器与主内存之间的处理能力差距，硬件设计者在主内存和处理器之间引入了高速缓存(Cache)。"/>
+
+
+
+  
+  <meta property="og:title" content="高速缓存与缓存一致性协议" />
+<meta property="og:description" content="  现代处理器的处理能力远胜于主内存(DRAM)访问速率的提升，主内存执行一次内存读、写操作所需的时间可能足够处理器执行上百条指令。为了弥补处理器与主内存之间的处理能力差距，硬件设计者在主内存和处理器之间引入了高速缓存(Cache)。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-threaded-programming-cache-consistency-protocol/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2021-05-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-05-16T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blog" />
+
+
+
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "高速缓存与缓存一致性协议",
+        "headline": "高速缓存与缓存一致性协议",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  现代处理器的处理能力远胜于主内存(DRAM)访问速率的提升，主内存执行一次内存读、写操作所需的时间可能足够处理器执行上百条指令。为了弥补处理器与主内存之间的处理能力差距，硬件设计者在主内存和处理器之间引入了高速缓存(Cache)。\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-threaded-programming-cache-consistency-protocol\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2021",
+        "dateCreated": "2021-05-16T00:00:00.00Z",
+        "datePublished": "2021-05-16T00:00:00.00Z",
+        "dateModified": "2021-05-16T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-threaded-programming-cache-consistency-protocol\/",
+        "wordCount" : "3907",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "多线程"
+
+    ]
+    }
+  </script>
+
+
+  <style>
+    .post__content img{
+      max-width: 88%;
+    }
+    .post__content .highlight{
+      max-width: 92%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="body">
+    <div class="wrapper">
+      <aside
+        
+          class="wrapper__sidebar"
+        
+      ><div
+  class="sidebar
+    animated fadeInDown
+  "
+>
+  <div class="sidebar__content">
+    <div class="sidebar__introduction">
+      <img
+        class="sidebar__introduction-profileimage"
+        src="/images/logo.jpeg"
+        alt="profile picture"
+      />
+      
+        <div class="sidebar__introduction-title">
+          <a href="/">Yxx&#39;s Blog</a>
+        </div>
+      
+      <div class="sidebar__introduction-description">
+        <p>Stay Hungry,Stay Foolish</p>
+      </div>
+    </div>
+    <ul class="sidebar__list">
+      
+        <li class="sidebar__list-item">
+          <a
+            href="https://github.com/yangqihang0117"
+            target="_blank"
+            rel="noopener me"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+        <li class="sidebar__list-item">
+          <a
+            href="mailto:yangqihang@petalmail.com"
+            target="_blank"
+            rel="noopener me"
+            aria-label="e-mail"
+            title="e-mail"
+          >
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div><footer class="footer footer__sidebar">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></div>
+</aside>
+      <main
+        
+          class="wrapper__main"
+        
+      >
+        <header class="header"><div
+  class="
+    animated fadeInDown
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+  </a>
+  <nav class="nav">
+    <ul class="nav__list" id="navMenu">
+      
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/series/"
+              
+              title=""
+              >Series</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/tags/"
+              
+              title=""
+              >Tags</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/archive/"
+              
+              title=""
+              >Archive</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+        
+
+      
+    </ul>
+    <ul class="nav__list nav__list--end">
+      
+      
+        <li class="nav__list-item">
+          <div class="themeswitch">
+            <a title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+</header>
+  <div
+    class="post 
+      animated fadeInDown
+    "
+  >
+    
+    <div class="post__content">
+      <h1>高速缓存与缓存一致性协议</h1>
+      <p>  现代处理器的处理能力远胜于主内存(DRAM)访问速率的提升，主内存执行一次内存读、写操作所需的时间可能足够处理器执行上百条指令。为了弥补处理器与主内存之间的处理能力差距，硬件设计者在主内存和处理器之间引入了高速缓存(Cache)。</p>
+<p>  <strong>高速缓存</strong> 是一种存取速率远比主内存大而容量远比主内存小的存储部件，每个处理器都有其高速缓存都有其高速缓存。引入高速缓存之后，处理器在执行内存读、写操作的时候并不直接与主内存打交道，而是通过高速缓存进行。&ldquo;变量名&quot;相当于内存地址，而变量值则相当于相应内存空间所存储的数据。从这个角度来看，高速缓存相当于为程序所访问的每个变量保留了一份相应内存空间所存储数据(变量值)的副本。由于高速缓存的存储容量远小于主内存，因此高速缓存并不是每时每刻保留着所有的变量值副本。由于高速缓存相当于一个由硬件实现的容量极小的散列表(Hash Table)，其键(Key)是一个内存地址，其值(Value)是内存数据的副本或者准备写入内存的数据。从内部结构来看，高速缓存相当于一个拉链散列表，它包含若干桶(Bucket，硬件上称之为Set)，每个桶又可以包含若干个缓存条目(Entry)。</p>
+<p><img src="https://p.ipic.vip/yk783w.jpg" alt=""></p>
+<p>  缓存条目可被进一步划分为<code>Tag</code>、<code>Data Block</code>以及<code>Flag</code>三部分，其中，<code>Data Block</code>也被称为缓存行(Cache Line)，它是高速缓存与主内存之间的数据交换最小单元，用于存储从哪从中读取的或者准备写入到内存中的数据。<code>Tag</code>则包含了缓存行中数据相应的内存地址的部分信息(内存地址的高位部分)。<code>Flag</code>用于表示相应缓存行的状态信息。缓存行的大小通常为2的倍数，其大小在16~256字节(Byte)之间不等。一个缓存行可以存储若干变量的值，若多个变量的值则可能被存储在同一个缓存行之中。</p>
+<p>  处理器在执行内存访问操作时会将相应的内存地址解码(由缓存控制器负责执行)。内存地址的解码结果包括<code>tag</code>、<code>index</code>以及<code>offset</code>这三部分数据。其中<code>index</code>相当于桶编号，它可以用来定位内存地址对应的桶；一个桶可能包含多个缓存条目，<code>tag</code>相当于缓存条目的相对编号，其作用在于用来与同一个桶中的各个缓存条目中的<code>Tag</code>部分进行比较，<code>offset</code>是缓存行内的位置偏移，其作用在于确定一个变量在一个缓存行中的存储起始位置。根据这个内存地址的解码结果，如果高速缓存子系统能够找到相应的缓存行并且缓存行所在的缓存条目的Flag表示相应缓存条目是有效的，那么就称相应的内存操作产生了缓存命中(Cache Hit)；否则，就称相应的内存操作产生了缓存未命中(Cache Miss)。</p>
+<h2 id="缓存一致性协议mesi">缓存一致性协议(MESI)</h2>
+<p>  多个线程并发访问同一个共享变量的时候，这些线程的执行处理器上的高速缓存各自都会保留一份该共享变量的副本，这就带来一个新问题：一个处理器对其副本数据进行更新之后，其他处理器如何&quot;查觉&quot;该更新并做出适当反应，以确保这些处理器后续读取该共享变量时能够读取到这个更新。这就是缓存一致性问题，其实这就是如何防止读脏数据和丢失数据的问题。为了解决这个问题，处理器之间需要一种通信机制——缓存一致性协议(Cache Coherence Protocol)。</p>
+<p>  MESI(Modified-Exclusive-Shared-Invalid)协议是一种广为使用的缓存一致性协议，<code>x86</code>处理器所使用的缓存一致性协议就是基于MESI协议的。MESI协议对内存数据访问的控制类似于读写锁，它使得针对同一地址的读内存操作是并发的，而针对同一地址的写内存操作是独占的，即针对同一内存地址进行的写操作在任意一个时刻只能够由一个处理器执行。在MESI协议中，一个处理器往内存中写数据时必须持有该内存的所有权。</p>
+<p>  为了保障数据的一致性，MESI将缓存条目的状态划分为<code>Modified</code>、<code>Exclusive</code>、<code>Shared</code>、<code>Invalid</code>四种，并在此基础上定义了一组消息用于但个处理器的读写内存操作。</p>
+<p>  MESI协议中一个缓存条目的Flag值有以下四种情况。</p>
+<ul>
+<li><strong>Invalid(无效，记为I)</strong>。该状态表示相应缓存行中不包含任何内存地址对应的有效副本数据。该状态是缓存条目的初始状态。</li>
+<li><strong>Shared(共享，记为S)</strong>。该状态表示相应缓存行包含相应内存地址所对应的副本数据。并且，其他处理器上的高速缓存中也可能包含相同内存地址对应的副本数据。因此，一个缓存条目的状态如果为<code>Shared</code>，并且其他处理器上也存在Tag与该缓存条目的Tag值相同的缓存条目，那么这些缓存条目的状态也为<code>Shared</code>。处于该状态的缓存条目，其缓存行中包含的数据与主内存中包含的数据一致。</li>
+<li><strong>Exclusive(独占，记为E)</strong>。该状态表示相应缓存行包含相应内存地址所对应的副本数据。并且，该缓存行以独占方式保留了相应内存地址的副本数据，即其他所有内存上的高速缓存当前都不保留该数据的有效副本。处于该状态的缓存条目，其副本行中包含的数据与主内存中包含的数据一致。</li>
+<li><strong>Modified(已更改，记为M)</strong>。该状态表示相应缓存行包含对相应内存地址所做的更新结果数据。由于MESI协议中的任意一个时刻只能够有一个处理器对同一内存地址对应的数据进行更新，因此在多个处理器上的高速缓存中<code>Tag</code>值相同的缓存条目中，任意一个时刻只能够有一个缓存条目处于该状态。处于该状态的缓存条目，其缓存行中包含的数据与主内存中包含的数据不一致。</li>
+</ul>
+<p>  MESI协议定义了一组消息用于协调各个处理器的读、写内存操作。比照<code>HTTP</code>协议，可以将MESI协议中的消息分为请求消息和响应消息。处理器在执行读、写操作时在必要的情况下会往总线(Bus)中发送特定的请求消息，同时每个处理器还嗅探(Snoop，也称拦截)总线中由其他处理器发出的请求消息并在一定条件下往总线中回复相应的响应消息。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">消息名</th>
+<th style="text-align:center">消息类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Read</code></td>
+<td style="text-align:center">请求</td>
+<td>通知其他处理器、主内存当前处理器准备读取某个数据。该消息包含待读取数据的内存地址</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Read Response</code></td>
+<td style="text-align:center">响应</td>
+<td>该消息包含被请求读取的数据。该消息可能是主内存提供的，也可能是嗅探<code>Read</code>消息的其他高速缓存提供</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Invalidate</code></td>
+<td style="text-align:center">请求</td>
+<td>通知其他处理器将其高速缓存中指定内存地址对应的缓存条目状态置为<code>I</code>，即通知这些处理器删除指定内存<br/>地址的副本数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Invalidate Acknowledge</code></td>
+<td style="text-align:center">响应</td>
+<td>接收<code>Invalidate</code>消息的处理器必须回复该消息，一表示删除了其高速缓存上的相应副本数据</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Read Invalidate</code></td>
+<td style="text-align:center">请求</td>
+<td>该消息是<code>Read</code>消息和<code>Invalidate</code>消息组合而成的复合消息。起作用在于通知其他处理器当前处理器准备<br/>更新(Read-Modify-Write，读后写更新)一个数据，并请求其他处理器删除其高速缓存中相应的副本数据。接收到该消息的处理器必须回复<code>Read Response</code>消息和<code>Invalidate Acknowledge</code>消息</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Writeback</code></td>
+<td style="text-align:center">请求</td>
+<td>该消息包含需要写入主内存的数据及其对应的内存地址</td>
+</tr>
+</tbody>
+</table>
+<h3 id="写缓冲区与无效化队列">写缓冲区与无效化队列</h3>
+<p>  MESI协议解决了缓存一致性问题，但其自身也存在一个性能弱点——处理器执行写内存操作时，必须等待其他所有处理器将其高速缓存中的相应副本数据删除并接收到这些处理器所回复的<code>Invalidate Acknowledge</code>/<code>Read Response</code>消息之后才能将数据写入到高速缓存。为了避免和减少这种等待造成的写操作延迟(Latency)，硬件设计者引入了写缓冲期器和无效化队列。</p>
+<p>  写缓冲器(Store Buffer，也被称为Write Buffer)是处理器内部的一个容量比高速缓存小的私有高速存储部件，每个处理器都有其写缓冲器，写缓冲器内部可包含若干条目(Entry)。一个处理器无法读取另外一个处理器上的写缓冲器中的内容。</p>
+<p>  引入写缓冲器之后，处理器在执行写操作时会做如下处理：如果相应的缓存条目状态为<code>E</code>或者<code>M</code>，那么处理器可能会直接将数据写入到相应的缓存行而无需发送任何消息；如果相应的缓存条目状态为<code>S</code>，那么处理器会先将写操作的相关数据(包括数据和带操作的内存地址)存入写缓冲器的条目之中，并发送<code>Invalidate</code>消息；如果相应的缓存条目状态为<code>I</code>，我们就称相应的写操作遇到了 <strong>写未命中(Write Miss)</strong>，那么此时处理器会先将写操作相关数据存入写缓冲器的条目之中，并发送<code>Read Invalidate</code>消息。我们知道在其他所有处理器的高速缓存都未保存指定地址的副本数据的情况下，<code>Read</code>消息回复者是主内存，也就是说<code>Read</code>消息可能导致内存读操作。因此，写未命中的开销是比较大的。内存写操作的执行处理器在将写操作的相关数据写入写缓冲器之后便认为该写操作已经完成，即该处理器并不等待其他处理器返回<code>Invalidate Acknowledge</code>/<code>Read Response</code>消息而是继续执行其他指令(比如读操作)。一个处理器接收到其他处理器所回复的针对同一个缓存条目的所有<code>Invalidate Acknowledge</code>消息的时候，该处理器会将写缓冲器中针对相应地址的写操作的结果写入相应的缓存行中，此时写操作对于其执行处理器之外的其他处理器来说才算完成。</p>
+<p>  由此可见，写缓冲器的引入使得处理器在执行写操作的时候可以不等待<code>Invalidate Acknowledge</code>消息，从而减少了写操作的延时，这使得写操作的执行处理器在其他处理器回复<code>Invalidate Acknowledge</code>/<code>Read Response</code>消息这段时间内能够执行其他指令，从而提高了处理器的指令执行效率。</p>
+<p>  引入无效化队列(Invalidate Queue)之后，处理器在接收到<code>Invalidate</code>消息之后并不删除消息中指定地址对应的副本数据，而是将消息存入无效化队列之后就回复<code>Invalidate Acknowledge</code>消息，从而减少了写操作执行处理器所需的等待时间。</p>
+<p>  写缓冲器和无效化队列的引入带来了一些新的问题——内存重排序和可见性问题。</p>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/multi-threaded-programming-cache-consistency-protocol/">高速缓存与缓存一致性协议</a></li>
+  
+    <li><a href="/archive/multi-threaded-programming--context-switch/">多线程上下文切换</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
+      
+
+      
+        <span><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></span>
+
+
+      
+    </div>
+
+    
+  </div>
+
+      </main>
+    </div><footer class="footer footer__base">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></body>
+</html>

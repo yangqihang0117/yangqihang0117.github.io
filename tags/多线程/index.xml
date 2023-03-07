@@ -6,13 +6,24 @@
     <description>Recent content in 多线程 on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>高速缓存与缓存一致性协议</title>
+      <link>https://yangqihang0117.github.io/archive/multi-threaded-programming-cache-consistency-protocol/</link>
+      <pubDate>Sun, 16 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/multi-threaded-programming-cache-consistency-protocol/</guid>
+      
+        <description>&lt;p&gt;  现代处理器的处理能力远胜于主内存(DRAM)访问速率的提升，主内存执行一次内存读、写操作所需的时间可能足够处理器执行上百条指令。为了弥补处理器与主内存之间的处理能力差距，硬件设计者在主内存和处理器之间引入了高速缓存(Cache)。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>多线程上下文切换</title>
-      <link>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</link>
+      <link>https://yangqihang0117.github.io/archive/multi-threaded-programming--context-switch/</link>
       <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://yangqihang0117.github.io/archive/multi-thread-context-switch/</guid>
+      <guid>https://yangqihang0117.github.io/archive/multi-threaded-programming--context-switch/</guid>
       
         <description>&lt;p&gt;  上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。&lt;/p&gt;</description>
       

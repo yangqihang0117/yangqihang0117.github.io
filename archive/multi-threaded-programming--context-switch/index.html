@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html
+  dir="ltr"
+  lang="zh-cn"
+  data-theme=""
+  
+    class="html theme--light"
+  
+><head>
+  <title>
+    
+      
+        多线程上下文切换 |
+      Yxx
+
+  </title>
+
+  
+  <meta charset="utf-8" /><meta name="generator" content="Hugo 0.109.0"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="author" content="Yxx" />
+  <meta
+    name="description"
+    content="Stay Hungry,Stay Foolish"
+  />
+  
+  
+    
+    
+    <link
+      rel="stylesheet"
+      href="/scss/main.min.5794be192d21535bdd301561e043a96b6adbad2b5c08279deff459e4661c613f.css"
+      integrity="sha256-V5S&#43;GS0hU1vdMBVh4EOpa2rbrStcCCed7/RZ5GYcYT8="
+      crossorigin="anonymous"
+      type="text/css"
+    />
+  
+
+  
+  <link
+    rel="stylesheet"
+    href="/css/markupHighlight.min.31b0a1f317f55c529a460897848c97436bb138b19c399b37de70d463a8bf6ed5.css"
+    integrity="sha256-MbCh8xf1XFKaRgiXhIyXQ2uxOLGcOZs33nDUY6i/btU="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/fontawesome.min.7d272de35b410fb165377550cdf9c4d3a80fbbcc961e111914e4d5c0eaf5729f.css"
+    integrity="sha256-fSct41tBD7FlN3VQzfnE06gPu8yWHhEZFOTVwOr1cp8="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/solid.min.55d8333481b07a08e07cf6f37319753a2b47e99f4c395394c5747b48b495aa9b.css"
+    integrity="sha256-VdgzNIGwegjgfPbzcxl1OitH6Z9MOVOUxXR7SLSVqps="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/regular.min.a7448d02590b43449364b6b5922ed9af5410abb4de4238412a830316dedb850b.css"
+    integrity="sha256-p0SNAlkLQ0STZLa1ki7Zr1QQq7TeQjhBKoMDFt7bhQs="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="/fontawesome/css/brands.min.9ed75a5d670c953fe4df935937674b4646f92674367e9e66eb995bb04e821647.css"
+    integrity="sha256-ntdaXWcMlT/k35NZN2dLRkb5JnQ2fp5m65lbsE6CFkc="
+    crossorigin="anonymous"
+    type="text/css"
+  />
+  
+  <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
+
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/multi-threaded-programming--context-switch/" />
+
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/anatole-header.min.f9132794301a01ff16550ed66763482bd848f62243d278f5e550229a158bfd32.js"
+    integrity="sha256-&#43;RMnlDAaAf8WVQ7WZ2NIK9hI9iJD0nj15VAimhWL/TI="
+    crossorigin="anonymous"
+  ></script>
+
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/anatole-theme-switcher.min.d6d329d93844b162e8bed1e915619625ca91687952177552b9b3e211014a2957.js"
+      integrity="sha256-1tMp2ThEsWLovtHpFWGWJcqRaHlSF3VSubPiEQFKKVc="
+      crossorigin="anonymous"
+    ></script>
+  
+
+  
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="多线程上下文切换"/>
+<meta name="twitter:description" content="  上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。"/>
+
+
+
+  
+  <meta property="og:title" content="多线程上下文切换" />
+<meta property="og:description" content="  上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/multi-threaded-programming--context-switch/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2020-12-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-20T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blog" />
+
+
+
+
+
+  
+  
+  
+  
+  <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "articleSection": "archive",
+        "name": "多线程上下文切换",
+        "headline": "多线程上下文切换",
+        "alternativeHeadline": "",
+        "description": "
+      
+        \u003cp\u003e  上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。\u003c\/p\u003e
+
+
+      
+
+
+    ",
+        "inLanguage": "zh-cn",
+        "isFamilyFriendly": "true",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/multi-threaded-programming--context-switch\/"
+        },
+        "author" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "creator" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "accountablePerson" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightHolder" : {
+            "@type": "Person",
+            "name": "Yxx"
+        },
+        "copyrightYear" : "2020",
+        "dateCreated": "2020-12-20T00:00:00.00Z",
+        "datePublished": "2020-12-20T00:00:00.00Z",
+        "dateModified": "2020-12-20T00:00:00.00Z",
+        "publisher":{
+            "@type":"Organization",
+            "name": "Yxx",
+            "url": "https://yangqihang0117.github.io/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https:\/\/yangqihang0117.github.io\/favicons\/favicon-32x32.png",
+                "width":"32",
+                "height":"32"
+            }
+        },
+        "image": 
+      [
+      ]
+
+    ,
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/multi-threaded-programming--context-switch\/",
+        "wordCount" : "1809",
+        "genre" : [ ],
+        "keywords" : [ 
+      
+      "多线程"
+
+    ]
+    }
+  </script>
+
+
+  <style>
+    .post__content img{
+      max-width: 88%;
+    }
+    .post__content .highlight{
+      max-width: 92%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="body">
+    <div class="wrapper">
+      <aside
+        
+          class="wrapper__sidebar"
+        
+      ><div
+  class="sidebar
+    animated fadeInDown
+  "
+>
+  <div class="sidebar__content">
+    <div class="sidebar__introduction">
+      <img
+        class="sidebar__introduction-profileimage"
+        src="/images/logo.jpeg"
+        alt="profile picture"
+      />
+      
+        <div class="sidebar__introduction-title">
+          <a href="/">Yxx&#39;s Blog</a>
+        </div>
+      
+      <div class="sidebar__introduction-description">
+        <p>Stay Hungry,Stay Foolish</p>
+      </div>
+    </div>
+    <ul class="sidebar__list">
+      
+        <li class="sidebar__list-item">
+          <a
+            href="https://github.com/yangqihang0117"
+            target="_blank"
+            rel="noopener me"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+        <li class="sidebar__list-item">
+          <a
+            href="mailto:yangqihang@petalmail.com"
+            target="_blank"
+            rel="noopener me"
+            aria-label="e-mail"
+            title="e-mail"
+          >
+            <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div><footer class="footer footer__sidebar">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></div>
+</aside>
+      <main
+        
+          class="wrapper__main"
+        
+      >
+        <header class="header"><div
+  class="
+    animated fadeInDown
+  "
+>
+  <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+    <span aria-hidden="true" class="navbar-burger__line"></span>
+  </a>
+  <nav class="nav">
+    <ul class="nav__list" id="navMenu">
+      
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/"
+              
+              title=""
+              >Home</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/series/"
+              
+              title=""
+              >Series</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/tags/"
+              
+              title=""
+              >Tags</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/archive/"
+              
+              title=""
+              >Archive</a
+            >
+          </li>
+        
+
+      
+        
+        
+          <li class="nav__list-item">
+            <a
+              
+              href="/about/"
+              
+              title=""
+              >About</a
+            >
+          </li>
+        
+
+      
+    </ul>
+    <ul class="nav__list nav__list--end">
+      
+      
+        <li class="nav__list-item">
+          <div class="themeswitch">
+            <a title="Switch Theme">
+              <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+</header>
+  <div
+    class="post 
+      animated fadeInDown
+    "
+  >
+    
+    <div class="post__content">
+      <h1>多线程上下文切换</h1>
+      <p>  上下文切换(Context Switch)在某种程度上可以被看作多个线程共享同一个处理器的产物，它是多线程编程中的一个重要概念。</p>
+<h2 id="上下文切换及其产生原因">上下文切换及其产生原因</h2>
+<p>  在单核处理器(Uni-processor)上也能够以多线程的方式实现并发，即一个处理器可以在一个时间段内运行多个线程。这好比即使是一次只能够被一个儿童操纵的玩具也能够被多个儿童一起玩的情形：每个儿童玩一段时间，时间到了就把玩具交给下一个儿童玩，依此规则各个儿童轮流玩。这里，每个儿童可以占用玩具玩耍的时间就被称为时间片(Time Slice)。单处理器上的多线程其实就是通过这种时间片分配的方式实现的。时间片决定了一个线程可以连续占用处理器运行的时间长度。当一个进程中的一个线程由于其时间片耗尽或其自身原因(比如，它需要稍后再继续运行)被迫或者主动暂停其运行时，另外一个线程(可能是同一个进程或者其他进程中的线程)可以被操作系统的线程调度器选中占用处理器开始或者继续其运行。这种一个线程被暂停，即被剥夺处理器的使用权，另外一个线程被选中开始或者继续运行的过程就叫作 <strong>线程上下文切换</strong>。</p>
+<p>  可见，我们感知上是连续运行的线程，实际上是以断断续续的方式使其任务进行的。这种方式意味着在 <strong>上下文切出(Switch Out)</strong> 和 <strong>上下文切入(Switch In)</strong> 的时候操作系统需要保存和恢复相应的线程进度信息，即切入和切出的那一刻相应的线程所执行的任务进行到了什么程度(如计算中间结果以及执行到那条指令)。这个进度信息就被称为 <strong>上下文(Context)</strong>。它一般包括通用寄存器(General Purpose Register)的内容和程序计数器(Program Counter)的内容。在切出时，操作系统需要将上下文保存到内存中，以便被切出的线程稍后占用处理器继续其运行时能够在此基础上进展。在切入时，操作系统需要从内存中加载(恢复)被选中线程的上下文，以在之前运行的基础上继续进展。</p>
+<h2 id="上下文切换的分类及具体诱因">上下文切换的分类及具体诱因</h2>
+<p>  按照导致上下文切换的因素划分，我们可以将上下文切换分为自发性上下文切换(Voluntary Context Switch)和非自发性上下文切换(Involuntary Context Switch)。</p>
+<p>  <strong>自发性上下文切换</strong> 指线程由于自身因素导致的切出。从Java平台的角度来看，一个线程在其运行过程中执行下列任意一个方法都会引起自发性上下文切换。</p>
+<ul>
+<li><code>Thread.sleep(long millis)</code></li>
+<li><code>Object.wait()</code>/<code>Object.wait(long millis)</code>/<code>Object.wait(long timeout, int nanos)</code></li>
+<li><code>Thread.yield()</code></li>
+<li><code>Thread.join()</code>/<code>Thread.join(long timeout)</code></li>
+<li><code>LockSupport.park()</code></li>
+</ul>
+<p>  另外，线程发起了I/O操作(如读取文件,准确的说是阻塞式I/O会导致上下文切换)或者等待其他线程持有的锁以及其条件变量(<code>java.util.concurrent.locks.Condition</code>)也会导致自发性上下文切换。</p>
+<p>  <strong>非自发性上下文切换</strong> 指线程由于线程调度器的原因被迫切出。导致非自发性上下文切换的常见因素包括被切出线程的时间片用完或者有一个比被切出线程优先级更高的线程需要运行。从Java平台的角度来看，Java虚拟机的垃圾回收(Garbage Collect)动作也可能导致非自发性上下文切换。这是因为垃圾回收器在执行垃圾回收的过程中可能需要暂停所有应用线程(stop-the-world)才能完成其工作，比如在主要回收(Major Collection)过程中，垃圾回收器对Java虚拟机堆内存区域进行整理(Compact)的时候需要先停止所有应用线程。</p>
+<h2 id="上下文切换的开销">上下文切换的开销</h2>
+<p>  一方面上下文切换是必要的。即使是在多核处理器系统中上下文切换也是必要的，这是因为一个系统上需要运行的线程数量相对于这个系统所拥有的处理器核心数量要大得多。另一方面，上下文切换又有其不容小觑的开销。</p>
+<p>  从定型的角度来说，上下文切换的开销包括直接开销和间接开销。其中，直接开销包括：</p>
+<ul>
+<li>操作系统保存和加载上下文的开销，这主要是处理器时间开销。</li>
+<li>线程调度器进行线程调度的开销(比如，按照一定的规则决定那个线程会占用处理器运行)。</li>
+</ul>
+<p>  间接开销包括：</p>
+<ul>
+<li>处理器高速缓存重新加载的开销。一个被切出的线程可能在稍后被另外一个处理器继续运行。由于这个处理器之前未运行过该线程，那么这个线程在其继续运行过程中需访问的变量仍然需要被处理器重新从主内存或者通过缓存一致性协议从其他处理器加载到高速缓存中。</li>
+<li>上下文切换也可能导致整个一级高速缓存中的内容被冲刷(Flush)，即一级高速缓存中的内容会被写入下一级高速缓存(如二级高速缓存)或者主内存(RAM)中。</li>
+</ul>
+<p>  多线程编程相比单线程来说，它意味着更多的上下文切换。因此，多线程编程不一定就比单线程编程运行效率更高。</p>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/multi-threaded-programming-cache-consistency-protocol/">高速缓存与缓存一致性协议</a></li>
+  
+    <li><a href="/archive/multi-threaded-programming--context-switch/">多线程上下文切换</a></li>
+  
+</ul>
+</div>
+    <div class="post__footer">
+      
+
+      
+        <span><a class="tag" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></span>
+
+
+      
+    </div>
+
+    
+  </div>
+
+      </main>
+    </div><footer class="footer footer__base">
+  <ul class="footer__list">
+    <li class="footer__item">
+      &copy;
+      
+        2019-2023 Powered by Hugo &amp; Anatole
+      
+    </li>
+    
+      <li class="footer__item">
+        <a
+          class="link"
+          href="/index.xml"
+          
+          title=""
+        >
+          Feed
+        </a>
+      </li>
+    
+  </ul>
+</footer>
+  
+  <script
+    type="text/javascript"
+    src="/js/medium-zoom.min.1248fa75275e5ef0cbef27e8c1e27dc507c445ae3a2c7d2ed0be0809555dac64.js"
+    integrity="sha256-Ekj6dSdeXvDL7yfoweJ9xQfERa46LH0u0L4ICVVdrGQ="
+    crossorigin="anonymous"
+  ></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css" integrity="sha384-t5CR&#43;zwDAROtph0PXGte6ia8heboACF9R5l/DiY&#43;WZ3P2lxNgvJkQk5n7GPvLMYw" crossorigin="anonymous" /><script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js" integrity="sha384-FaFLTlohFghEIZkw6VGwmf9ISTubWAVYW8tG8&#43;w2LAIftJEULZABrF9PPFv&#43;tVkH" crossorigin="anonymous"></script><script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/contrib/auto-render.min.js"
+      integrity="sha384-bHBqxz8fokvgoJ/sc17HODNxa42TlaEhB&#43;w8ZJXTc2nZf1VgEaFZeZvT4Mznfz0v"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script></body>
+</html>
