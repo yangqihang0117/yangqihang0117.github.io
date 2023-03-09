@@ -6,7 +6,18 @@
     <description>Recent content in Java虚拟机 on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/series/java%E8%99%9A%E6%8B%9F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yangqihang0117.github.io/series/java%E8%99%9A%E6%8B%9F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>对象的内存布局</title>
+      <link>https://yangqihang0117.github.io/archive/java-virtual-machine-object-memory-layout/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://yangqihang0117.github.io/archive/java-virtual-machine-object-memory-layout/</guid>
+      
+        <description>&lt;p&gt;  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>对象的创建流程</title>
       <link>https://yangqihang0117.github.io/archive/java-virtual-machine-object-creation/</link>

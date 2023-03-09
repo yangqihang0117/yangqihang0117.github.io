@@ -9,6 +9,8 @@
 ><head>
   <title>
     
+      
+        对象的内存布局 |
       Yxx
 
   </title>
@@ -26,8 +28,8 @@
     
     <link
       rel="stylesheet"
-      href="/scss/main.min.a20a0db5995200184d653560257ce6eebf4321349ddd6aab24c2be305af08f34.css"
-      integrity="sha256-ogoNtZlSABhNZTVgJXzm7r9DITSd3WqrJMK&#43;MFrwjzQ="
+      href="/scss/main.min.5794be192d21535bdd301561e043a96b6adbad2b5c08279deff459e4661c613f.css"
+      integrity="sha256-V5S&#43;GS0hU1vdMBVh4EOpa2rbrStcCCed7/RZ5GYcYT8="
       crossorigin="anonymous"
       type="text/css"
     />
@@ -80,7 +82,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
 
-  <link rel="canonical" href="https://yangqihang0117.github.io/archive/f/" />
+  <link rel="canonical" href="https://yangqihang0117.github.io/archive/java-virtual-machine-object-memory-layout/" />
 
   
   
@@ -109,18 +111,19 @@
 
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="对象的内存布局"/>
+<meta name="twitter:description" content="  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。"/>
 
 
 
   
-  <meta property="og:title" content="" />
-<meta property="og:description" content="" />
+  <meta property="og:title" content="对象的内存布局" />
+<meta property="og:description" content="  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://yangqihang0117.github.io/archive/f/" /><meta property="article:section" content="archive" />
+<meta property="og:url" content="https://yangqihang0117.github.io/archive/java-virtual-machine-object-memory-layout/" /><meta property="article:section" content="archive" />
+<meta property="article:published_time" content="2021-03-06T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-03-06T00:00:00+00:00" /><meta property="og:site_name" content="Yxx&#39;s Blog" />
 
-<meta property="og:site_name" content="Yxx&#39;s Study Notes" />
 
 
 
@@ -134,12 +137,12 @@
         "@context": "http://schema.org",
         "@type": "BlogPosting",
         "articleSection": "archive",
-        "name": "",
-        "headline": "",
+        "name": "对象的内存布局",
+        "headline": "对象的内存布局",
         "alternativeHeadline": "",
         "description": "
       
-        
+        \u003cp\u003e  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。\u003c\/p\u003e
 
 
       
@@ -150,7 +153,7 @@
         "isFamilyFriendly": "true",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/yangqihang0117.github.io\/archive\/f\/"
+            "@id": "https:\/\/yangqihang0117.github.io\/archive\/java-virtual-machine-object-memory-layout\/"
         },
         "author" : {
             "@type": "Person",
@@ -168,10 +171,10 @@
             "@type": "Person",
             "name": "Yxx"
         },
-        "copyrightYear" : "0001",
-        "dateCreated": "0001-01-01T00:00:00.00Z",
-        "datePublished": "0001-01-01T00:00:00.00Z",
-        "dateModified": "0001-01-01T00:00:00.00Z",
+        "copyrightYear" : "2021",
+        "dateCreated": "2021-03-06T00:00:00.00Z",
+        "datePublished": "2021-03-06T00:00:00.00Z",
+        "dateModified": "2021-03-06T00:00:00.00Z",
         "publisher":{
             "@type":"Organization",
             "name": "Yxx",
@@ -188,14 +191,37 @@
       ]
 
     ,
-        "url" : "https:\/\/yangqihang0117.github.io\/archive\/f\/",
-        "wordCount" : "0",
+        "url" : "https:\/\/yangqihang0117.github.io\/archive\/java-virtual-machine-object-memory-layout\/",
+        "wordCount" : "1402",
         "genre" : [ ],
-        "keywords" : [ ]
+        "keywords" : [ 
+      
+      "Java虚拟机"
+
+    
+      
+        ,
+
+      
+      "HotSpot"
+
+    ]
     }
   </script>
 
 
+  <style>
+    .post__content img{
+      max-width: 88%;
+    }
+    .post__content .highlight{
+      max-width: 92%;
+      margin: 0 auto;
+    }
+    .post__content table{
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="body">
     <div class="wrapper">
@@ -217,7 +243,7 @@
       />
       
         <div class="sidebar__introduction-title">
-          <a href="/">Yxx&#39;s Study Notes</a>
+          <a href="/">Yxx&#39;s Blog</a>
         </div>
       
       <div class="sidebar__introduction-description">
@@ -399,10 +425,80 @@
   >
     
     <div class="post__content">
-      <h1></h1>
-      </div>
+      <h1>对象的内存布局</h1>
+      <p>  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。</p>
+<p>  Java虚拟机对象的对象头部分包括两类信息。第一类是用于存储对象自身的运行时数据，如哈希码(HashCode)、GC分代年龄、锁状态标识、线程持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位的虚拟机(未开启压缩指针)中分别为32个比特和64个比特，官方称其为 <strong>&ldquo;Mark Word&rdquo;</strong> 。对象需要存储的运行时数据很多，其实已经超出了32、64位Bitmap结构所能记录的最大限度，但对象头里的信息是与对象自身定义的数据无关的额外存储成本，考虑到虚拟机的空间效率，<strong>Mark Word</strong>被设计成一个有着动态定义的数据结构，以便在极小的空间内存储尽量多的数据，根据对象的状态复用自己的存储空间。例如在32位的虚拟机中，如对象未被同步锁锁定的状态下，<strong>Mark Word</strong>的32个比特存储空间中的25个比特用于存储对象哈希码，4个比特用于存储对象分代年龄，2个比特用于存储锁标识位，1个比特固定为0，在其他状态下(轻量级锁定、重量级锁定、GC标记、可偏向)下对象存储的内容如下。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">存储内容</th>
+<th style="text-align:center">标识位</th>
+<th style="text-align:center">状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">对象哈希码、对象分代年龄</td>
+<td style="text-align:center">01</td>
+<td style="text-align:center">未锁定</td>
+</tr>
+<tr>
+<td style="text-align:center">指向锁记录的指针</td>
+<td style="text-align:center">00</td>
+<td style="text-align:center">轻量级锁定</td>
+</tr>
+<tr>
+<td style="text-align:center">指向重量级锁的指针</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">膨胀(重量级锁)</td>
+</tr>
+<tr>
+<td style="text-align:center">空，不需要记录信息</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">GC标记</td>
+</tr>
+<tr>
+<td style="text-align:center">偏向线程ID、偏向时间戳、对象分代年龄</td>
+<td style="text-align:center">01</td>
+<td style="text-align:center">可偏向</td>
+</tr>
+</tbody>
+</table>
+<p>  对象头的另外一部分是类型指针，即对象指向它的类型元数据的指针，Java虚拟机通过这个指针来确定该对象是哪个类的实例。并不是所有的虚拟机实现都必须在对象数据上保留类型指针，或者说，查找对象的元数据信息并不一定要经过对象本身。</p>
+<p><img src="https://p.ipic.vip/9nv14j.jpg" alt=""></p>
+<center>
+	<font color="#888" size="2" >通过具柄访问对象</font>
+</center>
+<p><img src="https://p.ipic.vip/el622k.jpg" alt=""></p>
+<center>
+	<font color="#888" size="2" >通过直接指针访问对象</font>
+</center>
+<p>  另外，如果对象是一个Java数组，那在对象头中还必须有一块用于记录数组长度的数据，因为虚拟机可以通过普通Java对象的元数据信息确定Java对象的大小，但是如果数组的长度是不确定的，将无法通过元数据中的信息推断出数组的大小。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">32</span> <span class="nl">bits</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="o">--------</span>
+</span></span><span class="line"><span class="cl"><span class="nl">hash</span><span class="p">:</span><span class="mi">25</span> <span class="o">------------&gt;|</span> <span class="nl">age</span><span class="p">:</span><span class="mi">4</span> <span class="nl">biased_lock</span><span class="p">:</span><span class="mi">1</span> <span class="nl">lock</span><span class="p">:</span><span class="mi">2</span> <span class="p">(</span><span class="n">normal</span> <span class="n">object</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">JavaThread</span><span class="o">*:</span><span class="mi">23</span> <span class="nl">epoch</span><span class="p">:</span><span class="mi">2</span> <span class="nl">age</span><span class="p">:</span><span class="mi">4</span> <span class="nl">biased_lock</span><span class="p">:</span><span class="mi">1</span> <span class="nl">lock</span><span class="p">:</span><span class="mi">2</span> <span class="p">(</span><span class="n">biased</span> <span class="n">object</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nl">size</span><span class="p">:</span><span class="mi">32</span> <span class="o">------------------------------------------&gt;|</span> <span class="p">(</span><span class="n">CMS</span> <span class="n">free</span> <span class="n">block</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">PromotedObject</span><span class="o">*:</span><span class="mi">29</span> <span class="o">----------&gt;|</span> <span class="nl">promo_bits</span><span class="p">:</span><span class="mi">3</span> <span class="o">-----&gt;|</span> <span class="p">(</span><span class="n">CMS</span> <span class="n">promoted</span> <span class="n">object</span><span class="p">)</span>
+</span></span></code></pre></div><p>  接下来实例数据部分是对象真正存储的有效信息，即在程序代码里面所定义的各种类型的字段内容，无论是从父类继承下来的，还是在子类中定义的字段都必须记录起来。这部分的存储顺序会受到虚拟机分配策略参数(<code>-XX:FieldsAllocationStyle</code>参数)和字段在Java源码中定义顺序的影响。HotSpot虚拟机默认的分配顺序为<code>long/double</code>、<code>int</code>、<code>short/char</code>、<code>byte/boolean</code>、<code>oop(Ordinary Object Pointer)</code>，从以上默认的分配策略中可以看到，相同宽度的字段总是被分配到一起存放，在满足这个前提条件的情况下，在父类中定义的字段会出现在子类之前。如果HotSpot虚拟机的<code>+XX:CompactFields</code>参数值为<code>true</code>(默认为<code>true</code>)，那子类中较窄的变量也允许插入父类字段的空隙中，以节省一些空间。</p>
+<p>  对象的第三部分是对其填充，这并不是必然存在的，仅仅起着占位符的作用。由于HotSpot虚拟机的自动内存管理系统要求对象的起始地址必须为8字节的整数倍，也就是任何对象的大小都必须是8字节的整数倍。对象头部分已经被设计成整好是8字节的倍数(一倍或者两倍)，因此，如果对象实例数据部分没有对齐的话，就需要通过对其填充补全。</p>
+
+
+<h3>这个系列的帖子</h3>
+<ul>
+  
+    <li><a href="/archive/java-virtual-machine-object-memory-layout/">对象的内存布局</a></li>
+  
+    <li><a href="/archive/java-virtual-machine-object-creation/">对象的创建流程</a></li>
+  
+</ul>
+</div>
     <div class="post__footer">
       
+
+      
+        <span><a class="tag" href="/tags/java%E8%99%9A%E6%8B%9F%E6%9C%BA/">Java虚拟机</a><a class="tag" href="/tags/hotspot/">HotSpot</a></span>
+
 
       
     </div>
