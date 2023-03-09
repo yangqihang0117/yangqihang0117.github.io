@@ -112,13 +112,13 @@
   
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="对象的内存布局"/>
-<meta name="twitter:description" content="  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。"/>
+<meta name="twitter:description" content="  在HotSpot虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。"/>
 
 
 
   
   <meta property="og:title" content="对象的内存布局" />
-<meta property="og:description" content="  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。" />
+<meta property="og:description" content="  在HotSpot虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yangqihang0117.github.io/archive/java-virtual-machine-object-memory-layout/" /><meta property="article:section" content="archive" />
 <meta property="article:published_time" content="2021-03-06T00:00:00+00:00" />
@@ -142,7 +142,7 @@
         "alternativeHeadline": "",
         "description": "
       
-        \u003cp\u003e  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。\u003c\/p\u003e
+        \u003cp\u003e  在HotSpot虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。\u003c\/p\u003e
 
 
       
@@ -192,7 +192,7 @@
 
     ,
         "url" : "https:\/\/yangqihang0117.github.io\/archive\/java-virtual-machine-object-memory-layout\/",
-        "wordCount" : "1402",
+        "wordCount" : "1411",
         "genre" : [ ],
         "keywords" : [ 
       
@@ -426,8 +426,8 @@
     
     <div class="post__content">
       <h1>对象的内存布局</h1>
-      <p>  在Java虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。</p>
-<p>  Java虚拟机对象的对象头部分包括两类信息。第一类是用于存储对象自身的运行时数据，如哈希码(HashCode)、GC分代年龄、锁状态标识、线程持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位的虚拟机(未开启压缩指针)中分别为32个比特和64个比特，官方称其为 <strong>&ldquo;Mark Word&rdquo;</strong> 。对象需要存储的运行时数据很多，其实已经超出了32、64位Bitmap结构所能记录的最大限度，但对象头里的信息是与对象自身定义的数据无关的额外存储成本，考虑到虚拟机的空间效率，<strong>Mark Word</strong>被设计成一个有着动态定义的数据结构，以便在极小的空间内存储尽量多的数据，根据对象的状态复用自己的存储空间。例如在32位的虚拟机中，如对象未被同步锁锁定的状态下，<strong>Mark Word</strong>的32个比特存储空间中的25个比特用于存储对象哈希码，4个比特用于存储对象分代年龄，2个比特用于存储锁标识位，1个比特固定为0，在其他状态下(轻量级锁定、重量级锁定、GC标记、可偏向)下对象存储的内容如下。</p>
+      <p>  在HotSpot虚拟机中，对象在堆内存中的存储布局可以划分为三个部分：对象头(Object Header)、实例数据(Instance Data)、对其填充(Padding)。</p>
+<p>  HotSpot虚拟机对象的对象头部分包括两类信息。第一类是用于存储对象自身的运行时数据，如哈希码(HashCode)、GC分代年龄、锁状态标识、线程持有的锁、偏向线程ID、偏向时间戳等，这部分数据的长度在32位和64位的虚拟机(未开启压缩指针)中分别为32个比特和64个比特，官方称其为 <strong>&ldquo;Mark Word&rdquo;</strong> 。对象需要存储的运行时数据很多，其实已经超出了32、64位Bitmap结构所能记录的最大限度，但对象头里的信息是与对象自身定义的数据无关的额外存储成本，考虑到虚拟机的空间效率，<strong>Mark Word</strong>被设计成一个有着动态定义的数据结构，以便在极小的空间内存储尽量多的数据，根据对象的状态复用自己的存储空间。例如在32位的虚拟机中，如对象未被同步锁锁定的状态下，<strong>Mark Word</strong>的32个比特存储空间中的25个比特用于存储对象哈希码，4个比特用于存储对象分代年龄，2个比特用于存储锁标识位，1个比特固定为0，在其他状态下(轻量级锁定、重量级锁定、GC标记、可偏向)下对象存储的内容如下。</p>
 <table>
 <thead>
 <tr>
@@ -464,7 +464,7 @@
 </tr>
 </tbody>
 </table>
-<p>  对象头的另外一部分是类型指针，即对象指向它的类型元数据的指针，Java虚拟机通过这个指针来确定该对象是哪个类的实例。并不是所有的虚拟机实现都必须在对象数据上保留类型指针，或者说，查找对象的元数据信息并不一定要经过对象本身。</p>
+<p>  对象头的另外一部分是类型指针，即对象指向它的类型元数据的指针，HotSpot虚拟机通过这个指针来确定该对象是哪个类的实例。并不是所有的虚拟机实现都必须在对象数据上保留类型指针，或者说，查找对象的元数据信息并不一定要经过对象本身。</p>
 <p><img src="https://p.ipic.vip/9nv14j.jpg" alt=""></p>
 <center>
 	<font color="#888" size="2" >通过具柄访问对象</font>
